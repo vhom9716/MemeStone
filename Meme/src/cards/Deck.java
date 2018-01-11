@@ -1,5 +1,5 @@
 package cards;
 
-public class Effect {
+public class Deck {
 
 }
