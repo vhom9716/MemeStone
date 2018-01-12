@@ -18,5 +18,5 @@ public class BattleScreen extends FullFunctionScreen {
 	public void initAllObjects(List<Visible> viewObjects) {
 		// TODO Auto-generated method stub
 		  
-	}
+	}   
 }
