@@ -21,7 +21,7 @@ public class BattleScreen extends FullFunctionScreen {
 	}
 	public static void main(String[] args) {
 		 battle= new BattleScreen(800, 500);
-		Thread runner = new Thread(battle);
+		Thread runner = new Thread(battle);  
 		runner.start();
 	}
 
