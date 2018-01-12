@@ -19,5 +19,4 @@ public class BattleScreen extends FullFunctionScreen {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
