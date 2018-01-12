@@ -7,6 +7,7 @@ public class SpellCard extends Card {
 		super(name, cost, description);
 		// TODO Auto-generated constructor stub
 		
+		
 	}
 
 }

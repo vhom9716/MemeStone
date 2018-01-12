@@ -25,4 +25,5 @@ public class MonsterCard extends Card {
 		return health;
 	}
 
+	
 }
