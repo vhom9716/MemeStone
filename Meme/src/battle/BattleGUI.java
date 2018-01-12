@@ -21,6 +21,7 @@ public class BattleGUI extends GUIApplication {
 		gui = new BattleGUI(800,800);
 		Thread go = new Thread(gui);
 		go.start();
+		//
 	}
 
 }
