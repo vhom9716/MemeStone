@@ -29,3 +29,4 @@ public class BattleScreen extends FullFunctionScreen {
 		}));
 	}
 }
+ 
