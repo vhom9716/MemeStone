@@ -8,6 +8,7 @@ public class BattleGUI extends GUIApplication {
 	
 	public BattleGUI(int width, int height) {
 		super(width, height);
+		setUndecorated(true);
 		setVisible(true);
 	}
 
@@ -19,10 +20,13 @@ public class BattleGUI extends GUIApplication {
 	}
 
 	public static void main(String[] args) {
-		gui = new BattleGUI(1200,800);
+		gui = new BattleGUI(1800,1030);
 		Thread go = new Thread(gui);
 		go.start();
 	
 	}
-
+	public static void closeWindow() {
+		gui.setVisible(false);
+		System.exit(0);
+	}
 }
