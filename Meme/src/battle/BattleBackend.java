@@ -11,15 +11,14 @@ public class BattleBackend {
 	public AI cpu;
 	
 	public Card selectedCard;
-	public Card opponentCard;
+	public Card opponentCard; 
 	
 	public ArrayList<Card> playerBoard;
 	public ArrayList<Card> computerBoard;
 	
 	public int playerBoardNum;
 	public int cpuBoardNum;
-	public int playerCrystal;
-	public int cpuCrystal;
+	
 	
 	public BattleBackend() {
 		running = true;
@@ -35,8 +34,7 @@ public class BattleBackend {
 		
 		playerBoardNum= 0;
 		cpuBoardNum = 0;
-		playerCrystal = 0;
-		cpuCrystal = 0;
+
 	}
 	
 	public void run() {
@@ -50,5 +48,26 @@ public class BattleBackend {
 		}
 	
 	}
+	
+	private void checkStatus() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void playerTurn() {
+		
+	}
+	
+	public void cpuTurn() {
+		
+	}
+	
+	public void attack(Card attacker, Card reciever) {
+		attacker.health -= reciever.attack;
+		reciever.health -= attacker.attack;
+		updateBoard();
+	}
+	
+	public void updateBoard();
 	
 }
