@@ -15,7 +15,7 @@ public class BattleScreen extends FullFunctionScreen {
 		super(width, height);
 		
 	}
-
+  
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
 		viewObjects.add(new Graphic(0, 20, getWidth(),getHeight(),"resources/background.jpg"));
@@ -27,6 +27,5 @@ public class BattleScreen extends FullFunctionScreen {
 				BattleGUI.closeWindow();
 			}
 		}));
-		
 	}
 }
