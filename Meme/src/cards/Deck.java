@@ -5,7 +5,7 @@ import java.util.*;
 public class Deck {
 	
 
-	ArrayList<Card> deck= new ArrayList<Card>();
+	static ArrayList<Card> deck= new ArrayList<Card>();
 	
 	public Deck() {
 		// TODO Auto-generated constructor stub
@@ -17,7 +17,7 @@ public class Deck {
 	}
 
 	public void addCard(Card card) {
-		if(deck.size() < 15) {
+		if(deck.size() < 16) {
 			deck.add(card);
 		}
 	}
