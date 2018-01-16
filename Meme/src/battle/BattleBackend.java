@@ -47,7 +47,7 @@ public class BattleBackend {
 			playerTurn();
 			cpuTurn();
 			checkStatus();
-		}//
+		}
 	
 	}
 	
