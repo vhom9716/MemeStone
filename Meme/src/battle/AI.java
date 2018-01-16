@@ -20,7 +20,7 @@ public class AI {
 		if(deck.size() == 0) {
 			lose();
 		}
-	}
+	} 
 
 	private void lose() {
 		// TODO Auto-generated method stub
