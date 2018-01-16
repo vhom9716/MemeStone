@@ -63,7 +63,7 @@ public class AI {
 			declareAttack();
 		}
 	}
-	
+	 
 	//checking turn completion can go into battle class 
 	
 	
