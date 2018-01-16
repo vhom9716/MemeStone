@@ -13,12 +13,13 @@ public class BattleGUI extends GUIApplication {
 
 	@Override
 	public void initScreen() {
-		// TODO Auto-generated method stub
-
+		
+		battleScreen = new BattleScreen(getWidth(), getHeight());
+		setScreen(battleScreen);
 	}
 
 	public static void main(String[] args) {
-		gui = new BattleGUI(800,800);
+		gui = new BattleGUI(1200,800);
 		Thread go = new Thread(gui);
 		go.start();
 	
