@@ -1,58 +1,29 @@
-package menu;
-
 import java.util.List;
 
-import battle.BattleScreen;
-import cards.DeckBuilderScreen;
-import guiTeacher.GUIApplication;
-import guiTeacher.components.Action;
-import guiTeacher.components.Button;
-import guiTeacher.components.Graphic;
+import guiTeacher.components.*;
 import guiTeacher.interfaces.Visible;
-import holiday.HolidayCard;
-import holiday.Snowflake;
+import guiTeacher.userInterfaces.FullFunctionScreen;
 
-public class MenuScreen extends GUIApplication{
+public class MenuScreen extends FullFunctionScreen {
+
 	
-public MenuScreen(int width, int height) {
+	
+	public MenuScreen(int width, int height) {
 		super(width, height);
-		setVisible(true);
+		// TODO Auto-generated constructor stub
 	}
 
-public static MenuScreen menu;
-
-public static void main(String[] args){
-	menu = new MenuScreen(1200, 800);
-	Thread runner = new Thread(menu);
-	runner.start();
-}
-
-public static MenuScreen screen1;
-
-
-
-
-@Override
-
-public void initScreen() {
-
-screen1 = new MenuScreen(getWidth(), getHeight());
-setScreen(MenuScreen);
-}
-
-public void initAllObjects(List<Visible> viewObjects) {
-	viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/winterscape.jpg"));
-	Button open = new Button((getWidth()-100)/2,getHeight()-40,100,30,"Open",new Action() {
-		
-		@Override
-		public void act() {
-			MenuScreen.menu.setScreen(MenuScreen.inside);
-		}
-	});
-	for(int i = 0; i < 28; i++){
-		viewObjects.add(new Snowflake(getWidth(), getHeight()));
+	@Override
+	public void initAllObjects(List<Visible> viewObjects) {
+		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/TheSuperOfficialMenu.png"));
+		Button open = new Button((getWidth()-100)/2,getHeight()-40,100,30,"Open",new Action() {
+			
+			@Override
+			public void act() {
+				Menu.menu.setScreen(Menu.//What do I put here?);
+			}
+		});
+		viewObjects.add(open);
 	}
-	viewObjects.add(open);
-}
 
 }
