@@ -68,6 +68,8 @@ public class BattleBackend {
 		updateBoard();
 	}
 	
-	public void updateBoard();
+	public void updateBoard() {
+		
+	}
 	
 }
