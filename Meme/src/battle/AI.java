@@ -30,17 +30,26 @@ public class AI {
 			deck.remove(0);
 		}
 	}
-
-	public void declareAttack() {
-		
+	//ensure that taunts are accounted for
+	public void declareAttack(int sel) {
+		boolean tauntPresent = false;
+		for(Monster m: Player.board) {
+			if(m.hasTaunt) {
+				tauntPresent = true;
+			}
+		}
+		if(board.get(sel).canAttack) {
+			
+		}
 	}
 	
 	public void playMonster(int cardPos) {
-		
+		board.add(hand.get(cardPos));
+		hand.remove(cardPos);
 	}
 	
 	public void playSpell(int cardPos) {
-		
+		hand.get(cardPos).act();
 	}
 	
 	/**
