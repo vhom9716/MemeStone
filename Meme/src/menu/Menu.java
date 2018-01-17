@@ -1,57 +1,40 @@
 package menu;
 
-import java.util.List;
-
-import battle.BattleScreen;
-import cards.DeckBuilderScreen;
 import guiTeacher.GUIApplication;
-import guiTeacher.components.Action;
-import guiTeacher.components.Button;
-import guiTeacher.components.Graphic;
-import guiTeacher.interfaces.Visible;
-import holiday.HolidayCard;
-import holiday.Snowflake;
+import guiTeacher.userInterfaces.Screen;
 
-public class Menu extends GUIApplication{
-	
-public Menu(int width, int height) {
+
+public class Menu extends GUIApplication {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2452328323352199392L;
+
+
+	public Menu(int width, int height) {
 		super(width, height);
 		setVisible(true);
+		// TODO Auto-generated constructor stub
+	}
+	
+	 public static Menu menu;
+
+	
+	public static void main(String[] args){
+		menu = new Menu(1200, 800);
+		Thread go = new Thread(menu);
+		go.start();
 	}
 
-public static MenuScreen menu;
+    public static MenuScreen screen1;
 
-public static void main(String[] args){
-	menu = new MenuScreen(1200, 800);
-	Thread runner = new Thread(menu);
-	runner.start();
-}
-
-public static MenuScreen screen1; 
-
-
-
-@Override
-
-public void initScreen() {
-
-screen1 = new MenuScreen(getWidth(), getHeight());
-setScreen(Menu);
-}
-
-public void initAllObjects(List<Visible> viewObjects) {
-	viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/winterscape.jpg"));
-	Button open = new Button((getWidth()-100)/2,getHeight()-40,100,30,"Open",new Action() {
-		
-		@Override
-		public void act() {
-			MenuScreen.menu.setScreen(M.inside);
-		}
-	});
-	for(int i = 0; i < 28; i++){
-		viewObjects.add(new Snowflake(getWidth(), getHeight()));
+    public static ShopScreen screen2;
+	
+	@Override
+	public void initScreen() {
+		screen1 = new MenuScreen(getWidth(), getHeight());
+		screen2 = new ShopScreen(getWidth(), getHeight());
+		setScreen(screen1);
 	}
-	viewObjects.add(open);
-}
-
 }

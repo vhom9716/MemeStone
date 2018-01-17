@@ -1,3 +1,5 @@
+package menu;
+
 import java.util.List;
 
 import guiTeacher.components.*;
@@ -6,8 +8,9 @@ import guiTeacher.userInterfaces.FullFunctionScreen;
 
 public class MenuScreen extends FullFunctionScreen {
 
-	
-	
+	private static final long serialVersionUID = 258186143576427947L;
+	AnimatedComponent mario;
+
 	public MenuScreen(int width, int height) {
 		super(width, height);
 		// TODO Auto-generated constructor stub
@@ -15,12 +18,12 @@ public class MenuScreen extends FullFunctionScreen {
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
-		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/TheSuperOfficialMenu.png"));
-		Button open = new Button((getWidth()-100)/2,getHeight()-40,100,30,"Open",new Action() {
+		viewObjects.add(new StretchGraphic(0, 0, getWidth(),getHeight(),"resources/TheSuperOfficialMenu.png"));
+		Button open = new Button((getWidth()-100)/2,getHeight()-40,100,30,"Buy Cards",new Action() {
 			
 			@Override
 			public void act() {
-				Menu.menu.setScreen(Menu.//What do I put here?);
+				Menu.menu.setScreen(Menu.screen2);
 			}
 		});
 		viewObjects.add(open);
