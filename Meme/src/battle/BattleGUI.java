@@ -14,7 +14,6 @@ public class BattleGUI extends GUIApplication {
 
 	@Override
 	public void initScreen() {
-		
 		battleScreen = new BattleScreen(getWidth(), getHeight());
 		setScreen(battleScreen);
 	}
