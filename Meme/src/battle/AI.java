@@ -38,7 +38,7 @@ public class AI {
 				tauntPresent = true;
 			}
 		}
-		if(board.get(sel).canAttack) {
+		if(board.get(sel).canAttack) { 
 			
 		}
 	}
