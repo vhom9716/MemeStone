@@ -4,25 +4,24 @@ public class Card {
 
 	private String name;
 	private int cost;
-	private String description;
 	private String effect;
+	private String effect2;
+	private int amt;
 	
-	public Card(String name, int cost, String description) {
+	public Card(String name, int cost, String effect, String effect2, int amt) {
 		this.name = name;
+		this.effect2 = effect2;
 		this.cost = cost;
-		this.description = description;
+		this.amt = amt;
+		this.effect = effect;
 	}
-	
+
 	public void setName(String s) {
 		this.name = s;
 	}
 	
 	public void setCost(int cost) {
 		this.cost = cost;
-	}
-	
-	public void getDescription(String description) {
-		this.description = description;
 	}
 	
 	public String getName() {
@@ -33,7 +32,15 @@ public class Card {
 		return cost;
 	}
 	
-	public String getDescription() {
-		return description;
+	public int getAmt() {
+		return amt;
+	}
+
+	public void setAmt(int amt) {
+		this.amt = amt;
+	}
+	
+	public String getEffectTwo() {
+		return effect2;
 	}
 }
