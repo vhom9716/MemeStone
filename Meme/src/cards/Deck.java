@@ -26,6 +26,7 @@ public class Deck {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	public void addCard(Card card) {
 		if(deck.size() < 16 && card.getAmt() > 1) {
 			deck.add(card);
