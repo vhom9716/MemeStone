@@ -13,7 +13,7 @@ public class BattleScreen extends FullFunctionScreen {
 	public static BattleScreen battle;
 	public BattleScreen(int width, int height) {
 		super(width, height);
-		
+
 	}
 
 	public void initAllObjects(List<Visible> viewObjects) {
@@ -30,8 +30,4 @@ public class BattleScreen extends FullFunctionScreen {
 		}));
 	}
 }
-<<<<<<< HEAD
-   
-=======
- 
->>>>>>> refs/heads/battleBranch
+

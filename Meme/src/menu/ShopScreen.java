@@ -18,7 +18,7 @@ public class ShopScreen extends FullFunctionScreen {
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
-		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/ShopFinal.png"));
+		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/Shop.png"));
 		Button open = new Button((getWidth()-100)/2,getHeight()-40,100,30,"Back to Menu",new Action() {
 			
 			@Override
