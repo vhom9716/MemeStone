@@ -17,6 +17,7 @@ public class DeckEditorGUI extends GUIApplication {
 	}
 
 	public static void main(String[] args) {
+		
 		DeckEditorGUI sample = new DeckEditorGUI(1200, 800);
 		Thread go = new Thread(sample);
 		go.start();
