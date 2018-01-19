@@ -43,4 +43,5 @@ public class Card {
 	public String getEffectTwo() {
 		return effect2;
 	}
+	
 }

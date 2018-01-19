@@ -34,7 +34,6 @@ public class EditorScreen extends FullFunctionScreen {
 	
 	public static Card[] page1 = {Deck.IQ, Deck.DewYuKnoDeWae, Deck.Doge, Deck.OmaeWaMouShindeiru};
 	
-	
 	private ArrayList<Card> shownCards;
 	
 	//Card[] page2 = {Deck.Pikachu, Deck.PotOfGreed, Deck.RainbowDash, Deck.SaltBae};

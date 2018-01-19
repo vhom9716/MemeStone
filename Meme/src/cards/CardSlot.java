@@ -21,5 +21,4 @@ public class CardSlot extends Button {
 		// TODO Auto-generated method stub
 
 	}
-
 }
