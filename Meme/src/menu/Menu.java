@@ -2,6 +2,7 @@ package menu;
 
 import battle.BattleScreen;
 import cards.DeckBuilderScreen;
+import cards.EditorScreen;
 import guiTeacher.GUIApplication;
 import guiTeacher.userInterfaces.Screen;
 
@@ -34,15 +35,15 @@ public class Menu extends GUIApplication {
     public static ShopScreen screen2;
     
     public static BattleScreen screen3;
-    
-    public static DeckBuilderScreen screen4;
 	
+    public static EditorScreen screen4;
+	 
 	@Override
 	public void initScreen() {
 		screen1 = new MenuScreen(getWidth(), getHeight());
 		screen2 = new ShopScreen(getWidth(), getHeight());
 		screen3 = new BattleScreen(getWidth(), getHeight());
-		screen4 = new DeckBuilderScreen(getWidth(), getHeight());
+		screen4 = new EditorScreen(getWidth(), getHeight());
 		setScreen(screen1);
 	}
 }
