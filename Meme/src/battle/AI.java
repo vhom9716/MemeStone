@@ -52,7 +52,7 @@ public class AI {
 		if(board.size() < 5) {
 			playMonster(selCard);
 		}
-	}
+	} 
 	
 	public void executeTurn() {
 		draw();
