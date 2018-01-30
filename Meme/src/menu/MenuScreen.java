@@ -19,14 +19,30 @@ public class MenuScreen extends FullFunctionScreen {
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
 		viewObjects.add(new StretchGraphic(0, 0, getWidth(),getHeight(),"resources/OfficialMenu.png"));
-		Button open = new Button((getWidth()-100)/2,getHeight()-40,100,30,"Buy Cards",new Action() {
+		Button openShop = new Button((getWidth()-100)/2,getHeight()-40,100,30,"Buy Cards Temp",new Action() {
 			
 			@Override
 			public void act() {
 				Menu.menu.setScreen(Menu.screen2);
 			}
 		});
-		viewObjects.add(open);
+		viewObjects.add(openShop);
+		Button openBattle = new Button(470, 270,300,60,"Playtemp",new Action() {
+			
+			@Override
+			public void act() {
+				Menu.menu.setScreen(Menu.screen3);
+			}
+		});
+		viewObjects.add(openBattle);
+		Button openDeck = new Button(470, 340,300,60,"deckTemp",new Action() {
+			
+			@Override
+			public void act() {
+				Menu.menu.setScreen(Menu.screen4);
+			}
+		});
+		viewObjects.add(openDeck);
 	}
 
 }
