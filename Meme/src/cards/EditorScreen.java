@@ -97,8 +97,7 @@ public class EditorScreen extends FullFunctionScreen {
 	}
 
 	public void loadCardsForPage(int page) {
-		
-		
+	
 	}
 	
 }

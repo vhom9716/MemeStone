@@ -11,7 +11,6 @@ public class DeckEditorGUI extends GUIApplication {
 	public static MenuScreen screen1;
 
 
-	
 	public DeckEditorGUI(int width, int height) {
 		super(width, height);
 		setVisible(true);
@@ -24,7 +23,7 @@ public class DeckEditorGUI extends GUIApplication {
 	}
 
 	public static void main(String[] args) {
-		DeckEditorGUI sample = new DeckEditorGUI(1800, 1300);
+		DeckEditorGUI sample = new DeckEditorGUI(1440, 824);
 		Thread go = new Thread(sample);
 		go.start();
 		
