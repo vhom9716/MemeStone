@@ -18,7 +18,7 @@ public class MenuScreen extends FullFunctionScreen {
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
-		viewObjects.add(new StretchGraphic(0, 0, getWidth(),getHeight(),"resources/OfficialMenu.png"));
+		viewObjects.add(new StretchGraphic(0, 0, getWidth(),getHeight(),"resources/Menu1440_824.png"));
 		Button openShop = new Button(500,700,120,30,"Buy Cards Temp",new Action() {
 			
 			@Override

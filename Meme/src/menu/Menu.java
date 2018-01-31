@@ -25,7 +25,7 @@ public class Menu extends GUIApplication {
 
 	
 	public static void main(String[] args){
-		menu = new Menu(1200, 800);
+		menu = new Menu(1440, 824);
 		Thread go = new Thread(menu);
 		go.start();
 	}
