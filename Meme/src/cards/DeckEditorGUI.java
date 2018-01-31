@@ -29,5 +29,5 @@ public class DeckEditorGUI extends GUIApplication {
 		go.start();
 		
 	}
-}
+} 
  
