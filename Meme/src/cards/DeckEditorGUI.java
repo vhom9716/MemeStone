@@ -7,8 +7,6 @@ import guiTeacher.userInterfaces.Screen;
 import menu.MenuScreen;
 
 public class DeckEditorGUI extends GUIApplication {
-
-	public static DeckEditorGUI sample;
 	
 	public static MenuScreen screen1;
 
@@ -26,9 +24,10 @@ public class DeckEditorGUI extends GUIApplication {
 	}
 
 	public static void main(String[] args) {
-		sample = new DeckEditorGUI(1800, 1300);
+		DeckEditorGUI sample = new DeckEditorGUI(1800, 1300);
 		Thread go = new Thread(sample);
 		go.start();
 		
 	}
 }
+ 
