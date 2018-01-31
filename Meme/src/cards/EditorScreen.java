@@ -1,6 +1,5 @@
 package cards;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import guiPlayer.CustomPane;
@@ -32,15 +31,12 @@ public class EditorScreen extends FullFunctionScreen {
 	private TextArea picture3amt;
 	private TextArea picture4amt;
 	
-	public static Card[] page1 = {Deck.IQ, Deck.DewYuKnoDeWae, Deck.Doge, Deck.OmaeWaMouShindeiru};
+	Card[] page1 = {Deck.IQ, Deck.DewYuKnoDeWae, Deck.Doge, Deck.OmaeWaMouShindeiru};
+	Card[] page2 = {Deck.Pikachu, Deck.PotOfGreed, Deck.RainbowDash, Deck.SaltBae};
+	Card[] page3 = {Deck.ScrewTheRulesIHaveMoney, Deck.DragonBalls, Deck.Shenron,Deck.TheExcutiveProducer,};
+	Card[] page4 = {Deck.UltraMegaChicken,Deck.UWot, Deck.WTF};
 	
-	private ArrayList<Card> shownCards;
-	
-	//Card[] page2 = {Deck.Pikachu, Deck.PotOfGreed, Deck.RainbowDash, Deck.SaltBae};
-	//Card[] page3 = {Deck.ScrewTheRulesIHaveMoney, Deck.DragonBalls, Deck.Shenron,Deck.TheExcutiveProducer,};
-	//Card[] page4 = {Deck.UltraMegaChicken,Deck.UWot, Deck.WTF};
-	
-	private int pageNumber;
+	private int pageNumber = 1;
 	
 	public EditorScreen(int width, int height) {
 		super(width, height);
@@ -49,12 +45,10 @@ public class EditorScreen extends FullFunctionScreen {
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
-		pageNumber = 0;
-		shownCards = new ArrayList<Card>();
-		String amt1 = Integer.toString(page1[0].getAmt());
-		String amt2 = Integer.toString(page1[1].getAmt());
-		String amt3 = Integer.toString(page1[2].getAmt());
-		String amt4 = Integer.toString(page1[3].getAmt());
+		//String amt1 = Integer.toString(page1[0].getAmt());
+		//String amt2 = Integer.toString(page1[1].getAmt());
+		//String amt3 = Integer.toString(page1[2].getAmt());
+		//String amt4 = Integer.toString(page1[3].getAmt());
 		pane = new DeckPane(this, 1000, 100,150,600);
 		pane.update();
 		deckName = new TextArea(1000, 40, 150, 40, "LOL");
@@ -63,16 +57,16 @@ public class EditorScreen extends FullFunctionScreen {
 		picture2 = new Graphic(600,100,200,300,"resources/dewyuknodewae.png");
 		picture3 = new Graphic(200,450,200,300,"resources/dog.png");
 		picture4 = new Graphic(600,450,200,300,"resources/omaewa.png");
-		if(pageNumber == 0) {
-			picture1amt = new TextArea(200,400,200,150,amt1);
-			picture2amt = new TextArea(600,400,200,150,amt2);
-			picture3amt = new TextArea(200,750,200,150,amt3);
-			picture4amt = new TextArea(200,750,200,150,amt4);
-		//  picture1amt.setText(Integer.toString(page1[1].getAmt()));
-		//  picture2amt.setText(Integer.toString(page1[2].getAmt()));
-		//  picture3amt.setText(Integer.toString(page1[3].getAmt()));
-		//  picture4amt.setText(Integer.toString(page1[4].getAmt()));
-		}
+		//if(pageNumber == 1) {
+		//	picture1amt = new TextArea(200,400,200,150,amt1);
+		//	picture2amt = new TextArea(600,400,200,150,amt2);
+		//	picture3amt = new TextArea(200,750,200,150,amt3);
+		//	picture4amt = new TextArea(200,750,200,150,amt4);
+			//picture1amt.setText(Integer.toString(page1[1].getAmt()));
+			//picture2amt.setText(Integer.toString(page1[2].getAmt()));
+			//picture3amt.setText(Integer.toString(page1[3].getAmt()));
+			//picture4amt.setText(Integer.toString(page1[4].getAmt()));
+		//}
 		viewObjects.add(pane);
 		viewObjects.add(deckName);
 		viewObjects.add(deckCapacity);
@@ -80,15 +74,14 @@ public class EditorScreen extends FullFunctionScreen {
 		viewObjects.add(picture2);
 		viewObjects.add(picture3);
 		viewObjects.add(picture4);
-		viewObjects.add(picture1amt);
+		//viewObjects.add(picture1amt);
 		//viewObjects.add(picture2amt);
 		//viewObjects.add(picture3amt);
 		//viewObjects.add(picture4amt);
 	}
 
-	public void loadCardsForPage(int page) {
-		
-		
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
 	}
-	
 }

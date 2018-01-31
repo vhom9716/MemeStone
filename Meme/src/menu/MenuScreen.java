@@ -1,5 +1,6 @@
 package menu;
 
+import java.awt.Color;
 import java.util.List;
 
 import guiTeacher.components.*;
@@ -10,7 +11,7 @@ public class MenuScreen extends FullFunctionScreen {
 
 	private static final long serialVersionUID = 258186143576427947L;
 	AnimatedComponent mario;
-
+ 
 	public MenuScreen(int width, int height) {
 		super(width, height);
 		// TODO Auto-generated constructor stub
@@ -46,4 +47,3 @@ public class MenuScreen extends FullFunctionScreen {
 	}
 
 }
- 

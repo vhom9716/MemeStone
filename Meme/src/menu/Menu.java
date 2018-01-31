@@ -35,9 +35,9 @@ public class Menu extends GUIApplication {
     public static ShopScreen screen2;
     
     public static BattleScreen screen3;
-    
-    public static EditorScreen screen4;
 	
+    public static EditorScreen screen4;
+	 
 	@Override
 	public void initScreen() {
 		screen1 = new MenuScreen(getWidth(), getHeight());

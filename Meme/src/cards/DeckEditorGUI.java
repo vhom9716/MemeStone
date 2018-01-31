@@ -20,7 +20,5 @@ public class DeckEditorGUI extends GUIApplication {
 		DeckEditorGUI sample = new DeckEditorGUI(1200, 800);
 		Thread go = new Thread(sample);
 		go.start();
-		
 	}
-	
 }
