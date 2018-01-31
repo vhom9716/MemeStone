@@ -2,8 +2,8 @@ package cards;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import guiPlayer.CustomPane;
+import guiTeacher.components.Action;
 import guiTeacher.components.Button;
 import guiTeacher.components.Graphic;
 import guiTeacher.components.TextArea;
@@ -11,6 +11,7 @@ import guiTeacher.components.TextField;
 import guiTeacher.components.TextLabel;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
+import menu.Menu;
 
 public class EditorScreen extends FullFunctionScreen {
 
@@ -84,6 +85,15 @@ public class EditorScreen extends FullFunctionScreen {
 		//viewObjects.add(picture2amt);
 		//viewObjects.add(picture3amt);
 		//viewObjects.add(picture4amt);
+		Button menu = new Button(400, 400,100,30,"Back to Menu",new Action() {
+			
+			@Override
+			public void act() {
+				Menu.menu.setScreen(Menu.screen1);
+					
+			}
+		});
+		viewObjects.add(menu);
 	}
 
 	public void loadCardsForPage(int page) {
