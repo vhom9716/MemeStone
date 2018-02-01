@@ -16,6 +16,7 @@ public class Card {
 		this.effect = effect;
 	}
 
+	
 	public void setName(String s) {
 		this.name = s;
 	}
