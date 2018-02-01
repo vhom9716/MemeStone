@@ -39,21 +39,11 @@ public class Menu extends GUIApplication {
     public static EditorScreen screen4;
 	 
 	@Override
-<<<<<<< HEAD
-	public void initScreen() { 
-		screen1 = new MenuScreen(getWidth(), getHeight());
-=======
 	public void initScreen() {
 		screen1 = new MenuScreen(1200, 800);
->>>>>>> refs/heads/deckBuilderClass
 		screen2 = new ShopScreen(getWidth(), getHeight());
-<<<<<<< HEAD
 		screen3 = new BattleScreen(1440, 824);
-		screen4 = new EditorScreen(getWidth(), getHeight());
-=======
-		screen3 = new BattleScreen(getWidth(), getHeight());
 		screen4 = new EditorScreen(1800, 1300);
->>>>>>> refs/heads/deckBuilderClass
 		setScreen(screen1);
 	}
 }
