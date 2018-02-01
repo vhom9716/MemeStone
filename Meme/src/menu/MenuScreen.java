@@ -14,7 +14,7 @@ public class MenuScreen extends FullFunctionScreen {
  
 	public MenuScreen(int width, int height) {
 		super(width, height);
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub 
 	}
 
 	@Override
