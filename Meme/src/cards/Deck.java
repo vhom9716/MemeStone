@@ -5,7 +5,7 @@ import java.util.*;
 public class Deck {
 	//25
 	static Card IQ = new SpellCard("200 IQ",2,"Draw a random minion from deck",2);
-	static Card Doge = new MonsterCard("Doge",6,"Taunt",null, 1, 6, 6);
+	public static Card Doge = new MonsterCard("Doge",6,"Taunt",null, 1, 6, 6);
 	static Card UltraMegaChicken = new MonsterCard("UltraMegaChicken",2,"",null, 3, 3, 3);
 	static Card OmaeWaMouShindeiru = new SpellCard("Omae wa mou Shindeiru",7, "Damage the hero 15 health", 1);
 	static Card Pikachu = new MonsterCard("Pikachu",4,"Battlecry",null, 1, 7, 7);
@@ -20,10 +20,12 @@ public class Deck {
 	static Card WTF = new SpellCard("WTF?!?", 3, "Deals 3 damage to a random character",2);
 	static Card DragonBalls = new SpellCard("Seven Dragon Balls", 10, "Summon Shenron",0);
 	
-	static ArrayList<Card> deck= new ArrayList<Card>();
+	public ArrayList<Card> deck= new ArrayList<Card>();
 	
 	public Deck() {
-		// TODO Auto-generated constructor stub
+		for (int i=0; i< 15; i++) {
+			deck.add(Deck.Doge);
+		}
 	}
 
 	public static void main(String[] args) {

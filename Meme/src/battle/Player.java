@@ -17,12 +17,12 @@ public class Player {
 		maxmana = 10;
 		health = 30;
 		currentmana = 0;
-		sendinfortofront();
+		//sendinfortofront();
 	}
 	private boolean[] sendinfortofront() {
 		playable=new boolean[hand.size()];
 		for(int i=0;i<hand.size();i++) {
-			if(hand.get(i).mana>currentmana) {
+			if(hand.get(i).getCost()>currentmana) {
 				playable[i]=false;
 			}else {
 				playable[i]=true;
@@ -44,6 +44,9 @@ public class Player {
 	}
 	public int returnmana() {
 		return currentmana;
+	}
+	public String returnmanastring() {
+		return Integer.toString(currentmana);
 	}
 	
 	public void declareAttack(Card attacker,Card victim) {

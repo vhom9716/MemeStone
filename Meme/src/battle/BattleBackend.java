@@ -22,7 +22,7 @@ public class BattleBackend {
 	public int cpuBoardNum;
 	
 	public String move;
-	
+	public Deck deck;
 	
 	public BattleBackend() {
 		running = true;
@@ -42,6 +42,8 @@ public class BattleBackend {
 		cpuBoardNum = 0;
 		
 		move = "";
+		deck = new Deck();
+		
 	}
 	
 	public void run() {
@@ -123,6 +125,8 @@ public class BattleBackend {
 			player.hand.remove(card);
 			player.currentmana -= card.getCost();
 		}
+		System.out.println("fu");
 	}
+
 	
 }
