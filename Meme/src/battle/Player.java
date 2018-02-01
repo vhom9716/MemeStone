@@ -39,12 +39,11 @@ public class Player {
 	public void changehp(int change) {
 		health+=change;
 	}
-	public void playcard(Card x) {
-		currentmana-=x.mana;
-		board.add(x);
-		hand.remove(x);
-		sendinfortofront();
-		
+	public int returnhp() {
+		return health;
+	}
+	public int returnmana() {
+		return currentmana;
 	}
 	
 	public void declareAttack(Card attacker,Card victim) {

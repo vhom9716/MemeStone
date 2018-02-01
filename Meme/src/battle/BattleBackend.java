@@ -2,7 +2,7 @@ package battle;
 
 import java.util.ArrayList;
 
-import cards.Card;
+import cards.*;
 
 public class BattleBackend {
 	public boolean running;
@@ -35,8 +35,8 @@ public class BattleBackend {
 		selectedCard = null;
 		opponentCard = null;
 		
-		playerBoard = new ArrayList<Card>();
-		computerBoard = new ArrayList<Card>();
+		playerBoard = new ArrayList<MonsterCard>();
+		computerBoard = new ArrayList<MonsterCard>();
 		
 		playerBoardNum= 0;
 		cpuBoardNum = 0;
@@ -75,7 +75,7 @@ public class BattleBackend {
 	}
 
 	public void playerTurn() {
-		while(playerTurn) {
+		/*while(playerTurn) {
 			if (move.equals("attack")) {
 				attack(selectedCard, opponentCard);
 			}
@@ -83,7 +83,7 @@ public class BattleBackend {
 				selectedCard.playEffect();
 			}
 			
-		}
+		}*/
 	}
 	
 	public void cpuTurn() {
@@ -111,6 +111,18 @@ public class BattleBackend {
 
 	public boolean validAttack(MonsterCard card) {
 		return (oneTaunt(computerBoard) == true && card.getTaunt() == true) || (oneTaunt(computerBoard) == false); 
+	}
+	
+	public void playCard(Card card) {
+		if(card instanceof MonsterCard && validSummon(card)) {
+			playerBoard.add((MonsterCard) card);
+			player.hand.remove(card);
+			player.currentmana -= card.getCost();
+		}else if(card instanceof SpellCard && validSpell(card)) {
+			card.act();
+			player.hand.remove(card);
+			player.currentmana -= card.getCost();
+		}
 	}
 	
 }
