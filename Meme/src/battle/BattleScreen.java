@@ -13,6 +13,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import guiTeacher.components.Action;
 import guiTeacher.components.Button;
+import guiTeacher.components.ClickableGraphic;
 import guiTeacher.components.Graphic;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
@@ -49,8 +50,18 @@ import menu.Menu;
 		viewObjects.add(new Graphic(630,614,350,250,"resources/player.png"));
 		viewObjects.add(new Graphic(630, 25, 350,250, "resources/cpu.png"));
 		viewObjects.add(new Graphic(1200,70, 90, 80, "resources/quitButton.png"));
-		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
+		ClickableGraphic a = new ClickableGraphic(50, 650, 200, 100, "resources/dog.png"); 
+		a.setAction(new Action() {
 
+			@Override
+			public void act() {
+				
+				
+			}
+			
+		});
+		viewObjects.add(a);
+		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
 			@Override
 			public void act() {
 				Menu.menu.setScreen(Menu.screen1);
