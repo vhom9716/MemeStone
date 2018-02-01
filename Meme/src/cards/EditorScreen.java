@@ -17,7 +17,7 @@ public class EditorScreen extends FullFunctionScreen {
 	private Deck currentDeck;
 	private DeckPane pane;
 	private TextArea deckName;
-	private int deckSize = Deck.deck.size();
+	private int deckSize;
 	private String name = "LOL";
 	private TextArea deckCapacity;
 	private TextArea pageNumberArea;
@@ -50,8 +50,8 @@ public class EditorScreen extends FullFunctionScreen {
 		//String amt2 = Integer.toString(page1[1].getAmt());
 		//String amt3 = Integer.toString(page1[2].getAmt());
 		//String amt4 = Integer.toString(page1[3].getAmt());
-		pane = new DeckPane(this, 1000, 100,150,600);
-		pane.update();
+		//pane = new DeckPane(this, 1000, 100,150,600);
+		//pane.update();
 		deckName = new TextArea(1000, 40, 150, 40, "LOL");
 		deckCapacity = new TextArea(1000,700,150,40,deckSize+"/15");
 		picture1 = new Graphic(200,100,200,300,"resources/200iq.png");
@@ -68,7 +68,7 @@ public class EditorScreen extends FullFunctionScreen {
 			//picture3amt.setText(Integer.toString(page1[3].getAmt()));
 			//picture4amt.setText(Integer.toString(page1[4].getAmt()));
 		//}
-		viewObjects.add(pane);
+		//viewObjects.add(pane);
 		viewObjects.add(deckName);
 		viewObjects.add(deckCapacity);
 		viewObjects.add(picture1);

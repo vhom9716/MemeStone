@@ -23,7 +23,6 @@ public class BattleBackend {
 	
 	public String move;
 	
-	
 	public BattleBackend() {
 		running = true;
 		playerTurn = true;
@@ -113,16 +112,16 @@ public class BattleBackend {
 		return (oneTaunt(computerBoard) == true && card.getTaunt() == true) || (oneTaunt(computerBoard) == false); 
 	}
 	
-	public void playCard(Card card) {
-		if(card instanceof MonsterCard && validSummon(card)) {
-			playerBoard.add((MonsterCard) card);
-			player.hand.remove(card);
-			player.currentmana -= card.getCost();
-		}else if(card instanceof SpellCard && validSpell(card)) {
-			card.act();
-			player.hand.remove(card);
-			player.currentmana -= card.getCost();
-		}
+	public static void playCard(Card card) {
+//		if(card instanceof MonsterCard && validSummon(card)) {
+//			playerBoard.add((MonsterCard) card);
+//			player.hand.remove(card);
+//			player.currentmana -= card.getCost();
+//		}else if(card instanceof SpellCard && validSpell(card)) {
+//			card.act();
+//			player.hand.remove(card);
+//			player.currentmana -= card.getCost();
+//		}
+		System.out.println("Wee");
 	}
-	
 }

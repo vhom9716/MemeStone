@@ -20,15 +20,16 @@ public class Deck {
 	static Card WTF = new SpellCard("WTF?!?", 3, "Deals 3 damage to a random character",2);
 	static Card DragonBalls = new SpellCard("Seven Dragon Balls", 10, "Summon Shenron",0);
 	
-	static ArrayList<Card> deck= new ArrayList<Card>();
+	public static ArrayList<Card> deck;
 	
 	public Deck() {
-		// TODO Auto-generated constructor stub
+		for(int i = 0; i <10; i++) {
+			addCard(Doge);
+		}
 	}
 
 	public static void main(String[] args) {
-		
-
+		deck = new ArrayList<Card>(); 
 	}
 
 	public void addCard(Card card) {

@@ -11,6 +11,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import cards.Card;
+import cards.Deck;
 import guiTeacher.components.Action;
 import guiTeacher.components.Button;
 import guiTeacher.components.ClickableGraphic;
@@ -50,13 +52,13 @@ import menu.Menu;
 		viewObjects.add(new Graphic(630,614,350,250,"resources/player.png"));
 		viewObjects.add(new Graphic(630, 25, 350,250, "resources/cpu.png"));
 		viewObjects.add(new Graphic(1200,70, 90, 80, "resources/quitButton.png"));
+		viewObjects.add(new Graphic(750,130, 120, 80, "resources/hp.png"));
+		viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png"));
 		ClickableGraphic a = new ClickableGraphic(50, 650, 200, 100, "resources/dog.png"); 
 		a.setAction(new Action() {
-
-			@Override
 			public void act() {
-				
-				
+				Card i = Deck.deck.get(0);
+				//BattleBackend.playCard(Deck.deck.get(1));
 			}
 			
 		});
