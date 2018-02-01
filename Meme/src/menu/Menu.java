@@ -25,7 +25,7 @@ public class Menu extends GUIApplication {
 
 	
 	public static void main(String[] args){
-		menu = new Menu(1200, 800);
+		menu = new Menu(1440, 824);
 		Thread go = new Thread(menu);
 		go.start();
 	}
@@ -40,10 +40,10 @@ public class Menu extends GUIApplication {
 	
 	@Override
 	public void initScreen() {
-		screen1 = new MenuScreen(1200, 800);
+		screen1 = new MenuScreen(getWidth(), getHeight());
 		screen2 = new ShopScreen(getWidth(), getHeight());
 		screen3 = new BattleScreen(getWidth(), getHeight());
-		screen4 = new EditorScreen(1800, 1300);
+		screen4 = new EditorScreen(getWidth(), getHeight());
 		setScreen(screen1);
 	}
 }

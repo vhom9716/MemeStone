@@ -2,6 +2,8 @@ package cards;
 
 import java.util.*;
 
+import guiTeacher.components.Action;
+
 public class Deck {
 	//25
 	static Card IQ = new SpellCard("200 IQ",2,"Draw a random minion from deck",2);
@@ -20,7 +22,7 @@ public class Deck {
 	static Card WTF = new SpellCard("WTF?!?", 3, "Deals 3 damage to a random character",2);
 	static Card DragonBalls = new SpellCard("Seven Dragon Balls", 10, "Summon Shenron",0);
 	
-	static ArrayList<Card> deck= new ArrayList<Card>();
+	static ArrayList<Card> userDeck = new ArrayList<Card>();
 	
 	public Deck() {
 		// TODO Auto-generated constructor stub
@@ -28,17 +30,17 @@ public class Deck {
 
 	
 	public void addCard(Card card) {
-		if(deck.size() < 16 && card.getAmt() > 1) {
-			deck.add(card);
+		if(userDeck.size() < 16 && card.getAmt() > 1) {
+			userDeck.add(card);
 			card.setAmt(card.getAmt()-1);
 		}
 	}
 	
 	public void deleteCard(Card c) {
-		deck.remove(c);
+		userDeck.remove(c);
 	}
 	
 	public void shuffleDeck() {
-		Collections.shuffle(deck);
+		Collections.shuffle(userDeck);
 	}
 }
