@@ -40,7 +40,7 @@ public class Menu extends GUIApplication {
 	 
 	@Override
 	public void initScreen() {
-		screen1 = new MenuScreen(1200, 800);
+		screen1 = new MenuScreen(1440, 824);
 		screen2 = new ShopScreen(getWidth(), getHeight());
 		screen3 = new BattleScreen(1440, 824);
 		screen4 = new EditorScreen(1800, 1300);

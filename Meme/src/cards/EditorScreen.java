@@ -90,13 +90,13 @@ public class EditorScreen extends FullFunctionScreen {
 		viewObjects.add(menu);
 	}
 
-<<<<<<< HEAD
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+	}
 
-=======
 	public void loadCardsForPage(int page) {
 	
->>>>>>> refs/heads/deckBuilderClass
+
 	}
 }
