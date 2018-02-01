@@ -11,22 +11,27 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+<<<<<<< HEAD
 import cards.Card;
+=======
+>>>>>>> branch 'develop' of https://github.com/vhom9716/MemeStone.git
 import cards.Deck;
 import guiTeacher.components.Action;
 import guiTeacher.components.Button;
 import guiTeacher.components.ClickableGraphic;
 import guiTeacher.components.Graphic;
+import guiTeacher.components.TextLabel;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
 import menu.Menu;
 	
 	public class BattleScreen extends FullFunctionScreen {
 	public static BattleScreen battle;
+	public static BattleBackend backend;
 	ArrayList<Clip> allSounds;
 	public BattleScreen(int width, int height) {
 		super(width, height);
-
+		backend = new BattleBackend();
 	}
 
 	public void initAllObjects(List<Visible> viewObjects) {
@@ -63,12 +68,26 @@ import menu.Menu;
 			
 		});
 		viewObjects.add(a);
+		viewObjects.add(new TextLabel(660, 580, 50, 50, Integer.toString(backend.player.returnmana())));
 		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
 			@Override
 			public void act() {
 				Menu.menu.setScreen(Menu.screen1);
 			}
 		}));
+		viewObjects.add(new Graphic(30,614,150,200, "resources/dog.png"));
+		viewObjects.add(new Button(30,614,150,200,"", new Action() {
+
+			@Override
+			public void act() {
+				backend.playCard(backend.deck.deck.get(2));
+				
+			}
+			
+		}));
+		viewObjects.add(new Graphic(180,614,150,200, "resources/dog.png"));
+		viewObjects.add(new Graphic(330,614,150,200, "resources/dog.png"));
+		viewObjects.add(new Graphic(480,614,150,200, "resources/dog.png"));
 	}
 }
 
