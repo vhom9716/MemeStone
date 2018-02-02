@@ -1,5 +1,6 @@
 package menu;
 
+import java.awt.Color;
 import java.util.List;
 
 import guiTeacher.components.*;
@@ -10,16 +11,16 @@ public class ShopScreen extends FullFunctionScreen {
 
 	private static final long serialVersionUID = 258186143576427947L;
 	AnimatedComponent mario;
-
+	public String gold;
 	public ShopScreen(int width, int height) {
 		super(width, height);
-		// TODO Auto-generated constructor stuby
+		gold = "0";
 	}
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
-		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/ShopFinal1.png"));
-		Button open = new Button((getWidth()-100)/2,getHeight()-40,100,30,"Back to Menu",new Action() {
+		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/ShopFinal2.png"));
+		Button open = new Button((getWidth()-1500)/2,getHeight()-40,400,55," ",new Action() {
 			
 			@Override
 			public void act() {
@@ -27,6 +28,18 @@ public class ShopScreen extends FullFunctionScreen {
 			}
 		});
 		viewObjects.add(open);
+		Button buyPack = new Button(90, 660,310,100," ",new Action() {
+			
+			@Override
+			public void act() {
+				//Do stuff so you get 5 cards.
+				//Animate the cards so they all are revealed at the same time.
+			}
+		});
+		viewObjects.add(buyPack);
+		TextLabel displayGold = new TextLabel(0, 0,200,200,"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		displayGold.setCustomTextColor(Color.RED);
+		viewObjects.add(displayGold);
 	}
-
+	
 }
