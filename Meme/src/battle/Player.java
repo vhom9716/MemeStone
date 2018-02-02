@@ -14,6 +14,7 @@ public class Player {
 	public int health;
 	public static int currentmana;
 	public int maxmana;
+	public int manaslot;
 
 	public Player(String name,int health,int maxmana,int mana,ArrayList<Card> deck, ArrayList<Card> hand) {
 		this.name=name;
@@ -28,6 +29,7 @@ public class Player {
 		maxmana = 10;
 		health = 30;
 		currentmana = 0;
+		manaslot = 0;
 		//sendinfortofront();
 
 	}
