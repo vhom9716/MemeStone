@@ -37,8 +37,9 @@ public class ShopScreen extends FullFunctionScreen {
 			}
 		});
 		viewObjects.add(buyPack);
-		TextLabel displayGold = new TextLabel(0, 0,200,200,"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		TextLabel displayGold = new TextLabel(0, 0,200,200,"AAAAAAAAAAAA");
 		displayGold.setCustomTextColor(Color.RED);
+		displayGold.setText("LOL");
 		viewObjects.add(displayGold);
 	}
 	
