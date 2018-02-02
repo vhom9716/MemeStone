@@ -10,12 +10,11 @@ public class Player {
 	public ArrayList<Card> hand;
 	public ArrayList<Card> board;
 	public boolean[] playable; 
-	public int health=30;
-	public int currentmana=0;
-	public int manaslot=0;
-	public int maxmana=10;
 	private String name;
-	
+	public int health;
+	public static int currentmana;
+	public int maxmana;
+
 	public Player(String name,int health,int maxmana,int mana,ArrayList<Card> deck, ArrayList<Card> hand) {
 		this.name=name;
 		this.health=health;
@@ -24,6 +23,13 @@ public class Player {
 		this.currentmana=mana;
 		this.maxmana=maxmana;
 		sendinfortofront();
+
+	public Player() {
+		maxmana = 10;
+		health = 30;
+		currentmana = 0;
+		//sendinfortofront();
+
 	}
 	private boolean[] sendinfortofront() {
 		playable=new boolean[hand.size()];
@@ -36,6 +42,7 @@ public class Player {
 		}
 		return playable;
 		
+
 	}
 	public void drawcard(int amount) {
 		if(decksize()==0) {
@@ -52,7 +59,8 @@ public class Player {
 		}
 		
 		
-	}
+
+	} 
 	public int decksize() {
 		return deck.size();
 	}
@@ -87,8 +95,11 @@ public class Player {
 	public int returnhp() {
 		return health;
 	}
-	public int returnmana() {
+	public static int returnmana() {
 		return currentmana;
+	}
+	public String returnmanastring() {
+		return Integer.toString(currentmana);
 	}
 	
 	public void declareAttack(Card attacker,Card victim) {

@@ -9,11 +9,11 @@ public class BattleBackend {
 	public boolean playerTurn;
 	public boolean cpuTurn;
 	
-	public Player player;
+	public static Player player;
 	public AI cpu;
 	
 	public Card selectedCard;
-	public Card opponentCard; 
+	public Card opponentCard;  
 	
 	public ArrayList<MonsterCard> playerBoard;
 	public ArrayList<MonsterCard> computerBoard;
@@ -22,7 +22,8 @@ public class BattleBackend {
 	public int cpuBoardNum;
 	
 	public String move;
-	
+	public Deck deck;
+
 	
 	public BattleBackend() {
 		running = true;
@@ -42,6 +43,8 @@ public class BattleBackend {
 		cpuBoardNum = 0;
 		
 		move = "";
+		deck = new Deck();
+		
 	}
 	
 	public void run() {
@@ -113,16 +116,20 @@ public class BattleBackend {
 		return (oneTaunt(computerBoard) == true && card.getTaunt() == true) || (oneTaunt(computerBoard) == false); 
 	}
 	
+
 	public void playCard(Card card) {
-		if(card instanceof MonsterCard && validSummon(card)) {
-			playerBoard.add((MonsterCard) card);
-			player.hand.remove(card);
-			player.currentmana -= card.getCost();
-		}else if(card instanceof SpellCard && validSpell(card)) {
-			card.act();
-			player.hand.remove(card);
-			player.currentmana -= card.getCost();
-		}
-	}
+//		if(card instanceof MonsterCard && validSummon(card)) {
+//			playerBoard.add((MonsterCard) card);
+//			player.hand.remove(card);
+//			player.currentmana -= card.getCost();
+//		}else if(card instanceof SpellCard && validSpell(card)) {
+//			card.act();
+//			player.hand.remove(card);
+//			player.currentmana -= card.getCost();
+//		}
+		System.out.println("Wee");
+
 	
+	}
 }
+  

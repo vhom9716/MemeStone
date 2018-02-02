@@ -18,5 +18,5 @@ public class SpellCard extends Card {
 	public void setEffect(String effect) {
 		this.effect = effect;
 	}
-	
+
 }

@@ -29,21 +29,21 @@ public class Menu extends GUIApplication {
 		go = new Thread(menu);
 		go.start();
 	}
-
-    public static MenuScreen screen1;
+  
+    public static MenuScreen screen1; 
 
     public static ShopScreen screen2;
     
     public static BattleScreen screen3;
-    
-    public static EditorScreen screen4;
 	
+    public static EditorScreen screen4;
+	 
 	@Override
 	public void initScreen() {
-		screen1 = new MenuScreen(getWidth(), getHeight());
+		screen1 = new MenuScreen(1440, 824);
 		screen2 = new ShopScreen(getWidth(), getHeight());
 		screen3 = new BattleScreen(1440, 824);
-		screen4 = new EditorScreen(getWidth(), getHeight());
+		screen4 = new EditorScreen(1800, 1300);
 		setScreen(screen1);
 	}
 }
