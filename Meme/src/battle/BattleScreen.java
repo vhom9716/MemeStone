@@ -1,5 +1,6 @@
 package battle;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import menu.Menu;
 	public class BattleScreen extends FullFunctionScreen {
 	ArrayList<Clip> allSounds;
 	BattleBackend backend;
+	TextLabel manaslot;
 	
 	public BattleScreen(int width, int height) {
 		super(width, height);
@@ -32,6 +34,7 @@ import menu.Menu;
 	}
 
 	public void initAllObjects(List<Visible> viewObjects) {
+		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(Player.returnmana())+"/"+"10");
 	/*	try {
 	         // Open an audio input stream.           
 	          File soundFile = new File("resources/boomm.wav"); //you could also get the sound file with an URL
@@ -51,6 +54,7 @@ import menu.Menu;
 	      }
 	*/
 		viewObjects.add(new Graphic(0, 20, getWidth(),getHeight(),"resources/background.jpg"));
+		viewObjects.add(new Graphic(800,760,60,60, "resources/mana.png"));
 		viewObjects.add(new Graphic(630,614,350,250,"resources/player.png"));
 		viewObjects.add(new Graphic(630, 25, 350,250, "resources/cpu.png"));
 		viewObjects.add(new Graphic(1200,70, 90, 80, "resources/quitButton.png"));
@@ -64,7 +68,9 @@ import menu.Menu;
 			
 		});
 		viewObjects.add(a);  
-		viewObjects.add(new TextLabel(660, 760, 50, 50, Integer.toString(Player.returnmana())));
+		manaslot.setBackgroundColor(Color.RED);
+		viewObjects.add(manaslot);
+		
 		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
 			@Override
 			public void act() {
@@ -84,9 +90,6 @@ import menu.Menu;
 		viewObjects.add(new Graphic(180,614,150,200, "resources/dog.png"));
 		viewObjects.add(new Graphic(330,614,150,200, "resources/dog.png"));
 		viewObjects.add(new Graphic(480,614,150,200, "resources/dog.png"));
-		for (int i =0; i<backend.player.sendinfortofront().length; i++) {
-		
-		}
 	}
 	public void activateCardMon(int pos) {
 		

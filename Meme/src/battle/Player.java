@@ -12,7 +12,7 @@ public class Player {
 	public boolean[] playable; 
 	private String name;
 	public int health;
-	public static int currentmana;
+	public static int currentmana =10;
 	public int maxmana;
 	public int manaslot;
 
@@ -24,16 +24,17 @@ public class Player {
 		this.currentmana=mana;
 		this.maxmana=maxmana;
 		sendinfortofront();
+	}
 
 	public Player() {
 		maxmana = 10;
 		health = 30;
-		currentmana = 0;
+		//currentmana = 0;
 		manaslot = 0;
 		//sendinfortofront();
 
 	}
-	private boolean[] sendinfortofront() {
+	boolean[] sendinfortofront() {
 		playable=new boolean[hand.size()];
 		for(int i=0;i<hand.size();i++) {
 			if(hand.get(i).getCost()>currentmana) {
