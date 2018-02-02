@@ -29,3 +29,4 @@ public class BattleGUI extends GUIApplication {
 		System.exit(0);
 	}
 }
+  

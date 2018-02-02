@@ -30,7 +30,7 @@ public class Player {
 		}
 		return playable;
 		
-	}
+	} 
 	public void drawcard() {
 		Card x = deck.get(0);
 		deck.remove(0);

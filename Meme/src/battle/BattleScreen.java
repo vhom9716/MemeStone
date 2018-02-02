@@ -86,4 +86,4 @@ import menu.Menu;
 		viewObjects.add(new Graphic(480,614,150,200, "resources/dog.png"));
 	}
 }
-
+  
