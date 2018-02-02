@@ -4,11 +4,13 @@ public class MonsterCard extends Card {
 
 	private int health;
 	private int attack;
+	private boolean taunt;
 	
-	public MonsterCard(String name, int cost, String effect, String effect2, int amt,int attack,int health) {
+	public MonsterCard(String name, int cost, String effect, String effect2, int amt,int attack,int health, boolean taunt) {
 		super(name,cost, effect, effect2, amt);
 		this.health = health;
 		this.attack = attack;
+		this.taunt = taunt;
 	}
 	
 	public void setHealth(int health) {
@@ -25,6 +27,10 @@ public class MonsterCard extends Card {
 	
 	public int getHealth() {
 		return health;
+	}
+	
+	public boolean getTaunt() {
+		return taunt;
 	}
 
 }

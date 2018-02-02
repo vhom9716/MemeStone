@@ -3,6 +3,7 @@ package battle;
 import java.util.ArrayList;
 
 import cards.*;
+import menu.Menu;
 
 public class BattleBackend {
 	public boolean running;
@@ -52,7 +53,7 @@ public class BattleBackend {
 			addMana();
 			refreshMana();
 			player.drawcard();
-			cpu.drawCard();
+			cpu.draw();
 			playerTurn();
 			cpuTurn();
 			checkStatus();
@@ -93,9 +94,9 @@ public class BattleBackend {
 		
 	}
 	
-	public void attack(Card attacker, Card reciever) {
-		attacker.health -= reciever.attack;
-		reciever.health -= attacker.attack;
+	public void attack(MonsterCard attacker, MonsterCard reciever) {
+		attacker.setHealth(attacker.getHealth()- reciever.getAttack());
+		reciever.setHealth(reciever.getHealth()- attacker.getAttack());
 		updateBoard();
 	}
 	
@@ -117,19 +118,32 @@ public class BattleBackend {
 	}
 	
 
-	public void playCard(Card card) {
-//		if(card instanceof MonsterCard && validSummon(card)) {
-//			playerBoard.add((MonsterCard) card);
-//			player.hand.remove(card);
-//			player.currentmana -= card.getCost();
-//		}else if(card instanceof SpellCard && validSpell(card)) {
-//			card.act();
-//			player.hand.remove(card);
-//			player.currentmana -= card.getCost();
-//		}
-		System.out.println("Wee");
+	public void playCard(Card card, int pos) {
+		if(card instanceof MonsterCard && validSummon(card)) {
+			card.act();
+			playerBoard.add((MonsterCard) card);
+			player.hand.remove(card);
+			player.currentmana -= card.getCost();
+			Menu.screen3.activateCardMon(pos);
+		}else if(card instanceof SpellCard && validSpell(card)) {
+			card.act();
+			player.hand.remove(card);
+			player.currentmana -= card.getCost();
+			Menu.screen3.activateCardSpell(pos);
+		}
+		
 
 	
+	}
+
+	private boolean validSpell(Card card) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean validSummon(Card card) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
   

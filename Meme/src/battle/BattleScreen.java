@@ -59,7 +59,7 @@ import menu.Menu;
 		ClickableGraphic a = new ClickableGraphic(50, 650, 200, 100, "resources/dog.png"); 
 		a.setAction(new Action() {
 			public void act() {
-				backend.playCard(Deck.deck.get(0));
+				backend.playCard(Deck.deck.get(0), 0);
 			}
 			
 		});
@@ -76,7 +76,7 @@ import menu.Menu;
 
 			@Override
 			public void act() {
-				backend.playCard(Deck.deck.get(1));
+				backend.playCard(Deck.deck.get(1), 1);
 				
 			}
 			
@@ -84,6 +84,16 @@ import menu.Menu;
 		viewObjects.add(new Graphic(180,614,150,200, "resources/dog.png"));
 		viewObjects.add(new Graphic(330,614,150,200, "resources/dog.png"));
 		viewObjects.add(new Graphic(480,614,150,200, "resources/dog.png"));
+		for (int i =0; i<backend.player.sendinfortofront().length; i++) {
+		
+		}
 	}
+	public void activateCardMon(int pos) {
+		
+	}
+	public void activateCardSpell(int pos) {
+		
+	}
+
 }
   
