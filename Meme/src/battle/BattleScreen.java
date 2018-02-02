@@ -11,10 +11,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-<<<<<<< HEAD
 import cards.Card;
-=======
->>>>>>> branch 'develop' of https://github.com/vhom9716/MemeStone.git
 import cards.Deck;
 import guiTeacher.components.Action;
 import guiTeacher.components.Button;
@@ -26,9 +23,9 @@ import guiTeacher.userInterfaces.FullFunctionScreen;
 import menu.Menu;
 	
 	public class BattleScreen extends FullFunctionScreen {
-	public static BattleScreen battle;
-	public static BattleBackend backend;
 	ArrayList<Clip> allSounds;
+	BattleBackend backend;
+	
 	public BattleScreen(int width, int height) {
 		super(width, height);
 		backend = new BattleBackend();
@@ -62,13 +59,12 @@ import menu.Menu;
 		ClickableGraphic a = new ClickableGraphic(50, 650, 200, 100, "resources/dog.png"); 
 		a.setAction(new Action() {
 			public void act() {
-				Card i = Deck.deck.get(0);
-				//BattleBackend.playCard(Deck.deck.get(1));
+				backend.playCard(Deck.deck.get(0));
 			}
 			
 		});
 		viewObjects.add(a);
-		viewObjects.add(new TextLabel(660, 580, 50, 50, Integer.toString(backend.player.returnmana())));
+		viewObjects.add(new TextLabel(660, 760, 50, 50, Integer.toString(Player.returnmana())));
 		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
 			@Override
 			public void act() {
@@ -80,7 +76,7 @@ import menu.Menu;
 
 			@Override
 			public void act() {
-				backend.playCard(backend.deck.deck.get(2));
+				backend.playCard(Deck.deck.get(1));
 				
 			}
 			

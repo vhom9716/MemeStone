@@ -9,7 +9,7 @@ public class BattleBackend {
 	public boolean playerTurn;
 	public boolean cpuTurn;
 	
-	public Player player;
+	public static Player player;
 	public AI cpu;
 	
 	public Card selectedCard;
@@ -22,10 +22,8 @@ public class BattleBackend {
 	public int cpuBoardNum;
 	
 	public String move;
-<<<<<<< HEAD
-=======
 	public Deck deck;
->>>>>>> branch 'develop' of https://github.com/vhom9716/MemeStone.git
+
 	
 	public BattleBackend() {
 		running = true;
@@ -118,8 +116,8 @@ public class BattleBackend {
 		return (oneTaunt(computerBoard) == true && card.getTaunt() == true) || (oneTaunt(computerBoard) == false); 
 	}
 	
-<<<<<<< HEAD
-	public static void playCard(Card card) {
+
+	public void playCard(Card card) {
 //		if(card instanceof MonsterCard && validSummon(card)) {
 //			playerBoard.add((MonsterCard) card);
 //			player.hand.remove(card);
@@ -130,23 +128,7 @@ public class BattleBackend {
 //			player.currentmana -= card.getCost();
 //		}
 		System.out.println("Wee");
-=======
-	public void playCard(Card card) {
-		if(card instanceof MonsterCard && validSummon(card)) {
-			playerBoard.add((MonsterCard) card);
-			player.hand.remove(card);
-			player.currentmana -= card.getCost();
-		}else if(card instanceof SpellCard && validSpell(card)) {
-			card.act();
-			player.hand.remove(card);
-			player.currentmana -= card.getCost();
-		}
-		System.out.println("fu");
->>>>>>> branch 'develop' of https://github.com/vhom9716/MemeStone.git
-	}
-<<<<<<< HEAD
-=======
 
 	
->>>>>>> branch 'develop' of https://github.com/vhom9716/MemeStone.git
+	}
 }

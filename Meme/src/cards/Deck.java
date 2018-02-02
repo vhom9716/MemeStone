@@ -20,20 +20,15 @@ public class Deck {
 	static Card WTF = new SpellCard("WTF?!?", 3, "Deals 3 damage to a random character",2);
 	static Card DragonBalls = new SpellCard("Seven Dragon Balls", 10, "Summon Shenron",0);
 	
-<<<<<<< HEAD
+
 	public static ArrayList<Card> deck;
-=======
-	public ArrayList<Card> deck= new ArrayList<Card>();
->>>>>>> branch 'develop' of https://github.com/vhom9716/MemeStone.git
+
 	
 	public Deck() {
-<<<<<<< HEAD
+		deck = new ArrayList<Card>();
 		for(int i = 0; i <10; i++) {
-			addCard(Doge);
-=======
-		for (int i=0; i< 15; i++) {
-			deck.add(Deck.Doge);
->>>>>>> branch 'develop' of https://github.com/vhom9716/MemeStone.git
+			//addCard(Doge);
+			deck.add(Doge);
 		}
 	}
 

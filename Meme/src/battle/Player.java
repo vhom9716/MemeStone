@@ -10,7 +10,7 @@ public class Player {
 	public ArrayList<Card> board;
 	public boolean[] playable; 
 	public int health;
-	public int currentmana;
+	public static int currentmana;
 	public int maxmana;
 	
 	public Player() {
@@ -42,7 +42,7 @@ public class Player {
 	public int returnhp() {
 		return health;
 	}
-	public int returnmana() {
+	public static int returnmana() {
 		return currentmana;
 	}
 	public String returnmanastring() {
