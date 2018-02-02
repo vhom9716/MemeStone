@@ -56,12 +56,13 @@ public class BattleBackend {
 		}
 	
 	}
-	
+	// call to refresh mana
 	private void refreshMana() {
 		player.currentmana = player.maxmana;
 		cpu.currentMana = cpu.maxMana;
 	}
-
+	
+	//increments max mana by 1
 	private void addMana() {
 		if(player.maxmana <10) {
 			player.maxmana++;
@@ -90,6 +91,7 @@ public class BattleBackend {
 		
 	}
 	
+	// player's monster attacks cpu's monster
 	public void attack(Card attacker, Card reciever) {
 		attacker.health -= reciever.attack;
 		reciever.health -= attacker.attack;
@@ -99,7 +101,7 @@ public class BattleBackend {
 	public void updateBoard() {
 		
 	}
-	
+	// checks to see if cpu has a taunt on the board
 	public boolean oneTaunt(ArrayList<MonsterCard> cpuBoard) {
 		for(int i=0; i < cpuBoard.size(); i++) {
 			if (cpuBoard.get(i).getTaunt()) {
@@ -114,15 +116,23 @@ public class BattleBackend {
 	}
 	
 	public void playCard(Card card) {
-		if(card instanceof MonsterCard && validSummon(card)) {
+		if(card instanceof MonsterCard && validSummon((MonsterCard)card)) {
 			playerBoard.add((MonsterCard) card);
 			player.hand.remove(card);
 			player.currentmana -= card.getCost();
-		}else if(card instanceof SpellCard && validSpell(card)) {
+		}else if(card instanceof SpellCard && validSpell((SpellCard)card)) {
 			card.act();
 			player.hand.remove(card);
 			player.currentmana -= card.getCost();
 		}
+	}
+
+	private boolean validSpell(SpellCard card) {
+		return player.currentmana >= card.getCost();
+	}
+
+	private boolean validSummon(MonsterCard card) {
+		return (player.currentmana >= card.getCost()) && playerBoardNum < 5;
 	}
 	
 }
