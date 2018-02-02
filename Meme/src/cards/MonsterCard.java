@@ -5,8 +5,8 @@ public class MonsterCard extends Card {
 	private int health;
 	private int attack;
 	
-	public MonsterCard(String name, int cost, String effect, String effect2, int amt,int attack,int health) {
-		super(name,cost, effect, effect2, amt);
+	public MonsterCard(String name, int cost, String effect, String effect2, int amt,int attack,int health, String location) {
+		super(name,cost, effect, effect2, amt,location);
 		this.health = health;
 		this.attack = attack;
 	}
