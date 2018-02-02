@@ -13,7 +13,7 @@ public class BattleBackend {
 	public AI cpu;
 	
 	public Card selectedCard;
-	public Card opponentCard; 
+	public Card opponentCard;   s
 	
 	public ArrayList<MonsterCard> playerBoard;
 	public ArrayList<MonsterCard> computerBoard;

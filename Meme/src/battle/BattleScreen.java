@@ -63,7 +63,7 @@ import menu.Menu;
 			}
 			
 		});
-		viewObjects.add(a);
+		viewObjects.add(a);  
 		viewObjects.add(new TextLabel(660, 760, 50, 50, Integer.toString(Player.returnmana())));
 		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
 			@Override
