@@ -8,6 +8,7 @@ import guiTeacher.components.Action;
 import guiTeacher.components.Button;
 import guiTeacher.components.Component;
 import guiTeacher.components.Graphic;
+import menu.Menu;
 
 public class ChangingButton extends Button{
 
@@ -23,7 +24,11 @@ public class ChangingButton extends Button{
 	
 	public void act() {
 		Deck.userDeck.add(EditorScreen.page1[cardIndex]);
-		DeckEditorGUI.screen2.updateDeck();
+		//for starting on the editor screen
+		//DeckEditorGUI.screen2.updateDeck();
+		
+		//for starting on the main menu
+		Menu.screen4.updateDeck();
 	}
 	
 	@Override

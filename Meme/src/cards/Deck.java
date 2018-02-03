@@ -18,7 +18,7 @@ public class Deck {
 	static Card ScrewTheRulesIHaveMoney = new SpellCard("Screw The Rules, I Have Money",5,"Gain max empty mana crystals",3,"resources/screwingtherules.png");
 	static Card Shenron = new MonsterCard("Shenron",50,"Charge","Taunt",0,99,99,"resources/shenrun.png");
 	static Card DewYuKnoDeWae = new MonsterCard("Dew yu kno de wae", 4, null, null, 1, 5, 4,"resources/dewyuknodewae.png");
-	static Card UWot = new MonsterCard("u wot", 1, null, null, 3,1,1,"resources/uwotm8.png");
+	static Card UWot = new MonsterCard("u wot", 1, null, null, 3,1,1,"resources/wotm8.png");
 	static Card WTF = new SpellCard("WTF?!?", 3, "Deals 3 damage to a random character",2,"resources/wtfs.png");
 	static Card DragonBalls = new SpellCard("Seven Dragon Balls", 10, "Summon Shenron",0,"resources/sevendragonballs.png");
 	
