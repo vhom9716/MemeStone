@@ -10,11 +10,13 @@ import guiTeacher.userInterfaces.FullFunctionScreen;
 public class ShopScreen extends FullFunctionScreen {
 
 	private static final long serialVersionUID = 258186143576427947L;
-	AnimatedComponent mario;
-	public String gold;
+	
+	public int gold;
+	private Card[] cardsChosen;
+	
 	public ShopScreen(int width, int height) {
 		super(width, height);
-		gold = "0";
+		gold = 0;
 	}
 
 	@Override
@@ -32,6 +34,13 @@ public class ShopScreen extends FullFunctionScreen {
 			
 			@Override
 			public void act() {
+				int getCard;
+				if(gold >= 100) {
+					 = (int) (Math.random()*100);
+					if(getCards > 95) {
+						
+					}
+				}
 				//Do stuff so you get 5 cards.
 				//Animate the cards so they all are revealed at the same time.
 			}
