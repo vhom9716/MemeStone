@@ -23,7 +23,7 @@ public class BattleBackend {
 	public int cpuBoardNum;
 	
 	public String move;
-	public Deck deck;
+	public Deck newDeck;
 
 	
 	public BattleBackend() {
@@ -44,15 +44,15 @@ public class BattleBackend {
 		cpuBoardNum = 0;
 		
 		move = "";
-		deck = new Deck();
-		
+		newDeck = new Deck();
+		newDeck.deck.get(0).a.act();
 	}
 	
 	public void run() {
 		while(running) {
 			addMana();
 			refreshMana();
-			player.drawcard();
+			player.drawcard(1);
 			cpu.draw();
 			playerTurn();
 			cpuTurn();
@@ -144,6 +144,18 @@ public class BattleBackend {
 	private boolean validSummon(Card card) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public int returnWinNumber() {
+		if (player.returnhp() <= 0) {
+			return 0;
+		}
+		else if (cpu.health <= 0) {
+			return 1;
+		}
+		else {
+			return 2;
+		}
 	}
 }
   
