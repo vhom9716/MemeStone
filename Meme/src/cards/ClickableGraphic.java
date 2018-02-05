@@ -10,12 +10,12 @@ import guiTeacher.components.Component;
 import guiTeacher.components.Graphic;
 import menu.Menu;
 
-public class ChangingButton extends Button{
+public class ClickableGraphic extends Button{
 
 	private Graphic graphic;
 	private int cardIndex;
 	
-	public ChangingButton(int x, int y, String location, int index) {
+	public ClickableGraphic(int x, int y, String location, int index) {
 		super(x, y, 250, 350, "", null);
 		// TODO Auto-generated constructor stub
 		setGraphic(location, index);

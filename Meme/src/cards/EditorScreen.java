@@ -18,10 +18,10 @@ public class EditorScreen extends FullFunctionScreen {
 	private DeckPane pane;
 	private TextArea deckCapacity;
 	private TextArea pageNumberArea;
-	private ChangingButton picture1;
-	private ChangingButton picture2;
-	private ChangingButton picture3;
-	private ChangingButton picture4;
+	private ClickableGraphic picture1;
+	private ClickableGraphic picture2;
+	private ClickableGraphic picture3;
+	private ClickableGraphic picture4;
 	private Graphic background;
 	private TextArea picture1amt;
 	private TextArea picture2amt;
@@ -63,10 +63,10 @@ public class EditorScreen extends FullFunctionScreen {
 		pane.update();
 		deckCapacity = new TextArea(1200,700,150,40,deckSize+"/15");
 		
-		picture1 = new ChangingButton(300,20,"resources/200iq.png",0);
-		picture2 = new ChangingButton(700,20,"resources/dewyuknodewae.png",1);
-		picture3 = new ChangingButton(300,400,"resources/dog.png",2);
-		picture4 = new ChangingButton(700,400,"resources/omaewa.png",3);
+		picture1 = new ClickableGraphic(300,20,"resources/200iq.png",0);
+		picture2 = new ClickableGraphic(700,20,"resources/dewyuknodewae.png",1);
+		picture3 = new ClickableGraphic(300,400,"resources/dog.png",2);
+		picture4 = new ClickableGraphic(700,400,"resources/omaewa.png",3);
 		
 		picture1amt = new TextArea(330,360,200,150,amt1);
 		picture2amt = new TextArea(730,360,200,150,amt2);
