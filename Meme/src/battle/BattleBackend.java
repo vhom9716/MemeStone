@@ -45,7 +45,7 @@ public class BattleBackend {
 		
 		move = "";
 		newDeck = new Deck();
-		newDeck.deck.get(0).a.act();
+	//	newDeck.deck.get(0).a.act();
 	}
 	
 	public void run() {

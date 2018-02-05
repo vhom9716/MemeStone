@@ -88,7 +88,11 @@ public class Deck extends BattleBackend{
 	
 	public ArrayList<Card> deck= new ArrayList<Card>();
 	public Deck() {
-		// TODO Auto-generated constructor stub
+		deck = new ArrayList<Card>();
+		for(int i = 0; i<10; i++) {
+			//addCard(Doge);
+			deck.add(Doge);
+		}
 	}
 
 	
