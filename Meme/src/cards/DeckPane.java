@@ -45,8 +45,8 @@ public class DeckPane extends Pane {
 
 	public void initAllObjects(List<Visible> viewObjects){
 		int yValue = 100;
-		for(Card c: Deck.deck) {
-			cardButton= new Button(1000, yValue, 150,40,c.getName(), Color.white, removeCard(c, Deck.deck));
+		for(Card c: Deck.userDeck) {
+			cardButton= new Button(1000, yValue, 150,40,c.getName(), Color.white, removeCard(c, Deck.userDeck));
 		}
 		yValue -= 40;
 	}
