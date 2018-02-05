@@ -80,8 +80,16 @@ public class EditorScreen extends FullFunctionScreen {
 			public void act() {
 				if(pageNumber != 1) {
 					pageNumber--;
+					viewObjects.remove(picture1);
+					viewObjects.remove(picture2);
+					viewObjects.remove(picture3);
+					viewObjects.remove(picture4);
 					updateCards();
 					updateCardAmts();
+					viewObjects.add(picture1);
+					viewObjects.add(picture2);
+					viewObjects.add(picture3);
+					viewObjects.add(picture4);
 				}
 			}
 		});
@@ -90,8 +98,16 @@ public class EditorScreen extends FullFunctionScreen {
 			public void act() {
 				if(pageNumber != 4) {
 					pageNumber++;
+					viewObjects.remove(picture1);
+					viewObjects.remove(picture2);
+					viewObjects.remove(picture3);
+					viewObjects.remove(picture4);
 					updateCards();
 					updateCardAmts();
+					viewObjects.add(picture1);
+					viewObjects.add(picture2);
+					viewObjects.add(picture3);
+					viewObjects.add(picture4);
 				}
 			}
 		});
@@ -139,7 +155,8 @@ public class EditorScreen extends FullFunctionScreen {
 		return null;
 	}*/
 
-	public void updateCards() {
+	public void updateCards() {		
+		
 		card1 = page1[4*(pageNumber-1)];
 		picture1.setGraphic(card1.getLocation(), (4*(pageNumber-1)));
 		
