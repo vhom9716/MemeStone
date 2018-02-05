@@ -1,6 +1,7 @@
 package battle;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -109,8 +110,7 @@ import menu.Menu;
 		viewObjects.add(b);
 		viewObjects.add(c);
 		viewObjects.add(d);
-		
-		manaslot.setBackgroundColor(Color.RED);
+		manaslot.setBorderColor(Color.RED);
 		viewObjects.add(manaslot);
 		
 		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
