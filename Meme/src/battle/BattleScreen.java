@@ -27,7 +27,7 @@ import menu.Menu;
 	public class BattleScreen extends FullFunctionScreen {
 	ArrayList<Clip> allSounds;
 	ArrayList<ClickableGraphic> currentHand;
-	ArrayList<Graphic> currentField;
+	ArrayList<ClickableGraphic> currentField;
 	BattleBackend backend;
 	TextLabel manaslot;
 	ClickableGraphic a;
@@ -38,13 +38,16 @@ import menu.Menu;
 	Graphic f2;
 	Graphic f3;
 	Graphic f4;
+	private ArrayList<Card> cardsInHand;
 	
 	public BattleScreen(int width, int height) {
 		super(width, height);
 		backend = new BattleBackend();
+		currentField = new ArrayList<ClickableGraphic>();
 	}
 	
 	public void initAllObjects(List<Visible> viewObjects) {
+		cardsInHand = new ArrayList<Card>();
 		currentHand = new ArrayList<ClickableGraphic>();
 		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(Player.returnmana())+"/"+"10");
 	/*	try {
@@ -65,10 +68,12 @@ import menu.Menu;
 	         e.printStackTrace();
 	      }
 	*/
-		 a = new ClickableGraphic(30,614,150,200, "resources/dog.png");
-		 b = new ClickableGraphic(180,614,150,200, "resources/dog.png");
-		 c = new ClickableGraphic(330,614,150,200, "resources/dog.png");
-		 d = new ClickableGraphic(480,614,150,200, "resources/dog.png");
+		
+		a = new ClickableGraphic(30,614,150,200, "resources/dog.png");
+		b = new ClickableGraphic(180,614,150,200, "resources/pog.png");
+		c = new ClickableGraphic(330,614,150,200, "resources/pika.png");
+		d = new ClickableGraphic(480,614,150,200, "resources/shenrun.png");
+		
 		currentHand.add(a);
 		currentHand.add(b);
 		currentHand.add(c);
@@ -84,25 +89,41 @@ import menu.Menu;
 		viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png")); 
 		a.setAction(new Action() {
 			public void act() {
-				backend.playCard(backend.player.hand.get(0), 0);
+			//	backend.playCard(backend.player.hand.get(0), 0);
+				activateCardMon();
+				for(int i = 0;i<currentField.size();i++) {
+					viewObjects.add(currentField.get(i));
+				}
 			}
 			
 		});
 		b.setAction(new Action() {
 			public void act() {
-				backend.playCard(backend.player.hand.get(1), 1);
+			//	backend.playCard(backend.player.hand.get(1), 1);
+				activateCardMon(b);
+				for(int i = 0;i<currentField.size();i++) {
+					viewObjects.add(currentField.get(i));
+				}
 			}
 			
 		}); 
 		c.setAction(new Action() {
 			public void act() {
-				backend.playCard(backend.player.hand.get(2), 2);
+			//	backend.playCard(backend.player.hand.get(2), 2);
+				activateCardMon(c);
+				for(int i = 0;i<currentField.size();i++) {
+					viewObjects.add(currentField.get(i));
+				}
 			}
 			
 		}); 
 		d.setAction(new Action() {
 			public void act() {
-				backend.playCard(backend.player.hand.get(3), 3);
+			//	backend.playCard(backend.player.hand.get(3), 3);
+				activateCardMon(d);
+				for(int i = 0;i<currentField.size();i++) {
+					viewObjects.add(currentField.get(i));
+				}
 			}
 			
 		});
@@ -110,43 +131,37 @@ import menu.Menu;
 		viewObjects.add(b);
 		viewObjects.add(c);
 		viewObjects.add(d);
-		manaslot.setBorderColor(Color.RED);
+
 		viewObjects.add(manaslot);
 		
 		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
 			@Override
 			public void act() {
 				Menu.menu.setScreen(Menu.screen1);
+				drawACard("resources/saltbae.png");
+				viewObjects.add(currentHand.get(currentHand.size()-1));
+				System.out.println("dfsdf");
 			}
 		}));
 		
-		ClickableGraphic test = new ClickableGraphic(660,460,120,160, "resources/dog.png");
-		viewObjects.add(test);
+	//	ClickableGraphic test = new ClickableGraphic(300,460,120,160, "resources/dog.png");
+	//	viewObjects.add(test);
 	}
-	public void activateCardMon(int pos) {
-		if (pos == 0) {
-			currentHand.remove(0);
-			updateHand();
-			update();
-		}
-		if (pos == 1) {
-			currentHand.remove(1);
-			updateHand();
-			update();
-		}
-		if (pos == 2) {
-			currentHand.remove(2);
-			updateHand();
-			update();
-		}
-		if (pos == 3) {
-			currentHand.remove(3);
-			updateHand();
-			update();
-		}
+	public void activateCardMon(ClickableGraphic card) {
+		currentHand.remove(card);
+		updateHand();
+		updateField();
+		update();
 	}
 	public void activateCardSpell(int pos) {
 		
+	}
+	public void drawACard(String imageLoc) {
+		int counter = 30;
+		for (int i = 0; i<currentHand.size(); i++) {
+			counter= counter+ 150;
+		}
+		currentHand.add(new ClickableGraphic(counter, 614, 150, 200, imageLoc));
 	}
 	public void updateHand() {
 		int counter = 30;
@@ -156,6 +171,16 @@ import menu.Menu;
 		}
 	}
 	public void updateField() {
-		
+		int counter = 300;
+			if (currentField.size()<=0) {
+			currentField.add(new Graphic(counter, 460, 120, 160, "resources/dog.png"));
+			counter= counter+ 100;
+			}
+			else {
+				for(int i =0; i<currentField.size();i++) {
+					counter= counter+100;
+				}
+				currentField.add(new Graphic(counter, 460, 120, 160, "resources/dog.png"));
+			}
 	}
 }

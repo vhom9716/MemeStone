@@ -7,6 +7,7 @@ public class Card{
 	private String effect;
 	private String effect2;
 	private int amt;
+	private String imageLoc;
 	/**
 	 * Action a - Passes in a new action so that you can create a method for each individual cards	
 	 * 
@@ -18,13 +19,14 @@ public class Card{
 	 * @param a
 	 * @author Jason Yan
 	 */
-	public Card(String name, int cost, String effect, String effect2, int amt, Action a) {
+	public Card(String name, int cost, String effect, String effect2, int amt, Action a, String imageLoc) {
 		this.name = name;
 		this.effect2 = effect2;
 		this.cost = cost;
 		this.amt = amt;
 		this.effect = effect;
 		this.a = a;
+		this.imageLoc = imageLoc;
 	}
 
 	public void setName(String s) {
@@ -39,7 +41,7 @@ public class Card{
 		return name;
 	}
 	
-	public int getCost() {
+	public int getCost() { 
 		return cost;
 	}
 	
@@ -53,6 +55,9 @@ public class Card{
 	
 	public String getEffectTwo() {
 		return effect2;
+	}
+	public String getImage() {
+		return imageLoc;
 	}
 
 	

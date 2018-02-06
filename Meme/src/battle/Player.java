@@ -58,7 +58,9 @@ public class Player {
 				hand.add(x);
 				checkhand();
 				amount--;
+				menu.Menu.screen3.drawACard(x.getImage());
 			}
+			
 		}
 		
 		
