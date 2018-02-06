@@ -138,7 +138,7 @@ import menu.Menu;
 			@Override
 			public void act() {
 				Menu.menu.setScreen(Menu.screen1);
-				drawACard("resources/saltbae.png");
+				drawACard("resources/saltbae.png"); 
 				viewObjects.add(currentHand.get(currentHand.size()-1));
 				System.out.println("dfsdf");
 			}

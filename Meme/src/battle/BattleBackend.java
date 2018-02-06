@@ -48,6 +48,10 @@ public class BattleBackend {
 	//	newDeck.deck.get(0).a.act();
 	}
 	
+	/**
+	 * Runs the game 
+	 * Running variable determines if the game is still running
+	 */
 	public void run() {
 		while(running) {
 			addMana();
@@ -93,7 +97,11 @@ public class BattleBackend {
 	public void cpuTurn() {
 		
 	}
-	
+	/**
+	 * Monster card attacks another monster card
+	 * @param attacker
+	 * @param reciever
+	 */
 	public void attack(MonsterCard attacker, MonsterCard reciever) {
 		attacker.setHealth(attacker.getHealth()- reciever.getAttack());
 		reciever.setHealth(reciever.getHealth()- attacker.getAttack());
@@ -103,7 +111,11 @@ public class BattleBackend {
 	public void updateBoard() {
 		
 	}
-	
+	/**
+	 * Checks to see if there is at least one taunt on CPU's board
+	 * @param cpuBoard
+	 * @return
+	 */
 	public boolean oneTaunt(ArrayList<MonsterCard> cpuBoard) {
 		for(int i=0; i < cpuBoard.size(); i++) {
 			if (cpuBoard.get(i).getTaunt()) {
@@ -112,13 +124,17 @@ public class BattleBackend {
 		}
 		return false;
 	}
-
+	/**
+	 * Checks to see if the attack is a valid move
+	 * @param card
+	 * @return
+	 */
 	public boolean validAttack(MonsterCard card) {
 		return (oneTaunt(computerBoard) == true && card.getTaunt() == true) || (oneTaunt(computerBoard) == false); 
 	}
 	
 
-	public void playCard(Card card, int pos) {
+/*	public void playCard(Card card, int pos) {
 		if(card instanceof MonsterCard && validSummon(card)) {
 			card.act();
 			playerBoard.add((MonsterCard) card);
@@ -134,18 +150,27 @@ public class BattleBackend {
 		
 
 	
-	}
-
+	} */
+	/**
+	 * Checks to see if the spell is a valid move
+	 * @param card
+	 * @return
+	 */
 	private boolean validSpell(Card card) {
-		// TODO Auto-generated method stub
-		return false;
+		return player.currentmana >= card.getCost();
 	}
-
+	/**
+	 * Checks to see if the summon is a valid move
+	 * @param card
+	 * @return
+	 */
 	private boolean validSummon(Card card) {
-		// TODO Auto-generated method stub
-		return false;
+		return (player.currentmana >= card.getCost()) && playerBoardNum <5;
 	}
-	
+	/**
+	 * Returns an int that determines who won
+	 * @return
+	 */
 	public int returnWinNumber() {
 		if (player.returnhp() <= 0) {
 			return 0;
