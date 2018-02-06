@@ -12,9 +12,10 @@ import battle.Player;
 public class Deck{
 	//25
 	 static public Card IQ = new SpellCard("200 IQ",2,"Draw a random minion from deck", 2, new Action() {
-		public void act(Player player){
+		 public void act(Player player) {
 			player.hand.add(player.deck.get(1));
 			player.deck.remove(player.hand.get(0));
+			
 		};
 	});
 	static public Card Doge = new MonsterCard("Doge",6,"Taunt",null, 1, 6, 6, false, new Action() {

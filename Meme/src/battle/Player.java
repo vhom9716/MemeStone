@@ -13,16 +13,18 @@ public class Player {
 	private String name;
 	public int health;
 	public static int currentmana =10;
+	public int gold=0;
 	public int maxmana;
 	public int manaslot;
 
-	public Player(String name,int health,int maxmana,int mana,ArrayList<Card> deck, ArrayList<Card> hand) {
+	public Player(String name,int gold,int health,int maxmana,int mana,ArrayList<Card> deck, ArrayList<Card> hand) {
 		this.name=name;
 		this.health=health;
 		this.deck=deck;
 		this.hand=hand;
 		this.currentmana=mana;
 		this.maxmana=maxmana;
+		this.gold=gold;
 		sendinfortofront();
 	}
 
@@ -46,6 +48,9 @@ public class Player {
 		return playable;
 		
 
+	}
+	public void updategold(int x) {
+		gold+=x;
 	}
 	public void drawcard(int amount) {
 		if(decksize()==0) {
@@ -97,6 +102,9 @@ public class Player {
 	}
 	public int returnhp() {
 		return health;
+	}
+	public int returnGold() {
+		return gold;
 	}
 	public static int returnmana() {
 		return currentmana;

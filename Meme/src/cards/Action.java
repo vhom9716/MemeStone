@@ -1,5 +1,7 @@
 package cards;
 
+import battle.Player;
+
 public interface Action {
 	/**
 	 * Interface Action with method act()
@@ -7,5 +9,5 @@ public interface Action {
 	 * Used to pass in methods as a parameter
 	 * @author Jason Yan
 	 */
-	public void act();
+	public void act(Player player);
 }
