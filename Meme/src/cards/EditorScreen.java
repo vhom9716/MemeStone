@@ -15,7 +15,7 @@ import menu.Menu;
 
 public class EditorScreen extends FullFunctionScreen {
 
-	private DeckPane pane;
+	//private DeckPane pane;
 	private TextArea deckCapacity;
 	private TextArea pageNumberArea;
 	private ClickableGraphic picture1;
@@ -46,6 +46,8 @@ public class EditorScreen extends FullFunctionScreen {
 	
 	private int pageNumber = 1;
 	private int deckSize = Deck.userDeck.size();
+	private int currentY = 100;
+	//each button will be 40 pixels high and 100 wide
 	
 	public EditorScreen(int width, int height) {
 		super(width, height);
@@ -59,8 +61,8 @@ public class EditorScreen extends FullFunctionScreen {
 		String amt2 = Integer.toString(page1[1].getAmt());
 		String amt3 = Integer.toString(page1[2].getAmt());
 		String amt4 = Integer.toString(page1[3].getAmt());
-		pane = new DeckPane(this, 1200, 100,150,600);
-		pane.update();
+		//pane = new DeckPane(this, 1200, 100,150,600);
+		//pane.update();
 		deckCapacity = new TextArea(1200,700,150,40,deckSize+"/15");
 		
 		picture1 = new ClickableGraphic(300,20,"resources/200iq.png",0);
@@ -75,47 +77,31 @@ public class EditorScreen extends FullFunctionScreen {
 		
 		currentDeckTest = new TextArea(200,30,300,300,"");
 		
-		pageLeft = new Button(460,700,200,200,"<-",new Action() {
+		pageLeft = new Button(500,750,100,75," ",new Action() {
 			@Override
 			public void act() {
 				if(pageNumber != 1) {
 					pageNumber--;
-					viewObjects.remove(picture1);
-					viewObjects.remove(picture2);
-					viewObjects.remove(picture3);
-					viewObjects.remove(picture4);
 					updateCards();
 					updateCardAmts();
-					viewObjects.add(picture1);
-					viewObjects.add(picture2);
-					viewObjects.add(picture3);
-					viewObjects.add(picture4);
 				}
 			}
 		});
-		pageRight = new Button(600,700,200,200,"->",new Action() {
+		pageRight = new Button(650,750,100,75," ",new Action() {
 			@Override
 			public void act() {
 				if(pageNumber != 4) {
 					pageNumber++;
-					viewObjects.remove(picture1);
-					viewObjects.remove(picture2);
-					viewObjects.remove(picture3);
-					viewObjects.remove(picture4);
 					updateCards();
 					updateCardAmts();
-					viewObjects.add(picture1);
-					viewObjects.add(picture2);
-					viewObjects.add(picture3);
-					viewObjects.add(picture4);
 				}
 			}
 		});
-		emptyButton = new Button(50,200,200,100,"Clear Deck",emptyDeck());
+		emptyButton = new Button(50,200,200,100,"Clear Deck", emptyDeck());
 	
 		
 		viewObjects.add(background);
-		viewObjects.add(pane);
+		//viewObjects.add(pane);
 		viewObjects.add(deckCapacity);
 		viewObjects.add(picture1);
 		viewObjects.add(picture2);
@@ -138,22 +124,6 @@ public class EditorScreen extends FullFunctionScreen {
 		viewObjects.add(currentDeckTest);
 		viewObjects.add(emptyButton);
 	}
-
-	/**private Action move(String string) {
-		if(string.equals("left")) {
-			if(pageNumber != 1) {
-				pageNumber--;
-				changeCards();
-			}
-		} 
-		if(string.equals("right")) {
-			if(pageNumber != 4) {
-				pageNumber++;
-				changeCards();
-			}
-		}
-		return null;
-	}*/
 
 	public void updateCards() {		
 		
