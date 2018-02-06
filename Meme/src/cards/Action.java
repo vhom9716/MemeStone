@@ -1,5 +1,6 @@
 package cards;
 
+import battle.BattleBackend;
 import battle.Player;
 
 public interface Action {
@@ -9,5 +10,5 @@ public interface Action {
 	 * Used to pass in methods as a parameter
 	 * @author Jason Yan
 	 */
-	public void act(Player player);
+	public void act(Player player, BattleBackend backend);
 }

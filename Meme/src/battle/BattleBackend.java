@@ -137,13 +137,11 @@ public class BattleBackend {
 	}
 
 	private boolean validSpell(Card card) {
-		// TODO Auto-generated method stub
-		return false;
+		return player.currentmana >= card.getCost();
 	}
 
 	private boolean validSummon(Card card) {
-		// TODO Auto-generated method stub
-		return false;
+		return (player.currentmana >= card.getCost()) && playerBoardNum <5;
 	}
 	
 	public int returnWinNumber() {
