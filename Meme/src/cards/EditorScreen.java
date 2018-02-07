@@ -75,39 +75,23 @@ public class EditorScreen extends FullFunctionScreen {
 		
 		currentDeckTest = new TextArea(200,30,300,300,"");
 		
-		pageLeft = new Button(460,700,200,200,"<-",new Action() {
+		pageLeft = new Button(500,750,100,75," ",new Action() {
 			@Override
 			public void act() {
 				if(pageNumber != 1) {
 					pageNumber--;
-					viewObjects.remove(picture1);
-					viewObjects.remove(picture2);
-					viewObjects.remove(picture3);
-					viewObjects.remove(picture4);
 					updateCards();
 					updateCardAmts();
-					viewObjects.add(picture1);
-					viewObjects.add(picture2);
-					viewObjects.add(picture3);
-					viewObjects.add(picture4);
 				}
 			}
 		});
-		pageRight = new Button(600,700,200,200,"->",new Action() {
+		pageRight = new Button(650,750,100,75," ",new Action() {
 			@Override
 			public void act() {
 				if(pageNumber != 4) {
 					pageNumber++;
-					viewObjects.remove(picture1);
-					viewObjects.remove(picture2);
-					viewObjects.remove(picture3);
-					viewObjects.remove(picture4);
 					updateCards();
 					updateCardAmts();
-					viewObjects.add(picture1);
-					viewObjects.add(picture2);
-					viewObjects.add(picture3);
-					viewObjects.add(picture4);
 				}
 			}
 		});
