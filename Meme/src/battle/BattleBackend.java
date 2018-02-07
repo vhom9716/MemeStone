@@ -59,7 +59,11 @@ public class BattleBackend {
 			refreshMana();
 			player.drawcard(1);
 			cpu.draw();
-			playerTurn();
+			playerTurn= true;
+			//playerTurn();
+			while(playerTurn) {
+				
+			}
 			cpuTurn();
 			checkStatus();
 		}
@@ -83,8 +87,8 @@ public class BattleBackend {
 		
 	}
 
-	public void playerTurn() {
-		/*while(playerTurn) {
+	/*public void playerTurn() {
+		while(playerTurn) {
 			if (move.equals("attack")) {
 				attack(selectedCard, opponentCard);
 			}
@@ -92,11 +96,11 @@ public class BattleBackend {
 				selectedCard.playEffect();
 			}
 			
-		}*/
-	}
+		}
+	}*/
 	
 	public void cpuTurn() {
-		
+		cpu.executeTurn();
 	}
 	/**
 	 * Monster card attacks another monster card

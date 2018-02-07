@@ -100,7 +100,7 @@ public class AI {
 	 * then if there are available monsterAttacks.
 	 * @return 
 	 */
-	private boolean checkTurnDone() {
+	public boolean checkTurnDone() {
 		if(checkManaCostsInHand()) {
 			return true;
 		}else {
