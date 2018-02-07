@@ -28,6 +28,22 @@ public class Player {
 		sendinfortofront();
 	}
 
+	public ArrayList<Card> getDeck() {
+		return deck;
+	}
+
+	public void setDeck(ArrayList<Card> deck) {
+		this.deck = deck;
+	}
+
+	public ArrayList<Card> getHand() {
+		return hand;
+	}
+
+	public void setHand(ArrayList<Card> hand) {
+		this.hand = hand;
+	}
+
 	public Player() {
 		maxmana = 10;
 		health = 30;

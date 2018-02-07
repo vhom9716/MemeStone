@@ -75,7 +75,7 @@ public class Deck{
 			// TODO Auto-generated method stub
 			
 		}
-	}, "pika.png");
+	}, "resources/pika.png");
 	static public Card PotOfGreed = new SpellCard("Pot of Greed",1,"Draw 2 cards",2, new Action() {
 		public void act() {
 			

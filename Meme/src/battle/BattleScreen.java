@@ -39,47 +39,26 @@ import menu.Menu;
 	Graphic f3;
 	Graphic f4;
 	private ArrayList<Card> cardsInHand;
+	private ArrayList<Card> cardsOnBoard;
 	
 	public BattleScreen(int width, int height) {
 		super(width, height);
 		backend = new BattleBackend();
-		currentField = new ArrayList<ClickableGraphic>();
 	}
 	
 	public void initAllObjects(List<Visible> viewObjects) {
 		cardsInHand = new ArrayList<Card>();
+		cardsOnBoard = new ArrayList<Card>();
 		currentHand = new ArrayList<ClickableGraphic>();
+		currentField = new ArrayList<ClickableGraphic>();
 		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(Player.returnmana())+"/"+"10");
-	/*	try {
-	         // Open an audio input stream.           
-	          File soundFile = new File("resources/boomm.wav"); //you could also get the sound file with an URL
-	          AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);              
-	         // Get a sound clip resource.
-	         Clip clip = AudioSystem.getClip();
-	         // Open audio clip and load samples from the audio input stream.
-	         clip.open(audioIn);
-	         clip.start();
-	         clip.stop();
-	      } catch (UnsupportedAudioFileException e) {
-	         e.printStackTrace();
-	      } catch (IOException e) {
-	         e.printStackTrace();
-	      } catch (LineUnavailableException e) {
-	         e.printStackTrace();
-	      }
-	*/
 		
-		a = new ClickableGraphic(30,614,150,200, "resources/dog.png");
-		b = new ClickableGraphic(180,614,150,200, "resources/pog.png");
-		c = new ClickableGraphic(330,614,150,200, "resources/pika.png");
-		d = new ClickableGraphic(480,614,150,200, "resources/shenrun.png");
+		cardsInHand.add(Deck.Doge);
+		cardsInHand.add(Deck.Pikachu);
+		cardsInHand.add(Deck.UltraMegaChicken);
+		cardsInHand.add(Deck.RainbowDash);
 		
-		currentHand.add(a);
-		currentHand.add(b);
-		currentHand.add(c);
-		currentHand.add(d); 
-		
-		
+		viewObjects.add(manaslot);
 		viewObjects.add(new Graphic(0, 20, getWidth(),getHeight(),"resources/background.jpg"));
 		viewObjects.add(new Graphic(800,760,60,60, "resources/mana.png"));
 		viewObjects.add(new Graphic(630,614,350,250,"resources/player.png"));
@@ -87,71 +66,35 @@ import menu.Menu;
 		viewObjects.add(new Graphic(1200,70, 90, 80, "resources/quitButton.png"));
 		viewObjects.add(new Graphic(750,130, 120, 80, "resources/hp.png"));
 		viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png")); 
-		a.setAction(new Action() {
-			public void act() {
-			//	backend.playCard(backend.player.hand.get(0), 0);
-				activateCardMon();
-				for(int i = 0;i<currentField.size();i++) {
-					viewObjects.add(currentField.get(i));
-				}
-			}
-			
-		});
-		b.setAction(new Action() {
-			public void act() {
-			//	backend.playCard(backend.player.hand.get(1), 1);
-				activateCardMon(b);
-				for(int i = 0;i<currentField.size();i++) {
-					viewObjects.add(currentField.get(i));
-				}
-			}
-			
-		}); 
-		c.setAction(new Action() {
-			public void act() {
-			//	backend.playCard(backend.player.hand.get(2), 2);
-				activateCardMon(c);
-				for(int i = 0;i<currentField.size();i++) {
-					viewObjects.add(currentField.get(i));
-				}
-			}
-			
-		}); 
-		d.setAction(new Action() {
-			public void act() {
-			//	backend.playCard(backend.player.hand.get(3), 3);
-				activateCardMon(d);
-				for(int i = 0;i<currentField.size();i++) {
-					viewObjects.add(currentField.get(i));
-				}
-			}
-			
-		});
-		viewObjects.add(a);
-		viewObjects.add(b);
-		viewObjects.add(c);
-		viewObjects.add(d);
-
-		viewObjects.add(manaslot);
 		
-		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
-			@Override
-			public void act() {
-				Menu.menu.setScreen(Menu.screen1);
-				drawACard("resources/saltbae.png"); 
-				viewObjects.add(currentHand.get(currentHand.size()-1));
-				System.out.println("dfsdf");
-			}
-		}));
+		//cardsInHand = backend.player.getHand();
+		updateHand();
+		for(int i = 0; i < currentHand.size(); i++) {
+			viewObjects.add(currentHand.get(i));
+			System.out.println("a");
+		}
+		System.out.println("c");
+		updateField();
+		for(int i = 0; i < currentField.size(); i++) {
+			System.out.println("b");
+			viewObjects.add(currentField.get(i));
+		}
+		
+		//Former Code at Bot
+
+		
+//		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
+//			@Override
+//			public void act() {
+//				Menu.menu.setScreen(Menu.screen1);
+//				drawACard("resources/saltbae.png"); 
+//				viewObjects.add(currentHand.get(currentHand.size()-1));
+//				System.out.println("dfsdf");
+//			}
+//		}));
 		
 	//	ClickableGraphic test = new ClickableGraphic(300,460,120,160, "resources/dog.png");
 	//	viewObjects.add(test);
-	}
-	public void activateCardMon(ClickableGraphic card) {
-		currentHand.remove(card);
-		updateHand();
-		updateField();
-		update();
 	}
 	public void activateCardSpell(int pos) {
 		
@@ -164,23 +107,145 @@ import menu.Menu;
 		currentHand.add(new ClickableGraphic(counter, 614, 150, 200, imageLoc));
 	}
 	public void updateHand() {
+		for(int i = 0; i < cardsInHand.size();i++) {
+			Card selCard = cardsInHand.get(i);
+			ClickableGraphic handCard = new ClickableGraphic(0, 614, 150, 200, selCard.getImage());
+			handCard.setAction(new Action() {
+				public void act() {
+					activateCardMon(handCard);
+					cardsOnBoard.add(selCard);
+					cardsInHand.remove(selCard);
+				}
+			});
+			currentHand.add(handCard);
+			//currentHand.get(i).setX(counter);
+			//counter=counter+150;
+		}
+		showHand();
+	}
+	
+	public void showHand() {
 		int counter = 30;
-		for(int i = 0; i<currentHand.size();i++) {
+		for(int i = 0; i < currentHand.size(); i++) {
+			System.out.println(i);
 			currentHand.get(i).setX(counter);
-			counter=counter+150;
+			counter += 150;
 		}
 	}
-	public void updateField() {
-		int counter = 300;
-			if (currentField.size()<=0) {
-			currentField.add(new Graphic(counter, 460, 120, 160, "resources/dog.png"));
-			counter= counter+ 100;
-			}
-			else {
-				for(int i =0; i<currentField.size();i++) {
-					counter= counter+100;
-				}
-				currentField.add(new Graphic(counter, 460, 120, 160, "resources/dog.png"));
-			}
+	
+	public void activateCardMon(ClickableGraphic card) {
+		currentHand.remove(card);
+		showHand();
+		updateField();
+		//update();
 	}
+	
+	public void updateField() {
+		for(int i = 0; i < cardsOnBoard.size(); i++) {
+			ClickableGraphic c = new ClickableGraphic(0, 460, 120, 160, cardsOnBoard.get(i).getImage());
+			currentField.add(c);
+			c.setAction(null);
+		}
+		showField();
+	}
+	
+	public void showField() {
+		int counter = 300;
+		for(int i = 0; i < currentField.size(); i++) {
+			currentField.get(i).setX(counter);
+			counter += 100;
+		}
+	}
+//			if (cardsOnBoard.size() < 0) {
+//				currentField.add(new ClickableGraphic(counter, 460, 120, 160, "resources/dog.png"));
+//			counter= counter+ 100;
+//			}
+//			else {
+//				for(int i =0; i<currentField.size();i++) {
+//					counter= counter+100;
+//				}
+//				currentField.add(new Graphic(counter, 460, 120, 160, "resources/dog.png"));
+//			}
+	
+	/*	try {
+    // Open an audio input stream.           
+     File soundFile = new File("resources/boomm.wav"); //you could also get the sound file with an URL
+     AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);              
+    // Get a sound clip resource.
+    Clip clip = AudioSystem.getClip();
+    // Open audio clip and load samples from the audio input stream.
+    clip.open(audioIn);
+    clip.start();
+    clip.stop();
+ } catch (UnsupportedAudioFileException e) {
+    e.printStackTrace();
+ } catch (IOException e) {
+    e.printStackTrace();
+ } catch (LineUnavailableException e) {
+    e.printStackTrace();
+ }
+*/
+
+//a = new ClickableGraphic(30,614,150,200, "resources/dog.png");
+//b = new ClickableGraphic(180,614,150,200, "resources/pog.png");
+//c = new ClickableGraphic(330,614,150,200, "resources/pika.png");
+//d = new ClickableGraphic(480,614,150,200, "resources/shenrun.png");
+//
+//currentHand.add(a);
+//currentHand.add(b);
+//currentHand.add(c);
+//currentHand.add(d); 
+//
+//
+//viewObjects.add(new Graphic(0, 20, getWidth(),getHeight(),"resources/background.jpg"));
+//viewObjects.add(new Graphic(800,760,60,60, "resources/mana.png"));
+//viewObjects.add(new Graphic(630,614,350,250,"resources/player.png"));
+//viewObjects.add(new Graphic(630, 25, 350,250, "resources/cpu.png"));
+//viewObjects.add(new Graphic(1200,70, 90, 80, "resources/quitButton.png"));
+//viewObjects.add(new Graphic(750,130, 120, 80, "resources/hp.png"));
+//viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png")); 
+//a.setAction(new Action() {
+//	public void act() {
+//	//	backend.playCard(backend.player.hand.get(0), 0);
+//		activateCardMon();
+//		for(int i = 0;i<currentField.size();i++) {
+//			viewObjects.add(currentField.get(i));
+//		}
+//	}
+//	
+//});
+//b.setAction(new Action() {
+//	public void act() {
+//	//	backend.playCard(backend.player.hand.get(1), 1);
+//		activateCardMon(b);
+//		for(int i = 0;i<currentField.size();i++) {
+//			viewObjects.add(currentField.get(i));
+//		}
+//	}
+//	
+//}); 
+//c.setAction(new Action() {
+//	public void act() {
+//	//	backend.playCard(backend.player.hand.get(2), 2);
+//		activateCardMon(c);
+//		for(int i = 0;i<currentField.size();i++) {
+//			viewObjects.add(currentField.get(i));
+//		}
+//	}
+//	
+//}); 
+//d.setAction(new Action() {
+//	public void act() {
+//	//	backend.playCard(backend.player.hand.get(3), 3);
+//		activateCardMon(d);
+//		for(int i = 0;i<currentField.size();i++) {
+//			viewObjects.add(currentField.get(i));
+//		}
+//	}
+//	
+//});
+//viewObjects.add(a);
+//viewObjects.add(b);
+//viewObjects.add(c);
+//viewObjects.add(d);
 }
