@@ -25,7 +25,7 @@ public class BattleScreen extends FullFunctionScreen {
 		viewObjects.add(new Button(1650,50, 80, 70, "", new Action() {
 
 			@Override
-			public void act() {
+			public void act() { 
 				BattleGUI.closeWindow();
 			}
 		}));
