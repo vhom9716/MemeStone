@@ -6,8 +6,6 @@ import battle.BattleBackend;
 import battle.Player;
 /**
  * Made act(Player player) that changes the player's property
- * @author Jason Yan
- *
  */
 public class Deck{
 	//25

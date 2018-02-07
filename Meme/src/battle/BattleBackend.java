@@ -23,7 +23,7 @@ public class BattleBackend {
 	public int cpuBoardNum;
 	
 	public String move;
-	public Deck newDeck;
+	public static Deck newDeck = new Deck();
 
 	
 	public BattleBackend() {
@@ -31,7 +31,7 @@ public class BattleBackend {
 		playerTurn = true;
 		cpuTurn = false;
 		
-		player = new Player();
+		player = new Player("Bob", 100, 30, 10, 0, newDeck.deck,null);
 		cpu = new AI();
 		
 		selectedCard = null;
@@ -44,8 +44,9 @@ public class BattleBackend {
 		cpuBoardNum = 0;
 		
 		move = "";
-		newDeck = new Deck();
 	//	newDeck.deck.get(0).a.act();
+		
+		player.drawcard(4);
 	}
 	
 	/**
@@ -58,7 +59,11 @@ public class BattleBackend {
 			refreshMana();
 			player.drawcard(1);
 			cpu.draw();
-			playerTurn();
+			playerTurn= true;
+			//playerTurn();
+			while(playerTurn) {
+				
+			}
 			cpuTurn();
 			checkStatus();
 		}
@@ -82,8 +87,8 @@ public class BattleBackend {
 		
 	}
 
-	public void playerTurn() {
-		/*while(playerTurn) {
+	/*public void playerTurn() {
+		while(playerTurn) {
 			if (move.equals("attack")) {
 				attack(selectedCard, opponentCard);
 			}
@@ -91,11 +96,11 @@ public class BattleBackend {
 				selectedCard.playEffect();
 			}
 			
-		}*/
-	}
+		}
+	}*/
 	
 	public void cpuTurn() {
-		
+		cpu.executeTurn();
 	}
 	/**
 	 * Monster card attacks another monster card

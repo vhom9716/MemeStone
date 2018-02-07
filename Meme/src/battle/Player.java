@@ -21,7 +21,8 @@ public class Player {
 		this.name=name;
 		this.health=health;
 		this.deck=deck;
-		this.hand=hand;
+		//this.hand=hand;
+		hand = new ArrayList<Card>();
 		this.currentmana=mana;
 		this.maxmana=maxmana;
 		this.gold=gold;
