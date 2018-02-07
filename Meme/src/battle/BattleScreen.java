@@ -68,7 +68,7 @@ import menu.Menu;
 		viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png")); 
 		
 		//cardsInHand = backend.player.getHand();
-		updateHand();
+		updateHand(); 
 		for(int i = 0; i < currentHand.size(); i++) { 
 			viewObjects.add(currentHand.get(i));
 			System.out.println("a");
