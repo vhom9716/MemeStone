@@ -23,7 +23,7 @@ public class ClickableGraphic extends Button{
 	
 	
 	public void act() {
-		Deck.userDeck.add(EditorScreen.page1[cardIndex]);
+		EditorScreen.playerDeck.addCard(EditorScreen.page1[cardIndex]);
 		Menu.screen4.updateDeck();
 		Menu.screen4.createButton();
 	}

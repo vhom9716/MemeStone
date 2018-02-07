@@ -52,13 +52,17 @@ public class EditorScreen extends FullFunctionScreen {
 	private Button cardButton;
 	//each button will be 40 pixels high and 100 wide
 	
+	static Deck playerDeck;
+	
 	public EditorScreen(int width, int height) {
 		super(width, height);
+	
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
+		playerDeck = new Deck();
 		background = new Graphic(0, 0, 1440, 824, "resources/CardBackgroundFinal.png");
 		String amt1 = Integer.toString(page1[0].getAmt());
 		String amt2 = Integer.toString(page1[1].getAmt());
@@ -101,7 +105,6 @@ public class EditorScreen extends FullFunctionScreen {
 			}
 		});
 		emptyButton = new Button(50,200,200,100,"Clear Deck", emptyDeck());
-	
 		
 		viewObjects.add(background);
 		//viewObjects.add(pane);
@@ -114,7 +117,7 @@ public class EditorScreen extends FullFunctionScreen {
 		viewObjects.add(picture2amt);
 		viewObjects.add(picture3amt);
 		viewObjects.add(picture4amt);
-		Button menu = new Button(20, 30,100,30,"Back to Menu",new Action() {
+		Button menu = new Button(30, 50, 300,80," ",new Action() {
 			@Override
 			public void act() {
 				Menu.menu.setScreen(Menu.screen1);
@@ -128,8 +131,7 @@ public class EditorScreen extends FullFunctionScreen {
 		viewObjects.add(emptyButton);
 	}
 
-	public void updateCards() {		
-		
+	public void updateCards() {
 		card1 = page1[4*(pageNumber-1)];
 		picture1.setGraphic(card1.getLocation(), (4*(pageNumber-1)));
 		
