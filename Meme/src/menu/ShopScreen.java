@@ -35,12 +35,12 @@ public class ShopScreen extends FullFunctionScreen {
 			
 			@Override
 			public void act() {
-				int getCard;
+				int getCards;
 				if (gold >= 100){
 					gold = (int) (Math.random()*100);
-//					if(getCards > 95) {
-//						
-//					}
+					if(getCards > 95) {
+						
+					}
 				}
 				//Do stuff so you get 5 cards.
 				//Animate the cards so they all are revealed at the same time.
