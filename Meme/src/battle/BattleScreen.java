@@ -69,7 +69,7 @@ import menu.Menu;
 		
 		//cardsInHand = backend.player.getHand();
 		updateHand();
-		for(int i = 0; i < currentHand.size(); i++) {
+		for(int i = 0; i < currentHand.size(); i++) { 
 			viewObjects.add(currentHand.get(i));
 			System.out.println("a");
 		}
