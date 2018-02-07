@@ -1,5 +1,49 @@
 package menu;
 
-public class MenuScreen {
-	//saaasda
+import java.awt.Color;
+import java.util.List;
+
+import guiTeacher.components.*;
+import guiTeacher.interfaces.Visible;
+import guiTeacher.userInterfaces.FullFunctionScreen;
+
+public class MenuScreen extends FullFunctionScreen {
+
+	private static final long serialVersionUID = 258186143576427947L;
+	AnimatedComponent mario;
+ 
+	public MenuScreen(int width, int height) {
+		super(width, height);
+		// TODO Auto-generated constructor stub 
+	}
+
+	@Override
+	public void initAllObjects(List<Visible> viewObjects) {
+		viewObjects.add(new StretchGraphic(0, 0, getWidth(),getHeight(),"resources/Menu1440_824.png"));
+		Button openShop = new Button(650,700,120,30,"Buy Cards Temp",new Action() {
+			
+			@Override
+			public void act() {
+				Menu.menu.setScreen(Menu.screen2);
+			}
+		});
+		viewObjects.add(openShop);
+		Button openBattle = new Button(570, 270,300,60,"Playtemp",new Action() {
+			
+			@Override
+			public void act() {
+				Menu.menu.setScreen(Menu.screen3);
+			}
+		});
+		viewObjects.add(openBattle);
+		Button openDeck = new Button(500, 340,400,60,"deckTemp",new Action() {
+			
+			@Override
+			public void act() {
+				Menu.menu.setScreen(Menu.screen4);
+			}
+		});
+		viewObjects.add(openDeck);
+	}
+
 }

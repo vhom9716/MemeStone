@@ -19,7 +19,7 @@ public class BattleGUI extends GUIApplication {
 	}
 
 	public static void main(String[] args) {
-		gui = new BattleGUI(1800,1030);
+		gui = new BattleGUI(1440,824);
 		Thread go = new Thread(gui);
 		go.start();
 	
@@ -29,3 +29,4 @@ public class BattleGUI extends GUIApplication {
 		System.exit(0);
 	}
 }
+  

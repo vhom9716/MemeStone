@@ -241,7 +241,7 @@ public class Button extends TextLabel implements Clickable{
 		}
 		return hovered;
 	}
-	
+	  
 	/**
 	 * called automatically when this Button is clicked
 	 */

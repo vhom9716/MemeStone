@@ -98,9 +98,9 @@ public class AI {
 	 * checks various things to see if turn is done
 	 * first if there are playable cards in hand,
 	 * then if there are available monsterAttacks.
-	 * @return
+	 * @return 
 	 */
-	private boolean checkTurnDone() {
+	public boolean checkTurnDone() {
 		if(checkManaCostsInHand()) {
 			return true;
 		}else {

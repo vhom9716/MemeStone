@@ -29,7 +29,7 @@ import guiTeacher.interfaces.Visible;
 
 public class Graphic implements Visible {
 
-	private BufferedImage image;
+	protected BufferedImage image;
 	private boolean loadedImages;
 	private float alpha;
 	private int x;
