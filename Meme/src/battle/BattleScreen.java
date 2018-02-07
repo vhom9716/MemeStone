@@ -2,6 +2,7 @@ package battle;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ import menu.Menu;
 		a.setAction(new Action() {
 			public void act() {
 			//	backend.playCard(backend.player.hand.get(0), 0);
-				activateCardMon();
+				activateCardMon(a);
 				for(int i = 0;i<currentField.size();i++) {
 					viewObjects.add(currentField.get(i));
 				}
@@ -143,6 +144,15 @@ import menu.Menu;
 				System.out.println("dfsdf");
 			}
 		}));
+		Graphic deck = new Graphic(1200, 600, 100, 200, "resources/cardBack.png");
+		viewObjects.add(deck);
+		ClickableGraphic end = new ClickableGraphic(1300, 400, 100, 60, "resources/endturn.png");
+		end.setAction(new Action() {
+			public void act() {
+				System.out.println("heh");
+			}
+		}); 
+		viewObjects.add(end);
 		
 	//	ClickableGraphic test = new ClickableGraphic(300,460,120,160, "resources/dog.png");
 	//	viewObjects.add(test);
@@ -151,7 +161,7 @@ import menu.Menu;
 		currentHand.remove(card);
 		updateHand();
 		updateField();
-		update();
+		update(); 
 	}
 	public void activateCardSpell(int pos) {
 		
@@ -173,14 +183,14 @@ import menu.Menu;
 	public void updateField() {
 		int counter = 300;
 			if (currentField.size()<=0) {
-			currentField.add(new Graphic(counter, 460, 120, 160, "resources/dog.png"));
+			currentField.add(new ClickableGraphic(counter, 460, 120, 160, "resources/dog.png"));
 			counter= counter+ 100;
 			}
 			else {
 				for(int i =0; i<currentField.size();i++) {
 					counter= counter+100;
 				}
-				currentField.add(new Graphic(counter, 460, 120, 160, "resources/dog.png"));
+				currentField.add(new ClickableGraphic(counter, 460, 120, 160, "resources/dog.png"));
 			}
 	}
 }
