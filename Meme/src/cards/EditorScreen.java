@@ -1,5 +1,6 @@
 package cards;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import guiPlayer.CustomPane;
@@ -47,6 +48,8 @@ public class EditorScreen extends FullFunctionScreen {
 	private int pageNumber = 1;
 	private int deckSize = Deck.userDeck.size();
 	private int currentY = 100;
+	private int currentButtonCount = 0;
+	private Button cardButton;
 	//each button will be 40 pixels high and 100 wide
 	
 	public EditorScreen(int width, int height) {
@@ -179,7 +182,17 @@ public class EditorScreen extends FullFunctionScreen {
 		return null;
 	}
 	
-	public void showCard() {
-		
+	public void createButton() {
+		currentY = 100;
+		for(Card c: Deck.userDeck) {
+			cardButton= new Button(1000, currentY, 150,40,c.getName(), Color.white, new Action() {
+				
+				@Override
+				public void act() {
+					Deck.userDeck.remove(c);
+				}
+			});
+			currentY += 40;
+		}
 	}
 }

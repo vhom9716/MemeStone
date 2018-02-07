@@ -24,11 +24,8 @@ public class ClickableGraphic extends Button{
 	
 	public void act() {
 		Deck.userDeck.add(EditorScreen.page1[cardIndex]);
-		//for starting on the editor screen
-		//DeckEditorGUI.screen2.updateDeck();
-		
-		//for starting on the main menu
 		Menu.screen4.updateDeck();
+		Menu.screen4.createButton();
 	}
 	
 	@Override
