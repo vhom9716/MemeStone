@@ -122,7 +122,7 @@ public class Deck{
 		public void act() {
 			
 		}
-
+ 
 		@Override
 		public void act(Player player, BattleBackend backend) {
 			// TODO Auto-generated method stub
