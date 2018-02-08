@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.List;
 
 import cards.Card;
+import cards.Deck;
 import guiTeacher.components.*;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
@@ -14,6 +15,7 @@ public class ShopScreen extends FullFunctionScreen {
 	
 	public int gold;
 	private Card[] cardsChosen;
+	private Deck[] cardsOwned;
 	
 	public ShopScreen(int width, int height) {
 		super(width, height);
@@ -37,10 +39,10 @@ public class ShopScreen extends FullFunctionScreen {
 			public void act() {
 				int getCard;
 				if (gold >= 100){
-					gold = (int) (Math.random()*100);
-//					if(getCards > 95) {
-//						
-//					}
+					getCard = (int) (Math.random()*100);
+					if(getCard > 94) {
+						deck.add()
+					}
 				}
 				//Do stuff so you get 5 cards.
 				//Animate the cards so they all are revealed at the same time.

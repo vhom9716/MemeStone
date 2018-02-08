@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Deck {
 	//25
-	static Card IQ = new SpellCard("200 IQ",2,"Draw a random minion from deck",2);
-	static Card Doge = new MonsterCard("Doge",6,"Taunt",null, 1, 6, 6);
+	static Card IQ = new SpellCard("200 IQ",2,"Draw a random minion from deck",2);//last int is amt
+	static Card Doge = new MonsterCard("Doge",6,"Taunt",null, 1, 6, 6);//third to last int is amt
 	static Card UltraMegaChicken = new MonsterCard("UltraMegaChicken",2,"",null, 3, 3, 3);
 	static Card OmaeWaMouShindeiru = new SpellCard("Omae wa mou Shindeiru",7, "Damage the hero 15 health", 1);
 	static Card Pikachu = new MonsterCard("Pikachu",4,"Battlecry",null, 1, 7, 7);
