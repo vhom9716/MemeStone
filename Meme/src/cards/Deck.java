@@ -95,7 +95,7 @@ public class Deck{
 			// TODO Auto-generated method stub
 			
 		}
-	}, "theexecutiveproducer.png");
+	}, "resources/theexecutiveproducter.png");
 	static public Card RainbowDash = new MonsterCard("Rainbow Dash!",3,"Charge",null, 2,5,1, false, new Action() {
 		public void act() {
 			
@@ -181,13 +181,30 @@ public class Deck{
 			
 		}
 	}, "resources/sevendragonballs.png");
-
+	
+	public ArrayList<Card> collection;
 	public ArrayList<Card> deck= new ArrayList<Card>();
 	public Deck() {
+		collection = new ArrayList<Card>();
 		deck = new ArrayList<Card>();
+		collection.add(IQ);
+		collection.add(Doge);
+		collection.add(UltraMegaChicken);
+		collection.add(OmaeWaMouShindeiru);
+		collection.add(Pikachu);
+		collection.add(PotOfGreed);
+		collection.add(TheExcutiveProducer);
+		collection.add(RainbowDash);
+		collection.add(SaltBae);
+		collection.add(ScrewTheRulesIHaveMoney);
+		collection.add(Shenron);
+		collection.add(DewYuKnoDeWae);
+		collection.add(UWot);
+		collection.add(WTF);
+		collection.add(DragonBalls);
 		for(int i = 0; i<10; i++) {
-			//addCard(Doge);
-			deck.add(Doge);
+		//	int r =  (int) Math.floor(Math.random() * 14);
+			deck.add(collection.get(6));
 		}
 	}
 

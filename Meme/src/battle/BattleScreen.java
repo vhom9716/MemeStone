@@ -71,8 +71,8 @@ import menu.Menu;
 		//Temp. For testing
 		//Stuff will be changed in backend
 		for(int i = 0; i < 4; i++) {
-			System.out.println(BattleBackend.player.hand.get(0).getImage());
-			currentHandImages.add(BattleBackend.player.hand.get(0).getImage());
+			System.out.println(BattleBackend.player.hand.get(i).getImage());
+			currentHandImages.add(BattleBackend.player.hand.get(i).getImage());
 		}
 		//cardsInHand = backend.player.getHand();
 		
