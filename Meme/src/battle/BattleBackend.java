@@ -31,7 +31,7 @@ public class BattleBackend {
 		playerTurn = true;
 		cpuTurn = false;
 		
-		player = new Player("Bob", 100, 30, 10, 0, newDeck.deck,null);
+		//player = new Player("Bob", 100, 30, 10, 0, newDeck.deck,null);
 		cpu = new AI();
 		
 		selectedCard = null;
@@ -46,7 +46,7 @@ public class BattleBackend {
 		move = "";
 	//	newDeck.deck.get(0).a.act();
 		
-		player.drawcard(4);
+		//player.drawcard(4);
 	}
 	
 	/**

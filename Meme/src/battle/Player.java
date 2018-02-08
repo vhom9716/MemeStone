@@ -26,7 +26,7 @@ public class Player {
 		this.currentmana=mana;
 		this.maxmana=maxmana;
 		this.gold=gold;
-		sendinfortofront();
+		//sendinfortofront();
 	}
 
 	public ArrayList<Card> getDeck() {
