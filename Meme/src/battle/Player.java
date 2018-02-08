@@ -22,7 +22,7 @@ public class Player {
 		this.health=health;
 		this.deck=deck;
 		//this.hand=hand;
-		hand = new ArrayList<Card>();
+		this.hand = new ArrayList<Card>();
 		this.currentmana=mana;
 		this.maxmana=maxmana;
 		this.gold=gold;
@@ -74,13 +74,15 @@ public class Player {
 			System.out.println("out of cards");
 			health--;
 		}else {
-			while(amount<=0) {
+			while(amount>0) {
+				System.out.println(deck.size());
 				Card x = deck.get(0);
+			
 				deck.remove(0);
 				hand.add(x);
 				checkhand();
 				amount--;
-				menu.Menu.screen3.drawACard(x.getImage());
+				//menu.Menu.screen3.drawACard(x.getImage());
 			}
 			
 		}

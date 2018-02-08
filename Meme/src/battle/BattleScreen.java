@@ -58,6 +58,7 @@ import menu.Menu;
 	}
 	
 	public void initAllObjects(List<Visible> viewObjects) {
+		BattleBackend.player.drawcard(4);
 		cardsInHand = new ArrayList<Card>();
 		cardsOnField = new ArrayList<Card>();
 		handSlots = new ArrayList<CardButton>();
@@ -69,13 +70,9 @@ import menu.Menu;
 		
 		//Temp. For testing
 		//Stuff will be changed in backend
-		cardsInHand.add(Deck.Shenron);
-		cardsInHand.add(Deck.Pikachu);
-		cardsInHand.add(Deck.UltraMegaChicken);
-		cardsInHand.add(Deck.RainbowDash);
-		
-		for(Card a: cardsInHand) {
-			currentHandImages.add(a.getImage());
+		for(int i = 0; i < 4; i++) {
+			System.out.println(BattleBackend.player.hand.get(0).getImage());
+			currentHandImages.add(BattleBackend.player.hand.get(0).getImage());
 		}
 		//cardsInHand = backend.player.getHand();
 		
@@ -120,11 +117,18 @@ import menu.Menu;
 		}));
 		Graphic deck = new Graphic(1200, 600, 100, 200, "resources/cardBack.png");
 		viewObjects.add(deck);
+		
 		ClickableGraphic end = new ClickableGraphic(1300, 400, 100, 60, "resources/endturn.png");
 		end.setAction(new Action() {
 			public void act() {
 				System.out.println("heh");
-				drawACard(Deck.SaltBae);
+				ArrayList<Card> hand = BattleBackend.player.hand;
+				ArrayList<Card> deck = BattleBackend.player.deck;
+				if(deck.size() > 0) {
+					BattleBackend.player.drawcard(1); 
+					currentHandImages.add(hand.get(hand.size() - 1).getImage());
+					updateHand();
+				}
 			}
 		}); 
 		viewObjects.add(end);
@@ -153,13 +157,15 @@ import menu.Menu;
 				public void act() {
 					//this fails if the number of cards in cardsInHand is not at max. 
 					//So we set a temp hand at creation, then we can update with the real hand.
-					if(cardsInHand.get(pos) instanceof MonsterCard) {
-						activateCardMon(cardsInHand.get(pos));
+					if(BattleBackend.player.hand.get(pos) instanceof MonsterCard) {
+						activateCardMon(BattleBackend.player.hand.get(pos));
+						backend.playerBoard.add((MonsterCard) BattleBackend.player.hand.get(pos));
+						System.out.println(BattleBackend.player.deck.size());
 					}else {
-						activateCardSpell(cardsInHand.get(pos));
+						activateCardSpell(BattleBackend.player.hand.get(pos));
 					}
 					currentHandImages.remove(pos);
-					cardsInHand.remove(pos);
+					BattleBackend.player.hand.remove(pos);
 					updateHand();
 					//System.out.println(pos + currentHandImages.get(pos));
 				}

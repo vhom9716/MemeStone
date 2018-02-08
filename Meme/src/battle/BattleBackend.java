@@ -10,7 +10,6 @@ public class BattleBackend {
 	public boolean playerTurn;
 	public boolean cpuTurn;
 	
-	public static Player player;
 	public AI cpu;
 	
 	public Card selectedCard;
@@ -25,6 +24,7 @@ public class BattleBackend {
 	public String move;
 	public static Deck newDeck = new Deck();
 
+	public static Player player = new Player("Bob", 100, 30, 10, 0, newDeck.deck, new ArrayList<Card>());
 	
 	public BattleBackend() {
 		running = true;
@@ -44,6 +44,8 @@ public class BattleBackend {
 		cpuBoardNum = 0;
 		
 		move = "";
+		
+	//	player.drawcard(4);
 	//	newDeck.deck.get(0).a.act();
 		
 		//player.drawcard(4);
