@@ -26,7 +26,7 @@ public class CardButton extends ClickableGraphic {
 		/**example fopr movement
 		int dx = getX();
 		int dy = getY();
-		setX(0);
+		setX(0);s
 		setY(0);
 		move(dx, dy, 500);
 		*/
