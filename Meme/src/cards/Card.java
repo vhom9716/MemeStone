@@ -56,13 +56,12 @@ public class Card{
 	public String getEffectTwo() {
 		return effect2;
 	}
+	
+	public String toString() {
+		return getName();
+		
+	}
 	public String getImage() {
 		return imageLoc;
 	}
-
-	
-
-	
-	
-	
 }

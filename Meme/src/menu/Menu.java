@@ -27,10 +27,11 @@ public class Menu extends GUIApplication {
 	
 	public static void main(String[] args){
 		menu = new Menu(1440, 824);
+		Thread go = new Thread(menu);
 		go = new Thread(menu);
 		go.start();
 	}
-  
+
     public static MenuScreen screen1; 
 
     public static ShopScreen screen2;
@@ -41,10 +42,10 @@ public class Menu extends GUIApplication {
 	 
 	@Override
 	public void initScreen() {
-		screen1 = new MenuScreen(1440, 824);
+		screen1 = new MenuScreen(getWidth(), getHeight());
 		screen2 = new ShopScreen(getWidth(), getHeight());
 		screen3 = new BattleScreen(1440, 824);
-		screen4 = new EditorScreen(1800, 1300);
+		screen4 = new EditorScreen(getWidth(), getHeight());
 		setScreen(screen1);
 	}
 }
