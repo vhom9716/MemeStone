@@ -45,7 +45,7 @@ public class EditorScreen extends FullFunctionScreen {
 	private Card card4 = page1[3];
 	
 	private int pageNumber = 1;
-	private int deckSize = Deck.userDeck.size();
+	private int deckSize = Deck.deck.size();
 	
 	public EditorScreen(int width, int height) {
 		super(width, height);
@@ -160,14 +160,14 @@ public class EditorScreen extends FullFunctionScreen {
 
 	public void updateDeck() {
 		String s = "Deck: ";
-		for(Card c: Deck.userDeck) {
+		for(Card c: Deck.deck) {
 			s += c;
 		}
 		currentDeckTest.setText(s);
 	}
 	
 	public Action addACard(Card card) {
-		Deck.userDeck.add(card);
+		Deck.deck.add(card);
 		updateDeck();
 		return null;
 	}
@@ -184,9 +184,9 @@ public class EditorScreen extends FullFunctionScreen {
 	}
 	
 	public Action emptyDeck() {
-		Deck.userDeck.clear();
+		Deck.deck.clear();
 		String s = "Cleared";
-		for(Card c: Deck.userDeck) {
+		for(Card c: Deck.deck) {
 			s+=c;
 		}
 		currentDeckTest.setText(s);

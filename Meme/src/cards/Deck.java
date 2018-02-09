@@ -22,7 +22,7 @@ public class Deck {
 	static Card WTF = new SpellCard("WTF?!?", 3, "Deals 3 damage to a random character",2,"resources/wtfs.png");
 	static Card DragonBalls = new SpellCard("Seven Dragon Balls", 10, "Summon Shenron",0,"resources/sevendragonballs.png");
 	
-	static ArrayList<Card> userDeck = new ArrayList<Card>();
+	public static ArrayList<Card> userDeck = new ArrayList<Card>();
 	
 	public Deck() {
 		userDeck = new ArrayList<Card>();
