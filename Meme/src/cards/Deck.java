@@ -150,7 +150,7 @@ public class Deck{
 			// TODO Auto-generated method stub
 			
 		}
-	}, "resources/dewyuknowdewae.png");
+	}, "resources/dewyuknodewae.png");
 	static public Card UWot = new MonsterCard("u wot", 1, null, null, 3,1,1, false, new Action() {
 		public void act() {
 			
@@ -203,8 +203,8 @@ public class Deck{
 		collection.add(WTF);
 		collection.add(DragonBalls);
 		for(int i = 0; i<10; i++) {
-		//	int r =  (int) Math.floor(Math.random() * 14);
-			deck.add(collection.get(6));
+			int r =  (int) Math.floor(Math.random() * 14);
+			deck.add(collection.get(r));
 		}
 	}
 
