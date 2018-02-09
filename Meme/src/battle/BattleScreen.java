@@ -157,6 +157,8 @@ import menu.Menu;
 				public void act() {
 					//this fails if the number of cards in cardsInHand is not at max. 
 					//So we set a temp hand at creation, then we can update with the real hand.
+					
+					//if the user keeps adding cards past the hand limit, playing the cards wont work properly. 
 					if(BattleBackend.player.hand.get(pos) instanceof MonsterCard) {
 						activateCardMon(BattleBackend.player.hand.get(pos));
 						backend.playerBoard.add((MonsterCard) BattleBackend.player.hand.get(pos));
