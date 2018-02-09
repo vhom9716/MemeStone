@@ -32,7 +32,7 @@ public class Menu extends GUIApplication {
 		go.start();
 	}
 
-    public static MenuScreen screen1; 
+    public static MenuScreen screen1;  
 
     public static ShopScreen screen2;
     
