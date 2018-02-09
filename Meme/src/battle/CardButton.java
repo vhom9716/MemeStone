@@ -23,6 +23,13 @@ public class CardButton extends ClickableGraphic {
 	
 	//on hover add border
 	public void changeCardImage(String location, int w, int h) {
+		/**example fopr movement
+		int dx = getX();
+		int dy = getY();
+		setX(0);
+		setY(0);
+		move(dx, dy, 500);
+		*/
 		loadImages(location, w, h);
 	}
 	
