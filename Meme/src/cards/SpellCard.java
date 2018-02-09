@@ -4,9 +4,9 @@ public class SpellCard extends Card {
 
 	private String effect;
 	
-	public SpellCard(String name, int cost,String effect,int amt, String location) {
+	public SpellCard(String name, int cost,String effect,int amt, Action a, String imageLoc) {
 		
-		super(name, cost, effect, null, amt, location);
+		super(name, cost, effect, null, amt, a, imageLoc);
 		// TODO Auto-generated constructor stub
 		
 	}

@@ -1,24 +1,34 @@
 package cards;
 
-public class Card {
-
+public class Card{
+	public Action a;
 	private String name;
 	private int cost;
 	private String effect;
 	private String effect2;
 	private int amt;
-	private String location;
-	
-	public Card(String name, int cost, String effect, String effect2, int amt, String location) {
+	private String imageLoc;
+	/**
+	 * Action a - Passes in a new action so that you can create a method for each individual cards	
+	 * 
+	 * @param name
+	 * @param cost
+	 * @param effect
+	 * @param effect2
+	 * @param amt
+	 * @param a
+	 * @author Jason Yan
+	 */
+	public Card(String name, int cost, String effect, String effect2, int amt, Action a, String imageLoc) {
 		this.name = name;
 		this.effect2 = effect2;
 		this.cost = cost;
 		this.amt = amt;
 		this.effect = effect;
-		this.location = location;
+		this.a = a;
+		this.imageLoc = imageLoc;
 	}
 
-	
 	public void setName(String s) {
 		this.name = s;
 	}
@@ -31,7 +41,7 @@ public class Card {
 		return name;
 	}
 	
-	public int getCost() {
+	public int getCost() { 
 		return cost;
 	}
 	
@@ -51,8 +61,7 @@ public class Card {
 		return getName();
 		
 	}
-	
-	public String getLocation() {
-		return location;
+	public String getImage() {
+		return imageLoc;
 	}
 }
