@@ -35,7 +35,7 @@ public class Menu extends GUIApplication {
     public static MenuScreen screen1; 
 
     public static ShopScreen screen2;
-    
+     
     public static BattleScreen screen3;
 	
     public static EditorScreen screen4;
