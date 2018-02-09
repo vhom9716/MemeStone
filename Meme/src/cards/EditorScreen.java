@@ -1,5 +1,6 @@
 package cards;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import guiPlayer.CustomPane;
@@ -15,13 +16,13 @@ import menu.Menu;
 
 public class EditorScreen extends FullFunctionScreen {
 
-	private DeckPane pane;
+	//private DeckPane pane;
 	private TextArea deckCapacity;
 	private TextArea pageNumberArea;
-	private ClickableGraphic picture1;
-	private ClickableGraphic picture2;
-	private ClickableGraphic picture3;
-	private ClickableGraphic picture4;
+	private ClickableGraphicEditor picture1;
+	private ClickableGraphicEditor picture2;
+	private ClickableGraphicEditor picture3;
+	private ClickableGraphicEditor picture4;
 	private Graphic background;
 	private TextArea picture1amt;
 	private TextArea picture2amt;
@@ -45,28 +46,49 @@ public class EditorScreen extends FullFunctionScreen {
 	private Card card4 = page1[3];
 	
 	private int pageNumber = 1;
-	private int deckSize = Deck.deck.size();
+	private int deckSize = Deck.userDeck.size();
+	private int currentY = 100;
+	private int currentButtonCount = 0;
+	private Button cardButton;
+	
+
+	private Button[] cardsChosen;
+	/*= 
+	*/
+	
+	//each button will be 40 pixels high and 100 wide
+	
+	static Deck playerDeck;
+
 	
 	public EditorScreen(int width, int height) {
 		super(width, height);
+	
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
+	
+	private Action removeCard(int index) {
+		cardsChosen[index].setText("");
+		return null;
+	}
+
 	public void initAllObjects(List<Visible> viewObjects) {
+		cardsChosen = new Button[16];
+		playerDeck = new Deck();
 		background = new Graphic(0, 0, 1440, 824, "resources/CardBackgroundFinal.png");
 		String amt1 = Integer.toString(page1[0].getAmt());
 		String amt2 = Integer.toString(page1[1].getAmt());
 		String amt3 = Integer.toString(page1[2].getAmt());
 		String amt4 = Integer.toString(page1[3].getAmt());
-		pane = new DeckPane(this, 1200, 100,150,600);
-		pane.update();
+		//pane = new DeckPane(this, 1200, 100,150,600);
+		//pane.update();
 		deckCapacity = new TextArea(1200,700,150,40,deckSize+"/15");
 		
-		picture1 = new ClickableGraphic(300,20,"resources/200iq.png",0);
-		picture2 = new ClickableGraphic(700,20,"resources/dewyuknodewae.png",1);
-		picture3 = new ClickableGraphic(300,400,"resources/dog.png",2);
-		picture4 = new ClickableGraphic(700,400,"resources/omaewa.png",3);
+		picture1 = new ClickableGraphicEditor(300,20, 250, 350, "resources/200iq.png",0);
+		picture2 = new ClickableGraphicEditor(700,20, 250, 350, "resources/dewyuknodewae.png",1);
+		picture3 = new ClickableGraphicEditor(300,400, 250, 350, "resources/dog.png",2);
+		picture4 = new ClickableGraphicEditor(700,400, 250, 350, "resources/omaewa.png",3);
 		
 		picture1amt = new TextArea(330,360,200,150,amt1);
 		picture2amt = new TextArea(730,360,200,150,amt2);
@@ -95,11 +117,21 @@ public class EditorScreen extends FullFunctionScreen {
 				}
 			}
 		});
-		emptyButton = new Button(50,200,200,100,"Clear Deck",emptyDeck());
-	
+		emptyButton = new Button(50,200,200,100,"Clear Deck", emptyDeck());
+		int counter = 140;
+		for(int i = 0; i < 16; i++) {
+			Button a = new Button(1000,counter,100,40,"hi", null);
+			//a.setVisible(false);
+			viewObjects.add(a);
+			System.out.println(a.getText());
+			cardsChosen[i] = a;
+			a.setAction(removeCard(i));
+			counter += 40;
+		}
+		
 		
 		viewObjects.add(background);
-		viewObjects.add(pane);
+		//viewObjects.add(pane);
 		viewObjects.add(deckCapacity);
 		viewObjects.add(picture1);
 		viewObjects.add(picture2);
@@ -109,7 +141,7 @@ public class EditorScreen extends FullFunctionScreen {
 		viewObjects.add(picture2amt);
 		viewObjects.add(picture3amt);
 		viewObjects.add(picture4amt);
-		Button menu = new Button(20, 30,100,30,"Back to Menu",new Action() {
+		Button menu = new Button(30, 50, 300,80," ",new Action() {
 			@Override
 			public void act() {
 				Menu.menu.setScreen(Menu.screen1);
@@ -123,36 +155,24 @@ public class EditorScreen extends FullFunctionScreen {
 		viewObjects.add(emptyButton);
 	}
 
-	/**private Action move(String string) {
-		if(string.equals("left")) {
-			if(pageNumber != 1) {
-				pageNumber--;
-				changeCards();
-			}
-		} 
-		if(string.equals("right")) {
-			if(pageNumber != 4) {
-				pageNumber++;
-				changeCards();
-			}
-		}
-		return null;
-	}*/
+	public void changeText() {
+		cardsChosen[1].setText("LOL");
+		cardsChosen[1].setVisible(true);
+	}
 
-	public void updateCards() {		
-		
+	public void updateCards() {
 		card1 = page1[4*(pageNumber-1)];
-		picture1.setGraphic(card1.getLocation(), (4*(pageNumber-1)));
+		picture1.setGraphic(card1.getLocation(), (4*(pageNumber-1)), 250, 350);
 		
 		card2 = page1[(4*(pageNumber-1))+1];
-		picture2.setGraphic(card2.getLocation(), (4*(pageNumber-1))+1);
+		picture2.setGraphic(card2.getLocation(), (4*(pageNumber-1))+1, 250, 350);
 		
 		card3 = page1[(4*(pageNumber-1))+2];
-		picture3.setGraphic(card3.getLocation(), (4*(pageNumber-1))+2);
+		picture3.setGraphic(card3.getLocation(), (4*(pageNumber-1))+2, 250, 350);
 		
 		if(pageNumber != 4) {
 			card4 = page1[(4*(pageNumber-1))+3];
-			picture4.setGraphic(card4.getLocation(), (4*(pageNumber-1))+3);
+			picture4.setGraphic(card4.getLocation(), (4*(pageNumber-1))+3, 250, 350);
 		} else {
 			card4 = null;
 		}
@@ -193,7 +213,17 @@ public class EditorScreen extends FullFunctionScreen {
 		return null;
 	}
 	
-	public void showCard() {
-		
+	public void createButton() {
+		currentY = 100;
+		for(Card c: Deck.userDeck) {
+			cardButton= new Button(1000, currentY, 150,40,c.getName(), Color.white, new Action() {
+				
+				@Override
+				public void act() {
+					Deck.userDeck.remove(c);
+				}
+			});
+			currentY += 40;
+		}
 	}
 }

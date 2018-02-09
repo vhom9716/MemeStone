@@ -6,7 +6,7 @@ import guiTeacher.components.Action;
 
 public class Deck {
 	//25
-	static Card IQ = new SpellCard("200 IQ",2,"Draw a random minion from deck",2,"resources/200iq.png");
+	static Card IQ = new SpellCard("200 IQ",2,"Draw a random minion from deck",2,"resources/200iq.png"); 
 	static Card Doge = new MonsterCard("Doge",6,"Taunt",null, 1, 6, 6,"resources/dog.png");
 	static Card UltraMegaChicken = new MonsterCard("UltraMegaChicken",2,"",null, 3, 3, 3,"resources/UltraMegaChicken.png");
 	static Card OmaeWaMouShindeiru = new SpellCard("Omae wa mou Shindeiru",7, "Damage the hero 15 health", 1,"resources/omaewa.png");
@@ -22,18 +22,25 @@ public class Deck {
 	static Card WTF = new SpellCard("WTF?!?", 3, "Deals 3 damage to a random character",2,"resources/wtfs.png");
 	static Card DragonBalls = new SpellCard("Seven Dragon Balls", 10, "Summon Shenron",0,"resources/sevendragonballs.png");
 	
-	public static ArrayList<Card> userDeck = new ArrayList<Card>();
+
+
+
+	static ArrayList<Card> userDeck = new ArrayList<Card>();
+	
+	public static Deck playerDeck;
+
 	
 	public Deck() {
 		userDeck = new ArrayList<Card>();
-		for(int i = 0; i <10; i++) {
-			//addCard(Doge);
-			userDeck.add(Doge);
-		}
+		//for(int i = 0; i <10; i++) {
+		//	addCard(Doge);
+		//	userDeck.add(Doge);
+		//}
 	}
 
 	public static void main(String[] args) {
 		userDeck = new ArrayList<Card>(); 
+		playerDeck = new Deck();
 	}
 
 	public void addCard(Card card) {
