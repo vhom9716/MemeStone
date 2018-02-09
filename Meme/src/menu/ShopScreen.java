@@ -17,15 +17,26 @@ public class ShopScreen extends FullFunctionScreen {
 	public int gold;
 	private Card[] cardsChosen;
 	private Deck[] cardsOwned;
+	public TextArea tempCardDis;
 	
 	public ShopScreen(int width, int height) {
 		super(width, height);
-		gold = 0;
+		
 	}
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
+		gold = 400;
 		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/ShopFinal2.png"));
+		tempCardDis = new TextArea(500, 500, 400, 200, "");
+		tempCardDis.setCustomTextColor(Color.WHITE);
+		tempCardDis.setSize(29);
+		viewObjects.add(tempCardDis);
+		TextLabel displayGold = new TextLabel(383, 15,200,200,Integer.toString(gold));
+		displayGold.setCustomTextColor(Color.WHITE);
+		displayGold.setSize(29);
+		displayGold.setText(Integer.toString(gold));
+		viewObjects.add(displayGold);
 		Button open = new Button((getWidth()-1500)/2,getHeight()-40,400,55," ",new Action() {
 			
 			@Override
@@ -38,24 +49,30 @@ public class ShopScreen extends FullFunctionScreen {
 			
 			@Override
 			public void act() {
-				int getCards;
+				//int getCards;
+				String s = "You have obtained:";
 				if (gold >= 100) {
-					int getCard = (int) (Math.random()*100);
-					if(getCard > 94) {
-					//	Player.Deck.addCard(null);
+					gold -= 100;
+					tempCardDis.setText("");
+					int getCard = (int) (Math.random()*15);
+					for(int i = 0; i < 5; i++) {
+						Card c = Deck.collection.get(getCard);
+						s += c.getName() + ", ";
+						c.setAmt(c.getAmt()+1);
+						getCard = (int) (Math.random()*15);
 					}
+					displayGold.setText(Integer.toString(gold));
+					tempCardDis.setText(s);
+				}else {
+					tempCardDis.setText("You do not have enough gold");
 				}
+				
 				//Do stuff so you get 5 cards.
 				//Animate the cards so they all are revealed at the same time.
 			}
 		});
 		viewObjects.add(buyPack);
-		TextLabel displayGold = new TextLabel(383, 15,200,200,Integer.toString(gold));
-		displayGold.setCustomTextColor(Color.WHITE);
-		displayGold.setSize(29
-				);
-		displayGold.setText(Integer.toString(gold));
-		viewObjects.add(displayGold);
+		
 	}
 	
 }

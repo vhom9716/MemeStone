@@ -29,7 +29,7 @@ public class ClickableGraphicEditor extends ClickableGraphic{
 //	
 	
 	public void act() {
-		EditorScreen.playerDeck.addCard(EditorScreen.page1[cardIndex]);
+		EditorScreen.playerDeck.add(EditorScreen.page1[cardIndex]);
 		Menu.screen4.updateDeck();
 		Menu.screen4.createButton();
 		Menu.screen4.changeText();

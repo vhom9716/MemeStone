@@ -38,7 +38,7 @@ public class EditorScreen extends FullFunctionScreen {
 	public static Card[] page1 = {Deck.IQ, Deck.DewYuKnoDeWae, Deck.Doge, Deck.OmaeWaMouShindeiru,
 								  Deck.Pikachu, Deck.PotOfGreed, Deck.RainbowDash, Deck.SaltBae,
 								  Deck.ScrewTheRulesIHaveMoney, Deck.DragonBalls, Deck.Shenron,Deck.TheExcutiveProducer,
-								  Deck.UltraMegaChicken, Deck.UWot, Deck.WTF};
+								  Deck.UltraMegaChicken, Deck.UWot, Deck.WTF, null};
 	
 	private Card card1 = page1[0];
 	private Card card2 = page1[1];
@@ -46,7 +46,7 @@ public class EditorScreen extends FullFunctionScreen {
 	private Card card4 = page1[3];
 	
 	private int pageNumber = 1;
-	private int deckSize = Deck.userDeck.size();
+	private int deckSize;
 	private int currentY = 100;
 	private int currentButtonCount = 0;
 	private Button cardButton;
@@ -58,7 +58,7 @@ public class EditorScreen extends FullFunctionScreen {
 	
 	//each button will be 40 pixels high and 100 wide
 	
-	static Deck playerDeck;
+	static ArrayList<Card> playerDeck;
 
 	
 	public EditorScreen(int width, int height) {
@@ -75,7 +75,7 @@ public class EditorScreen extends FullFunctionScreen {
 
 	public void initAllObjects(List<Visible> viewObjects) {
 		cardsChosen = new Button[16];
-		playerDeck = new Deck();
+		playerDeck = new ArrayList<Card>();
 		background = new Graphic(0, 0, 1440, 824, "resources/CardBackgroundFinal.png");
 		String amt1 = Integer.toString(page1[0].getAmt());
 		String amt2 = Integer.toString(page1[1].getAmt());
@@ -95,7 +95,9 @@ public class EditorScreen extends FullFunctionScreen {
 		picture3amt = new TextArea(330,740,200,150,amt3);
 		picture4amt = new TextArea(730,740,200,150,amt4);
 		
-		currentDeckTest = new TextArea(200,30,300,300,"");
+		currentDeckTest = new TextArea(1000,100,300,600,"");
+		currentDeckTest.setCustomTextColor(Color.WHITE);
+		currentDeckTest.setSize(16);
 		
 		pageLeft = new Button(500,750,100,75," ",new Action() {
 			@Override
@@ -117,7 +119,18 @@ public class EditorScreen extends FullFunctionScreen {
 				}
 			}
 		});
-		emptyButton = new Button(50,200,200,100,"Clear Deck", emptyDeck());
+		emptyButton = new Button(50,200,200,100,"Clear Deck", new Action() {
+			public void act() {
+				System.out.println("shak");
+				playerDeck.clear();
+				String s = "Cleared";
+				for(Card c: playerDeck) {
+					s+=c;
+				}
+				currentDeckTest.setText("");
+				System.out.println("sdhak");
+			}
+		});
 		int counter = 140;
 		for(int i = 0; i < 16; i++) {
 			Button a = new Button(1000,counter,100,40,"hi", null);
@@ -162,32 +175,38 @@ public class EditorScreen extends FullFunctionScreen {
 
 	public void updateCards() {
 		card1 = page1[4*(pageNumber-1)];
-		picture1.setGraphic(card1.getLocation(), (4*(pageNumber-1)), 250, 350);
+		picture1.setGraphic(card1.getImage(), (4*(pageNumber-1)), 250, 350);
 		
 		card2 = page1[(4*(pageNumber-1))+1];
-		picture2.setGraphic(card2.getLocation(), (4*(pageNumber-1))+1, 250, 350);
+		picture2.setGraphic(card2.getImage(), (4*(pageNumber-1))+1, 250, 350);
 		
 		card3 = page1[(4*(pageNumber-1))+2];
-		picture3.setGraphic(card3.getLocation(), (4*(pageNumber-1))+2, 250, 350);
+		picture3.setGraphic(card3.getImage(), (4*(pageNumber-1))+2, 250, 350);
 		
 		if(pageNumber != 4) {
 			card4 = page1[(4*(pageNumber-1))+3];
-			picture4.setGraphic(card4.getLocation(), (4*(pageNumber-1))+3, 250, 350);
+			picture4.setGraphic(card4.getImage(), (4*(pageNumber-1))+3, 250, 350);
 		} else {
-			card4 = null;
+			picture4.setGraphic("resources/placeholder.png", (4*(pageNumber-1))+3, 2, 2);
+			//card4 = null;
 		}
 	}
 
 	public void updateDeck() {
-		String s = "Deck: ";
-		for(Card c: Deck.deck) {
-			s += c;
+		if(playerDeck.size() < 16) {
+			int counter = 1;
+			String s = "Deck: \n";
+		
+			for(Card c: playerDeck) {
+				s += counter +". " + c+"\n";
+				counter++;
+			}
+			currentDeckTest.setText(s);
 		}
-		currentDeckTest.setText(s);
 	}
 	
 	public Action addACard(Card card) {
-		Deck.deck.add(card);
+		playerDeck.add(card);
 		updateDeck();
 		return null;
 	}
@@ -202,25 +221,15 @@ public class EditorScreen extends FullFunctionScreen {
 			picture4amt.setText(Integer.toString(card4.getAmt()));
 		}
 	}
-	
-	public Action emptyDeck() {
-		Deck.deck.clear();
-		String s = "Cleared";
-		for(Card c: Deck.deck) {
-			s+=c;
-		}
-		currentDeckTest.setText(s);
-		return null;
-	}
-	
+
 	public void createButton() {
 		currentY = 100;
-		for(Card c: Deck.userDeck) {
+		for(Card c: playerDeck) {
 			cardButton= new Button(1000, currentY, 150,40,c.getName(), Color.white, new Action() {
 				
 				@Override
 				public void act() {
-					Deck.userDeck.remove(c);
+					playerDeck.remove(c);
 				}
 			});
 			currentY += 40;

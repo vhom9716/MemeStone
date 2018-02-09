@@ -183,7 +183,7 @@ public class Deck{
 		}
 	}, "resources/sevendragonballs.png");
 	
-	public ArrayList<Card> collection;
+	public static ArrayList<Card> collection;
 	public ArrayList<Card> deck= new ArrayList<Card>();
 	public Deck() {
 
@@ -225,5 +225,9 @@ public class Deck{
 	
 	public void shuffleDeck() {
 		Collections.shuffle(deck);
+	}
+	
+	public ArrayList<Card> getDeck() {
+		return deck;
 	}
 }
