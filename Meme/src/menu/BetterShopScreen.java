@@ -10,7 +10,7 @@ import guiTeacher.components.*;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
 
-public class ShopScreen extends FullFunctionScreen {
+public class BetterShopScreen extends FullFunctionScreen {
 
 	private static final long serialVersionUID = 258186143576427947L;
 	
@@ -19,7 +19,7 @@ public class ShopScreen extends FullFunctionScreen {
 	private Deck[] cardsOwned;
 	public TextArea tempCardDis;
 	
-	public ShopScreen(int width, int height) {
+	public BetterShopScreen(int width, int height) {
 		super(width, height);
 		
 	}
@@ -27,7 +27,7 @@ public class ShopScreen extends FullFunctionScreen {
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
 		gold = 400;
-		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/ShopFinal3.png"));
+		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/BetterCardsShop.png"));
 		tempCardDis = new TextArea(500, 500, 400, 200, "");
 		tempCardDis.setCustomTextColor(Color.WHITE);
 		tempCardDis.setSize(29);
