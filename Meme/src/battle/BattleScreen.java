@@ -158,7 +158,7 @@ import menu.Menu;
 					//this fails if the number of cards in cardsInHand is not at max. 
 					//So we set a temp hand at creation, then we can update with the real hand.
 					if(BattleBackend.player.hand.get(pos) instanceof MonsterCard) {
-						activateCardMon(BattleBackend.player.hand.get(pos));
+						activateCardMon(BattleBackend.player.hand.get(pos), pos);
 						backend.playerBoard.add((MonsterCard) BattleBackend.player.hand.get(pos));
 						System.out.println(BattleBackend.player.deck.size());
 					}else {
@@ -187,10 +187,10 @@ import menu.Menu;
 		}
 	}
 	
-	public void activateCardMon(Card card) {
+	public void activateCardMon(Card card, int pos) {
 		currentFieldImages.add(card.getImage());
 		cardsOnField.add(card);
-		updateField();
+		updateField(pos);
 	}
 	
 	private void generateFieldSlots() {
@@ -210,10 +210,14 @@ import menu.Menu;
 	}
 
 	
-	public void updateField() {
+	public void updateField(int pos) {
 		for(int i = 0; i < fieldSlots.size(); i++) {
 			System.out.println(i + "size:" + currentFieldImages.size());
 			if(currentFieldImages.size() > i && currentFieldImages.get(i) != null) {
+				if (fieldSlots.get(i).getHasCard() == false) {
+					fieldSlots.get(i).moveCard(pos);
+					fieldSlots.get(i).setHasCard(true);
+				}
 				fieldSlots.get(i).changeCardImage(currentFieldImages.get(i), 120, 160);
 			}else {
 				fieldSlots.get(i).changeCardImage("resources/placeholder.png", 2, 2);
