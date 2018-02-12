@@ -42,6 +42,7 @@ import menu.Menu;
 	
 	BattleBackend backend;
 	TextLabel manaslot;
+	TextLabel healthslot;
 	//od stuff
 //	ClickableGraphic a;
 //	ClickableGraphic b;
@@ -66,8 +67,11 @@ import menu.Menu;
 		currentHandImages = new ArrayList<String>();
 		currentFieldImages = new ArrayList<String>();
 		
+		TextLabel.setTextColor(Color.PINK);
+		healthslot = new TextLabel(650,765,50,50, Integer.toString(Player.returnhp()));
+		TextLabel.setTextColor(new Color(60,100,200));
 		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(Player.returnmana())+"/"+"10");
-		
+		TextLabel.setTextColor(Color.BLACK);
 		//Temp. For testing
 		//Stuff will be changed in backend
 		for(int i = 0; i < 4; i++) {
@@ -76,12 +80,11 @@ import menu.Menu;
 		}
 		//cardsInHand = backend.player.getHand();
 		
-		viewObjects.add(manaslot);
 		viewObjects.add(new Graphic(0, 20, getWidth(),getHeight(),"resources/background.jpg"));
 		viewObjects.add(new Graphic(800,760,60,60, "resources/mana.png"));
 		viewObjects.add(new Graphic(630,614,350,250,"resources/player.png"));
 		viewObjects.add(new Graphic(630, 25, 350,250, "resources/cpu.png"));
-		viewObjects.add(new Graphic(1200,70, 90, 80, "resources/quitButton.png"));
+		viewObjects.add(new Graphic(1250,25, 150, 150, "resources/setbutton1.png"));
 		viewObjects.add(new Graphic(750,130, 120, 80, "resources/hp.png"));
 		viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png")); 
 
@@ -132,6 +135,11 @@ import menu.Menu;
 			}
 		}); 
 		viewObjects.add(end);
+		System.out.println(healthslot.getTextColor());
+		viewObjects.add(manaslot);
+		viewObjects.add(healthslot);
+	//	Graphic settings = new Graphic(450, 100, 500, 600, "resources/menu.png");
+	//	viewObjects.add(settings);
 
 		
 	//	ClickableGraphic test = new ClickableGraphic(300,460,120,160, "resources/dog.png");

@@ -11,7 +11,7 @@ public class Player {
 	public ArrayList<Card> board;
 	public boolean[] playable; 
 	private String name;
-	public int health;
+	public static int health;
 	public static int currentmana =10;
 	public int gold=0;
 	public int maxmana;
@@ -121,7 +121,7 @@ public class Player {
 	public boolean canplaycard() {
 		return hand.stream().filter(card->card.getCost()<=currentmana).count() >0;
 	}
-	public int returnhp() {
+	public static int returnhp() {
 		return health;
 	}
 	public int returnGold() {
