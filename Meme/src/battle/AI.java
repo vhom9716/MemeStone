@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import cards.Card;
 import cards.Monster;
+import cards.MonsterCard;
+import cards.SpellCard;
 
 public class AI {
 	public ArrayList<Card> deck;
@@ -22,17 +24,9 @@ public class AI {
 		health += change;
 	}
 	
-	public void draw() {
-		if(deck.size() == 0) {
-			lose(); //handled by backend
-		}else {
-			hand.add(deck.get(0));
-			deck.remove(0);
-		}
-	}
 	//ensure that taunts are accounted for
 	public void declareAttack(int sel) {
-		boolean tauntPresent = false;
+		
 		for(Monster m: Player.board) {
 			if(m.hasTaunt) {
 				tauntPresent = true;
@@ -43,34 +37,37 @@ public class AI {
 		}
 	}
 	
-	public void playMonster(int cardPos) {
-		board.add(hand.get(cardPos));
-		hand.remove(cardPos);
+	public void playMonster(MonsterCard m) {
+		board.add(m);
+		hand.remove(m);
+		//updateHand
+		//updateField
 	}
 	
-	public void playSpell(int cardPos) {
-		hand.get(cardPos).act();
+	public void playSpell(Card selCard) {
+		hand.get(selCard).act();
+		
 	}
 	
 	/**
 	 * plays a card, if the board is less than 5, (max size) it can play a monster
 	 */
 	public void playCard() {
-		int selCard = 1;
-		playSpell(selCard);
-		if(board.size() < 5) {
-			playMonster(selCard);
+		int a = 1;
+		Card selCard = hand.get(a);
+		if(board.size() < 5 && selCard instanceof MonsterCard) {
+			playMonster((MonsterCard)selCard);
+		}
+		if(selCard instanceof SpellCard) {
+			playSpell(selCard);
 		}
 	}
 	
 	public void executeTurn() {
-		draw();
+		drawCard();
 		maxMana++;
 		currentMana = maxMana;
-		while(!checkTurnDone()) {
-			playCard();
-			declareAttack();
-		}
+		checkTurnDone(); 
 	}
 	 
 	//checking turn completion can go into battle class 
@@ -87,7 +84,7 @@ public class AI {
 			return false;
 		}
 		for(Card c: hand) {
-			if(c.cost < currentMana) {
+			if(c.getCost() < currentMana) {
 				 return true;
 			}
 		}
@@ -100,16 +97,15 @@ public class AI {
 	 * then if there are available monsterAttacks.
 	 * @return 
 	 */
-	public boolean checkTurnDone() {
-		if(checkManaCostsInHand()) {
-			return true;
-		}else {
-			if(availableAttacksOnBoard()) {
-				return true;
-			}
+	public void checkTurnDone() {
+		while(checkManaCostsInHand()) {
+			playCard();
+			//updateHand
+			//updateField
 		}
-		return false;
-		
+		while(availableAttacksOnBoard()) {
+			declareAttack(0);
+		}
 	}
 	/**
 	 * checks if there are available attacks on the player's board
@@ -127,6 +123,16 @@ public class AI {
 			}
 		}
 		return false;
+	}
+
+	public int returnmana() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void drawCard(int i) {
+		// TODO Auto-generated method stub
+		
 	}
 }
  
