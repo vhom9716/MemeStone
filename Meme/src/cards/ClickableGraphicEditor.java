@@ -31,8 +31,7 @@ public class ClickableGraphicEditor extends ClickableGraphic{
 	public void act() {
 		EditorScreen.playerDeck.add(EditorScreen.page1[cardIndex]);
 		Menu.screen4.updateDeck();
-		Menu.screen4.createButton();
-		Menu.screen4.changeText();
+		//Menu.screen4.changeText();
 	}
 	
 	public void setGraphic(String location, int index, int w, int h) {

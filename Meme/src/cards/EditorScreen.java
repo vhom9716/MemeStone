@@ -1,6 +1,7 @@
 package cards;
 
 import java.awt.Color;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import guiPlayer.CustomPane;
@@ -46,11 +47,11 @@ public class EditorScreen extends FullFunctionScreen {
 	private Card card4 = page1[3];
 	
 	private int pageNumber = 1;
-	private int deckSize;
+	private int deckSize = 0;
 	private int currentY = 100;
-	private int currentButtonCount = 0;
-	private Button cardButton;
-	
+
+	private TextArea[] panel;
+	private Button[] removers;
 
 	private Button[] cardsChosen;
 	/*= 
@@ -76,13 +77,13 @@ public class EditorScreen extends FullFunctionScreen {
 	public void initAllObjects(List<Visible> viewObjects) {
 		cardsChosen = new Button[16];
 		playerDeck = new ArrayList<Card>();
+		panel = new TextArea[15];
+		removers = new Button[15];
 		background = new Graphic(0, 0, 1440, 824, "resources/CardBackgroundFinal.png");
 		String amt1 = Integer.toString(page1[0].getAmt());
 		String amt2 = Integer.toString(page1[1].getAmt());
 		String amt3 = Integer.toString(page1[2].getAmt());
 		String amt4 = Integer.toString(page1[3].getAmt());
-		//pane = new DeckPane(this, 1200, 100,150,600);
-		//pane.update();
 		deckCapacity = new TextArea(1200,700,150,40,deckSize+"/15");
 		
 		picture1 = new ClickableGraphicEditor(300,20, 250, 350, "resources/200iq.png",0);
@@ -131,20 +132,8 @@ public class EditorScreen extends FullFunctionScreen {
 				System.out.println("sdhak");
 			}
 		});
-		int counter = 140;
-		for(int i = 0; i < 16; i++) {
-			Button a = new Button(1000,counter,100,40,"hi", null);
-			//a.setVisible(false);
-			viewObjects.add(a);
-			System.out.println(a.getText());
-			cardsChosen[i] = a;
-			a.setAction(removeCard(i));
-			counter += 40;
-		}
-		
-		
+
 		viewObjects.add(background);
-		//viewObjects.add(pane);
 		viewObjects.add(deckCapacity);
 		viewObjects.add(picture1);
 		viewObjects.add(picture2);
@@ -166,11 +155,29 @@ public class EditorScreen extends FullFunctionScreen {
 		viewObjects.add(pageRight);
 		viewObjects.add(currentDeckTest);
 		viewObjects.add(emptyButton);
-	}
-
-	public void changeText() {
-		cardsChosen[1].setText("LOL");
-		cardsChosen[1].setVisible(true);
+		
+		int counter = 100;
+		for(int i = 0; i < 15; i++) {
+			int index = i;
+			TextArea card = new TextArea(1100,counter,280,40,"");
+			Button button = new Button(1050,counter,40,40,"X",new Action() {
+				public void act() {
+					playerDeck.remove(index);
+					panel[index].setText(" ");
+					deckSize--;
+					deckCapacity.setText(deckSize+"/15");
+				}
+			});
+			counter += 40;
+			card.setCustomTextColor(Color.WHITE);
+			card.setSize(18);
+			button.setCustomTextColor(Color.WHITE);
+			button.setSize(18);
+			viewObjects.add(card);
+			viewObjects.add(button);
+			panel[i] = card;
+			removers[i] = button;
+		}
 	}
 
 	public void updateCards() {
@@ -194,14 +201,13 @@ public class EditorScreen extends FullFunctionScreen {
 
 	public void updateDeck() {
 		if(playerDeck.size() < 16) {
-			int counter = 1;
-			String s = "Deck: \n";
-		
-			for(Card c: playerDeck) {
-				s += counter +". " + c+"\n";
-				counter++;
+			for(int i = 0; i < playerDeck.size(); i++) {
+				panel[i].setText(playerDeck.get(i).getName());
 			}
-			currentDeckTest.setText(s);
+		}
+		if(deckSize < 15) {
+			deckSize++;
+			deckCapacity.setText(deckSize + "/15");
 		}
 	}
 	
@@ -219,20 +225,6 @@ public class EditorScreen extends FullFunctionScreen {
 			picture4amt.setText("");
 		} else {
 			picture4amt.setText(Integer.toString(card4.getAmt()));
-		}
-	}
-
-	public void createButton() {
-		currentY = 100;
-		for(Card c: playerDeck) {
-			cardButton= new Button(1000, currentY, 150,40,c.getName(), Color.white, new Action() {
-				
-				@Override
-				public void act() {
-					playerDeck.remove(c);
-				}
-			});
-			currentY += 40;
 		}
 	}
 }
