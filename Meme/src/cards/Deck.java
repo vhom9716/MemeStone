@@ -2,41 +2,48 @@ package cards;
 
 import java.util.*;
 
+import battle.AI;
 import battle.BattleBackend;
 import battle.Player;
 /**
- * Made act(Player player) that changes the player's property
+ * Made act(Player player, AI cpu, String turn) that changes the player's property
  */
 public class Deck{
 	//25
-	 static public Card IQ = new SpellCard("200 IQ",2,"Draw a random minion from deck", 2, new Action() {
-//		public void act(Player player){
-//			player.hand.add(player.deck.get(1));
-//			player.deck.remove(player.hand.get(0));
-//		}
-
-
-		public void act() {
-			// TODO Auto-generated method stub
-			
+	 static public Card IQ = new SpellCard("200 IQ",2,"Draw a minion from deck", 2, new Action() {
+		public void act(Player player, AI cpu, String turn){
+			if(turn.equals("player")) {
+				for(int i =0;i<player.deck.size()-1;i++) {
+					if(player.deck.get(i) instanceof MonsterCard) {
+						System.out.println(player.hand.size());
+						player.hand.add(player.deck.get(i));
+						player.deck.remove(i);
+						System.out.println("its me");
+						System.out.println(player.hand.size());
+						return;
+					}
+				}
+			}
+			else {
+				for(int i =0;i<cpu.deck.size()-1;i++) {
+					if(cpu.deck.get(i) instanceof MonsterCard) {
+						System.out.println(cpu.hand.size());
+						cpu.hand.add(player.deck.get(i));
+						cpu.deck.remove(i);
+						System.out.println("its him");
+						System.out.println(player.hand.size());
+						return;
+					}
+				}
+			}
 		}
 
-		@Override
-		public void act(Player player, BattleBackend backend) {
-			if(backend.playerTurn) {
-				player.hand.add(player.deck.get(1));
-				player.deck.remove(player.hand.get(0));
-			}
-			
-		};
+		
 	}, "resources/200iq.png");
 	static public Card Doge = new MonsterCard("Doge",6,"Taunt",null, 1, 6, 6, false, new Action() {
-		public void act() {
-			
-		}
 
 		@Override
-		public void act(Player player, BattleBackend backend) {
+		public void act(Player player, AI cpu, String turn) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -48,19 +55,19 @@ public class Deck{
 		}
 
 		@Override
-		public void act(Player player, BattleBackend backend) {
+		public void act(Player player, AI cpu, String turn) {
 			// TODO Auto-generated method stub
 			
 		}
 	},"resources/UltraMegaChicken.png");
 	static public Card OmaeWaMouShindeiru = new SpellCard("Omae wa mou Shindeiru",7, "Damage the hero 15 health", 1, new Action() {
-		public void act() {
-			
-		}
-
-		@Override
-		public void act(Player player, BattleBackend backend) {
-			// TODO Auto-generated method stub
+		
+		public void act(Player player, AI cpu, String turn) {
+			if(turn.equals("player")) {
+				player.takedamage(15);
+			}else {
+				cpu.changeHealth(-15);
+			}
 			
 		}
 	}, "resources/omaewa.png");
@@ -70,7 +77,7 @@ public class Deck{
 		}
 
 		@Override
-		public void act(Player player, BattleBackend backend) {
+		public void act(Player player, AI cpu, String turn) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -81,10 +88,21 @@ public class Deck{
 		}
 
 		@Override
-		public void act(Player player, BattleBackend backend) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void act(Player player, AI cpu, String turn) {
+			if(turn.equals("player")) {
+				for(int i =0;i<2;i++) {
+						player.hand.add(player.deck.get(i));
+						player.deck.remove(i);
+					}
+			}
+			else {
+				for(int i =0;i<2;i++) {
+						cpu.hand.add(player.deck.get(i));
+						cpu.deck.remove(i);
+					}
+				}
+			}
+		
 	}, "resources/pog.png");
 	static public Card TheExcutiveProducer = new MonsterCard("The Excutive Producer",3,"",null, 3, 4, 2, false, new Action() {
 		public void act() {
@@ -92,7 +110,7 @@ public class Deck{
 		}
 
 		@Override
-		public void act(Player player, BattleBackend backend) {
+		public void act(Player player, AI cpu, String turn) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -103,19 +121,23 @@ public class Deck{
 		}
 
 		@Override
-		public void act(Player player, BattleBackend backend) {
+		public void act(Player player, AI cpu, String turn) {
 			// TODO Auto-generated method stub
 			
 		}
 	}, "resources/rd.png");
-	static public Card SaltBae = new SpellCard("Salt Bae",5,"Heals target for 10",2, new Action() {
+	static public Card SaltBae = new SpellCard("Salt Bae",5,"Heals hero for 10",2, new Action() {
 		public void act() {
 			
 		}
 
 		@Override
-		public void act(Player player, BattleBackend backend) {
-			// TODO Auto-generated method stub
+		public void act(Player player, AI cpu, String turn) {
+			if(turn.equals("player")){
+				player.heal(10);
+			}else {
+				cpu.changeHealth(10);
+			}
 			
 		}
 	}, "resources/saltbae.png");
@@ -125,8 +147,12 @@ public class Deck{
 		}
  
 		@Override
-		public void act(Player player, BattleBackend backend) {
-			// TODO Auto-generated method stub
+		public void act(Player player, AI cpu, String turn) {
+			if(turn.equals("player")) {
+				player.currentmana=10;
+			}else {
+				cpu.currentMana=10;
+			}
 			
 		}
 	}, "resources/screwingtherules.png");
@@ -136,7 +162,7 @@ public class Deck{
 		}
 
 		@Override
-		public void act(Player player, BattleBackend backend) {
+		public void act(Player player, AI cpu, String turn) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -147,7 +173,7 @@ public class Deck{
 		}
 
 		@Override
-		public void act(Player player, BattleBackend backend) {
+		public void act(Player player, AI cpu, String turn) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -158,7 +184,7 @@ public class Deck{
 		}
 
 		@Override
-		public void act(Player player, BattleBackend backend) {
+		public void act(Player player, AI cpu, String turn) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -166,7 +192,7 @@ public class Deck{
 	static public Card WTF = new SpellCard("WTF?!?", 3, "Deals 3 damage to a random character",2, new Action() {
 
 		@Override
-		public void act(Player player, BattleBackend backend) {
+		public void act(Player player, AI cpu, String turn) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -177,7 +203,7 @@ public class Deck{
 		}
 
 		@Override
-		public void act(Player player, BattleBackend backend) {
+		public void act(Player player, AI cpu, String turn) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -205,6 +231,9 @@ public class Deck{
 		collection.add(UWot);
 		collection.add(WTF);
 		collection.add(DragonBalls);
+		
+		//deck.add(IQ);
+		deck.add(PotOfGreed);
 		for(int i = 0; i<10; i++) {
 			int r =  (int) Math.floor(Math.random() * 14);
 			deck.add(collection.get(r));

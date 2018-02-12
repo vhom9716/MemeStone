@@ -70,10 +70,10 @@ import menu.Menu;
 		
 		//Temp. For testing
 		//Stuff will be changed in backend
-		for(int i = 0; i < 4; i++) {
+		/*for(int i = 0; i < 4; i++) {
 			System.out.println(BattleBackend.player.hand.get(i).getImage());
 			currentHandImages.add(BattleBackend.player.hand.get(i).getImage());
-		}
+		}*/
 		//cardsInHand = backend.player.getHand();
 		
 		viewObjects.add(manaslot);
@@ -139,7 +139,7 @@ import menu.Menu;
 	}
 
 	public void activateCardSpell(Card card) {
-		
+		card.a.act(backend.player, backend.cpu, "player");
 	}
 	
 	public void drawACard(Card card) {
@@ -166,6 +166,7 @@ import menu.Menu;
 					}
 					currentHandImages.remove(pos);
 					BattleBackend.player.hand.remove(pos);
+					System.out.println("the real remove" + backend.player.hand.size());
 					updateHand();
 					//System.out.println(pos + currentHandImages.get(pos));
 				}
@@ -178,6 +179,11 @@ import menu.Menu;
 	}
 	
 	public void updateHand() {
+		currentHandImages.clear();
+		for(int i = 0; i < backend.player.hand.size(); i++) {
+			System.out.println(BattleBackend.player.hand.get(i).getImage());
+			currentHandImages.add(BattleBackend.player.hand.get(i).getImage());
+		}
 		for(int i = 0; i < handSlots.size(); i++) {
 			if(currentHandImages.size() > i && currentHandImages.get(i) != null) {
 				handSlots.get(i).changeCardImage(currentHandImages.get(i), 150, 200);
@@ -200,6 +206,8 @@ import menu.Menu;
 			fieldCardSlot.changeCardImage("resources/placeholder.png", 2, 2);
 			fieldCardSlot.setAction(new Action() {
 				public void act() {
+					updateHand();
+					
 					//Add later
 					//For attacking/defending
 				}
