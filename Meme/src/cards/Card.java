@@ -9,6 +9,7 @@ public class Card{
 	private int amt;
 	private String imageLoc;
 	public boolean summon;
+	private boolean canAttack;
 	/**
 	 * Action a - Passes in a new action so that you can create a method for each individual cards	
 	 * 
@@ -28,7 +29,7 @@ public class Card{
 		this.effect = effect;
 		this.a = a;
 		this.imageLoc = imageLoc;
-		summon = false;
+		this.setCanAttack(false);
 	}
 
 	public void setName(String s) {
@@ -65,5 +66,13 @@ public class Card{
 	}
 	public String getImage() {
 		return imageLoc;
+	}
+
+	public boolean isCanAttack() {
+		return canAttack;
+	}
+
+	public boolean setCanAttack(boolean canAttack) {
+		return this.canAttack = canAttack;
 	}
 }
