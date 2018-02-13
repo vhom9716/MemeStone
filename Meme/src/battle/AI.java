@@ -137,7 +137,7 @@ public class AI {
 			if(m.canAttack) {
 				return true;
 			}
-		}
+		} 
 		return false;
 	}
 }
