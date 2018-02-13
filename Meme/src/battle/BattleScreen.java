@@ -52,21 +52,12 @@ import menu.Menu;
 	AI computer;
 	
 	TextLabel manaslot;
-<<<<<<< HEAD
+
 	TextLabel healthslot;
-	//od stuff
-//	ClickableGraphic a;
-//	ClickableGraphic b;
-//	ClickableGraphic c;
-//	ClickableGraphic d; 
-//	Graphic f1;
-//	Graphic f2;
-//	Graphic f3;
-//	Graphic f4;
-=======
+
 	TextLabel AImanaslot;
 
->>>>>>> branch 'develop' of https://github.com/vhom9716/MemeStone
+
 
 	public BattleScreen(int width, int height) {
 		super(width, height);
