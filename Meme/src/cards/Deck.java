@@ -184,7 +184,7 @@ public class Deck{
 	}, "resources/sevendragonballs.png");
 	
 	public static ArrayList<Card> collection;
-	public ArrayList<Card> deck= new ArrayList<Card>();
+	public static ArrayList<Card> deck= new ArrayList<Card>();
 	public Deck() {
 
 

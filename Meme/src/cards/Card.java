@@ -8,6 +8,7 @@ public class Card{
 	private String effect2;
 	private int amt;
 	private String imageLoc;
+	private int amtUsed = 0;
 	/**
 	 * Action a - Passes in a new action so that you can create a method for each individual cards	
 	 * 
@@ -29,6 +30,22 @@ public class Card{
 		this.imageLoc = imageLoc;
 	}
 
+	public int getAmtUsed() {
+		return amtUsed;
+	}
+	
+	public void resetAmts() {
+		amtUsed = 0;
+	}
+	
+	public void usedOne() {
+		amtUsed ++;
+	}
+	
+	public void removedOneFromDeck() {
+		amtUsed --;
+	}
+	
 	public void setName(String s) {
 		this.name = s;
 	}
