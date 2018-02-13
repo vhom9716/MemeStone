@@ -39,6 +39,8 @@ public class Menu extends GUIApplication {
     public static BattleScreen screen3; 
 	
     public static EditorScreen screen4;
+    
+    public static BetterShopScreen screen5;
 	 
 	@Override
 	public void initScreen() {
@@ -46,6 +48,7 @@ public class Menu extends GUIApplication {
 		screen2 = new ShopScreen(getWidth(), getHeight());
 		screen3 = new BattleScreen(1440, 824);
 		screen4 = new EditorScreen(getWidth(), getHeight());
+		screen5 = new BetterShopScreen(getWidth(), getHeight());
 		setScreen(screen1);
 	}
 }

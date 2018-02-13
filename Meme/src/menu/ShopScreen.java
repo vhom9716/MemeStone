@@ -15,9 +15,14 @@ public class ShopScreen extends FullFunctionScreen {
 	private static final long serialVersionUID = 258186143576427947L;
 	
 	public int gold;
-	private Card[] cardsChosen;
-	private Deck[] cardsOwned;
 	public TextArea tempCardDis;
+	public static Card[] commonCards = {Deck.Doge, };
+	public static Card[] rareCards = {Deck.Doge, };
+	public static Card[] epicCards = {Deck.Doge, };
+	public static Card[] legedaryCards = {Deck.Doge, };
+	
+
+	
 	
 	public ShopScreen(int width, int height) {
 		super(width, height);
@@ -27,7 +32,7 @@ public class ShopScreen extends FullFunctionScreen {
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
 		gold = 400;
-		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/ShopFinal3.png"));
+		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/ShopFinal4.png"));
 		tempCardDis = new TextArea(500, 500, 400, 200, "");
 		tempCardDis.setCustomTextColor(Color.WHITE);
 		tempCardDis.setSize(29);
@@ -47,13 +52,15 @@ public class ShopScreen extends FullFunctionScreen {
 		});
 		viewObjects.add(open);
 		
-		Button shop2 = new Button((getWidth()-1500)/2,getHeight()-40,400,55," ",new Action() {
+		Button shop2 = new Button(385, 133, 45, 30," ",new Action() {
 			
 			@Override
 			public void act() {
-				Menu.menu.setScreen(Menu.screen1);
+				Menu.menu.setScreen(Menu.screen5);
 			}
 		});
+		viewObjects.add(shop2);
+
 
 
 		Button buyPack = new Button(90, 660,310,100," ",new Action() {

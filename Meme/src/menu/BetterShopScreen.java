@@ -47,13 +47,14 @@ public class BetterShopScreen extends FullFunctionScreen {
 		});
 		viewObjects.add(open);
 		
-		Button shop2 = new Button((getWidth()-1500)/2,getHeight()-40,400,55," ",new Action() {
+		Button shop1 = new Button(55, 133, 45, 30," ",new Action() {
 			
 			@Override
 			public void act() {
-				Menu.menu.setScreen(Menu.screen1);
+				Menu.menu.setScreen(Menu.screen2);
 			}
 		});
+		viewObjects.add(shop1);
 
 
 		Button buyPack = new Button(90, 660,310,100," ",new Action() {
@@ -61,8 +62,8 @@ public class BetterShopScreen extends FullFunctionScreen {
 			@Override
 			public void act() {
 				String s = "You have obtained:";
-				if (gold >= 100) {
-					gold -= 100;
+				if (gold >= 175) {
+					gold -= 175;
 					tempCardDis.setText("");
 					int getCard = (int) (Math.random()*15);
 					for(int i = 0; i < 5; i++) {
