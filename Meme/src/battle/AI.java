@@ -6,7 +6,7 @@ import cards.Card;
 import cards.Deck;
 import cards.Monster;
 
-public class AI {
+public class AI implements Character{
 	public ArrayList<Card> deck;
 	public ArrayList<Card> hand;
 	public ArrayList<Card> board;
@@ -40,7 +40,7 @@ public class AI {
 		health += change;
 	}
 	
-	public void draw(int num) {
+	public void drawCard(int num) {
 		while(num > 0 && deck.size() == 0) {
 			System.out.println(num + deck.get(0).getImage());
 			hand.add(deck.get(0));
@@ -53,6 +53,7 @@ public class AI {
 		if(board.get(sel).canAttack) { 
 			
 		}
+		board.get(sel).setCanAttack(false);
 	}
 	
 	public void playMonster(int cardPos) {
@@ -76,7 +77,7 @@ public class AI {
 	}
 	
 	public void executeTurn() {
-		draw();
+		drawCard();
 		maxMana++;
 		currentMana = maxMana;
 		while(!checkTurnDone()) {
@@ -139,6 +140,10 @@ public class AI {
 			}
 		} 
 		return false;
+	}
+
+	public int returnmana() {
+		return currentMana;
 	}
 }
  

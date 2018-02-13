@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import cards.Card;
 
-public class Player {
+public class Player implements Character{
 	
 	public ArrayList<Card> deck;
 	public ArrayList<Card> hand;
