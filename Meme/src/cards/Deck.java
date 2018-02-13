@@ -162,7 +162,7 @@ public class Deck{
 
 		@Override
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
-			card.summon = true;
+			card.setCanAttack(true);
 		}
 	}, "resources/shenrun.png");
 	static public Card DewYuKnoDeWae = new MonsterCard("Dew yu kno de wae", 4, null, null, 1, 5, 4, false, new Action() {
@@ -187,7 +187,7 @@ public class Deck{
 			
 		}
 	}, "resources/wotm8.png");
-	static public Card WTF = new SpellCard("WTF?!?", 3, "Deals 3 damage to a random character",2, new Action() {
+	static public Card WTF = new SpellCard("WTF?!?", 3, "Deals 3 damage to a random player",2, new Action() {
 
 		@Override
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
