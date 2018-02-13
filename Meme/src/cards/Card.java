@@ -8,6 +8,7 @@ public class Card{
 	private String effect2;
 	private int amt;
 	private String imageLoc;
+	public boolean summon;
 	/**
 	 * Action a - Passes in a new action so that you can create a method for each individual cards	
 	 * 
@@ -27,6 +28,7 @@ public class Card{
 		this.effect = effect;
 		this.a = a;
 		this.imageLoc = imageLoc;
+		summon = false;
 	}
 
 	public void setName(String s) {
