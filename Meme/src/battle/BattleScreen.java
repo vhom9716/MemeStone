@@ -62,6 +62,9 @@ import menu.Menu;
 //	Graphic f2;
 //	Graphic f3;
 //	Graphic f4;
+
+
+
 	TextLabel AImanaslot;
 	Graphic settings;
 	Button quit;
@@ -72,6 +75,7 @@ import menu.Menu;
 	Graphic healthpos3;
 	Graphic healthpos4;
 	Graphic healthpos5;
+
 
 	public BattleScreen(int width, int height) {
 		super(width, height);
