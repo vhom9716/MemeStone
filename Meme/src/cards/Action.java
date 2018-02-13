@@ -11,5 +11,5 @@ public interface Action {
 	 * Used to pass in methods as a parameter
 	 * @author Jason Yan
 	 */
-	public void act(Player player, AI cpu, String turn);
+	public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend);
 }

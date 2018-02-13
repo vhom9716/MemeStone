@@ -139,7 +139,7 @@ import menu.Menu;
 	}
 
 	public void activateCardSpell(Card card) {
-		card.a.act(backend.player, backend.cpu, "player");
+		card.a.act(backend.player, backend.cpu, "player", null);
 	}
 	
 	public void drawACard(Card card) {
