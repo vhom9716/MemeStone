@@ -3,6 +3,7 @@ package battle;
 import java.util.ArrayList;
 
 import cards.Card;
+import cards.Deck;
 import cards.Monster;
 
 public class AI {
@@ -13,6 +14,23 @@ public class AI {
 	public int maxMana;
 	public int currentMana;
 	
+	public AI() {
+		deck = new ArrayList<Card>();
+		hand = new ArrayList<Card>();
+		board = new ArrayList<Card>();
+		deck.add(Deck.Doge);
+		deck.add(Deck.PotOfGreed);
+		deck.add(Deck.OmaeWaMouShindeiru);
+		deck.add(Deck.RainbowDash);
+		deck.add(Deck.Pikachu);
+		deck.add(Deck.ScrewTheRulesIHaveMoney);
+		deck.add(Deck.SaltBae);
+		deck.add(Deck.DewYuKnoDeWae);
+		deck.add(Deck.UWot);
+		deck.add(Deck.UltraMegaChicken);
+		deck.add(Deck.Shenron);
+		deck.add(Deck.WTF);
+	}
 	
 	public ArrayList<Card> getBoard() {
 		return board;
@@ -22,22 +40,16 @@ public class AI {
 		health += change;
 	}
 	
-	public void draw() {
-		if(deck.size() == 0) {
-			lose(); //handled by backend
-		}else {
+	public void draw(int num) {
+		while(num > 0 && deck.size() == 0) {
+			System.out.println(num + deck.get(0).getImage());
 			hand.add(deck.get(0));
 			deck.remove(0);
+			num--;	
 		}
 	}
 	//ensure that taunts are accounted for
 	public void declareAttack(int sel) {
-		boolean tauntPresent = false;
-		for(Monster m: Player.board) {
-			if(m.hasTaunt) {
-				tauntPresent = true;
-			}
-		}
 		if(board.get(sel).canAttack) { 
 			
 		}
@@ -49,7 +61,7 @@ public class AI {
 	}
 	
 	public void playSpell(int cardPos) {
-		hand.get(cardPos).act();
+		hand.get(cardPos);
 	}
 	
 	/**
