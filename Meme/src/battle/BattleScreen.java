@@ -52,7 +52,6 @@ import menu.Menu;
 	AI computer;
 	
 	TextLabel manaslot;
-<<<<<<< HEAD
 	TextLabel healthslot;
 	//od stuff
 //	ClickableGraphic a;
@@ -63,10 +62,16 @@ import menu.Menu;
 //	Graphic f2;
 //	Graphic f3;
 //	Graphic f4;
-=======
 	TextLabel AImanaslot;
-
->>>>>>> branch 'develop' of https://github.com/vhom9716/MemeStone
+	Graphic settings;
+	Button quit;
+	Button concede;
+	Button resume;
+	Graphic healthpos1;
+	Graphic healthpos2;
+	Graphic healthpos3;
+	Graphic healthpos4;
+	Graphic healthpos5;
 
 	public BattleScreen(int width, int height) {
 		super(width, height);
@@ -90,8 +95,32 @@ import menu.Menu;
 
 		TextLabel.setTextColor(Color.BLACK);
 
-		
-		computer.drawCard(4);
+		healthpos1 = new Graphic (380, 570, 40, 40, "resources/1.png");
+		quit = new Button(545,310, 347, 76, "", new Action() {
+			public void act() {
+				Menu.menu.setScreen(Menu.screen1);
+				System.out.println("dfsdf");
+			}
+		});
+		resume = new Button(545, 455, 347, 76, "", new Action() {
+			
+			@Override
+			public void act() {
+				settings.setVisible(!settings.isVisible());
+				quit.setVisible(!quit.isVisible());
+				concede.setVisible(!concede.isVisible());
+				resume.setVisible(!resume.isVisible());	
+			}
+		});
+		concede = new Button(545, 200, 347, 76, "", new Action() {
+			
+			@Override
+			public void act() {
+				//basically end game?
+				
+			}
+		});
+	/*	computer.drawCard(4);
 		AIcardsInHand = new ArrayList<Card>();
 		AIcardsOnField = new ArrayList<Card>();
 		AIhandSlots = new ArrayList<CardButton>();
@@ -100,7 +129,7 @@ import menu.Menu;
 		AIcurrentFieldImages = new ArrayList<String>();
 		
 		AImanaslot = new TextLabel(850, 763, 50, 50, Integer.toString(computer.returnmana())+"/"+"10");
-		
+		*/
 
 		//Temp. For testing
 		//Stuff will be changed in backend
@@ -116,12 +145,22 @@ import menu.Menu;
 		
 
 		viewObjects.add(manaslot);
-		viewObjects.add(AImanaslot);
+	//	viewObjects.add(AImanaslot);
 		viewObjects.add(new Graphic(0, 20, getWidth(),getHeight(),"resources/background.jpg"));
 		viewObjects.add(new Graphic(800,760,60,60, "resources/mana.png"));
 		viewObjects.add(new Graphic(630,614,350,250,"resources/player.png"));
 		viewObjects.add(new Graphic(630, 25, 350,250, "resources/cpu.png"));
 		viewObjects.add(new Graphic(1250,25, 150, 150, "resources/setbutton1.png"));
+		viewObjects.add(new Button(1300,75,60,50, "", new Action() {
+			
+			@Override
+			public void act() {
+				settings.setVisible(!settings.isVisible());
+				quit.setVisible(!quit.isVisible());
+				concede.setVisible(!concede.isVisible());
+				resume.setVisible(!resume.isVisible());
+			}
+		}));
 		viewObjects.add(new Graphic(750,130, 120, 80, "resources/hp.png"));
 		viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png")); 
 
@@ -152,12 +191,9 @@ import menu.Menu;
 //			}
 //		}));
 
-		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
-			public void act() {
-				Menu.menu.setScreen(Menu.screen1);
-				System.out.println("dfsdf");
-			}
-		}));
+		quit.setVisible(false);
+		viewObjects.add(quit);
+		
 		Graphic deck = new Graphic(1200, 600, 100, 200, "resources/cardBack.png");
 		viewObjects.add(deck);
 		
@@ -178,8 +214,16 @@ import menu.Menu;
 		System.out.println(healthslot.getTextColor());
 		viewObjects.add(manaslot);
 		viewObjects.add(healthslot);
-	//	Graphic settings = new Graphic(450, 100, 500, 600, "resources/menu.png");
-	//	viewObjects.add(settings);
+		settings = new Graphic(450, 100, 500, 600, "resources/menu.png");
+		settings.setVisible(false);
+		viewObjects.add(settings);
+		concede.setVisible(false);
+		viewObjects.add(concede);
+		resume.setVisible(false);
+		viewObjects.add(resume);
+		
+		viewObjects.add(healthpos1);
+		
 
 		
 	//	ClickableGraphic test = new ClickableGraphic(300,460,120,160, "resources/dog.png");
