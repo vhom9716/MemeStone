@@ -91,8 +91,8 @@ public class Deck{
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
 			if(turn.equals("player")) {
 				for(int i =0;i<2;i++) {
-						player.hand.add(player.deck.get(i));
-						player.deck.remove(i);
+						player.hand.add(player.deck.get(0));
+						player.deck.remove(0);
 					}
 			}
 			else {

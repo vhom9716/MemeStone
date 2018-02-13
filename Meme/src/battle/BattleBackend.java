@@ -22,9 +22,11 @@ public class BattleBackend {
 	public int cpuBoardNum;
 	
 	public String move;
-	public static Deck newDeck = new Deck();
 
-	public static Player player = new Player("Bob", 100, 30, 10, 0, newDeck.deck, new ArrayList<Card>());
+	public static Deck craftDeck = new Deck();
+	public Deck newDeck = new Deck();
+
+	public Player player = new Player("Bob", 100, 30, 10, 0, newDeck.deck, new ArrayList<Card>());
 	
 	public BattleBackend() {
 		running = true;
@@ -60,7 +62,7 @@ public class BattleBackend {
 			addMana();
 			refreshMana();
 			player.drawcard(1);
-			cpu.draw();
+			cpu.draw(1);
 			playerTurn= true;
 			//playerTurn();
 			while(playerTurn) {

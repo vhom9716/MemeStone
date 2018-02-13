@@ -54,11 +54,11 @@ import menu.Menu;
 
 	public BattleScreen(int width, int height) {
 		super(width, height);
-		backend = new BattleBackend();
 	}
 	
 	public void initAllObjects(List<Visible> viewObjects) {
-		BattleBackend.player.drawcard(4);
+		backend = new BattleBackend();
+		backend.player.drawcard(4);
 		cardsInHand = new ArrayList<Card>();
 		cardsOnField = new ArrayList<Card>();
 		handSlots = new ArrayList<CardButton>();
@@ -122,10 +122,10 @@ import menu.Menu;
 		end.setAction(new Action() {
 			public void act() {
 				System.out.println("heh");
-				ArrayList<Card> hand = BattleBackend.player.hand;
-				ArrayList<Card> deck = BattleBackend.player.deck;
+				ArrayList<Card> hand = backend.player.hand;
+				ArrayList<Card> deck = backend.player.deck;
 				if(deck.size() > 0) {
-					BattleBackend.player.drawcard(1); 
+					backend.player.drawcard(1); 
 					currentHandImages.add(hand.get(hand.size() - 1).getImage());
 					updateHand();
 				}
@@ -157,15 +157,15 @@ import menu.Menu;
 				public void act() {
 					//this fails if the number of cards in cardsInHand is not at max. 
 					//So we set a temp hand at creation, then we can update with the real hand.
-					if(BattleBackend.player.hand.get(pos) instanceof MonsterCard) {
-						activateCardMon(BattleBackend.player.hand.get(pos));
-						backend.playerBoard.add((MonsterCard) BattleBackend.player.hand.get(pos));
-						System.out.println(BattleBackend.player.deck.size());
+					if(backend.player.hand.get(pos) instanceof MonsterCard) {
+						activateCardMon(backend.player.hand.get(pos));
+						backend.playerBoard.add((MonsterCard) backend.player.hand.get(pos));
+						System.out.println(backend.player.deck.size());
 					}else {
-						activateCardSpell(BattleBackend.player.hand.get(pos));
+						activateCardSpell(backend.player.hand.get(pos));
 					}
 					currentHandImages.remove(pos);
-					BattleBackend.player.hand.remove(pos);
+					backend.player.hand.remove(pos);
 					System.out.println("the real remove" + backend.player.hand.size());
 					updateHand();
 					//System.out.println(pos + currentHandImages.get(pos));
@@ -181,8 +181,8 @@ import menu.Menu;
 	public void updateHand() {
 		currentHandImages.clear();
 		for(int i = 0; i < backend.player.hand.size(); i++) {
-			System.out.println(BattleBackend.player.hand.get(i).getImage());
-			currentHandImages.add(BattleBackend.player.hand.get(i).getImage());
+			System.out.println(backend.player.hand.get(i).getImage());
+			currentHandImages.add(backend.player.hand.get(i).getImage());
 		}
 		for(int i = 0; i < handSlots.size(); i++) {
 			if(currentHandImages.size() > i && currentHandImages.get(i) != null) {
