@@ -86,8 +86,10 @@ public class BattleBackend {
 
 	private void addMana() {
 		if(player.maxmana <10) {
+			player.currentmana++;
 			player.maxmana++;
 			cpu.maxMana++;
+			cpu.currentMana++;
 		}
 	}
 
