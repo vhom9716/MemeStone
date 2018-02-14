@@ -93,7 +93,7 @@ import menu.Menu;
 		currentHandImages = new ArrayList<String>();
 		currentFieldImages = new ArrayList<String>();
 		currentHpPos = new ArrayList<Graphic>();
-		
+		 
 		TextLabel.setTextColor(Color.PINK);
 		healthslot = new TextLabel(650,765,50,50, Integer.toString(Player.returnHp()));
 		TextLabel.setTextColor(new Color(60,100,200));
