@@ -87,10 +87,10 @@ public class EditorScreen extends FullFunctionScreen {
 		picture3 = new ClickableGraphicEditor(300,400, 250, 350, "resources/dog.png",2);
 		picture4 = new ClickableGraphicEditor(700,400, 250, 350, "resources/omaewa.png",3);
 		
-		picture1amt = new TextArea(330,360,200,150,amt1);
-		picture2amt = new TextArea(730,360,200,150,amt2);
-		picture3amt = new TextArea(330,740,200,150,amt3);
-		picture4amt = new TextArea(730,740,200,150,amt4);
+		picture1amt = new TextArea(395,360,200,150,"Amt: " + amt1);
+		picture2amt = new TextArea(795,360,200,150,"Amt: " + amt2);
+		picture3amt = new TextArea(395,740,200,150,"Amt: " + amt3);
+		picture4amt = new TextArea(795,740,200,150,"Amt: " + amt4);
 		
 		currentDeckTest = new TextArea(1000,100,300,600,"");
 		currentDeckTest.setCustomTextColor(Color.WHITE);
@@ -129,13 +129,13 @@ public class EditorScreen extends FullFunctionScreen {
 				System.out.println("shak");
 				playerDeck.clear();
 				clearPanel();
+				deckSize = 0;
+				deckCapacity.setText(deckSize + "/15");
 				for(int i = 0; i < page1.length -1; i++) {
 					page1[i].resetAmts();
 					System.out.println("Amt reset");
 				}
 				updateCardAmts();
-				deckSize = 0;
-				deckCapacity.setText(deckSize + "/15");
 			}
 		});
 
@@ -168,7 +168,7 @@ public class EditorScreen extends FullFunctionScreen {
 			TextArea card = new TextArea(1100,counter,280,40,"");
 			Button button = new Button(1050,counter,40,40,"X",new Action() {
 				public void act() {
-					if(panel[index] != null) {
+					if(index < playerDeck.size()) {
 						playerDeck.get(index).removedOneFromDeck();
 						playerDeck.remove(index);
 						clearPanel();
@@ -192,6 +192,16 @@ public class EditorScreen extends FullFunctionScreen {
 		}
 		viewObjects.add(saveButton);
 		viewObjects.add(incompleteOrDone);
+		deckCapacity.setCustomTextColor(Color.WHITE);
+		deckCapacity.setSize(18);
+		picture1amt.setCustomTextColor(Color.WHITE);
+		picture1amt.setSize(16);
+		picture2amt.setCustomTextColor(Color.WHITE);
+		picture2amt.setSize(16);
+		picture3amt.setCustomTextColor(Color.WHITE);
+		picture3amt.setSize(16);
+		picture4amt.setCustomTextColor(Color.WHITE);
+		picture4amt.setSize(16);
 	}
 
 	public void updateCards() {
@@ -228,13 +238,13 @@ public class EditorScreen extends FullFunctionScreen {
 	}
 
 	void updateCardAmts() {
-		picture1amt.setText(Integer.toString(page1[1].getAmt() - page1[1].getAmtUsed()));
-		picture2amt.setText(Integer.toString(page1[2].getAmt() - page1[2].getAmtUsed()));
-		picture3amt.setText(Integer.toString(page1[3].getAmt() - page1[3].getAmtUsed()));
+		picture1amt.setText("Amt: " + Integer.toString(card1.getAmt() - card1.getAmtUsed()));
+		picture2amt.setText("Amt: " + Integer.toString(card2.getAmt() - card2.getAmtUsed()));
+		picture3amt.setText("Amt: " + Integer.toString(card3.getAmt() - card3.getAmtUsed()));
 		if(pageNumber == 4) {
 			picture4amt.setText("");
 		} else {
-			picture4amt.setText(Integer.toString(page1[4].getAmt() - page1[4].getAmtUsed()));
+			picture4amt.setText("Amt: " + Integer.toString(card4.getAmt() - card4.getAmtUsed()));
 		}
 	}
 	
