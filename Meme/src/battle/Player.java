@@ -44,7 +44,7 @@ public class Player implements Character{
 	}
 
 	public void setHand(ArrayList<Card> hand) {
-		this.hand = hand;
+		this.hand = hand; 
 	}
 
 	public Player() {
