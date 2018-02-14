@@ -16,13 +16,10 @@ public class ShopScreen extends FullFunctionScreen {
 	
 	public int gold;
 	public TextArea tempCardDis;
-	public static Card[] commonCards = {Deck.Doge, };
-	public static Card[] rareCards = {Deck.Doge, };
-	public static Card[] epicCards = {Deck.Doge, };
-	public static Card[] legedaryCards = {Deck.Doge, };
-	
-
-	
+	public static Card[] commonCards = {Deck.Doge, Deck.DewYuKnoDeWae, Deck.Pikachu, Deck.PotOfGreed, Deck.RainbowDash, Deck.UWot };
+	public static Card[] rareCards = {Deck.IQ, Deck.ScrewTheRulesIHaveMoney, Deck.DragonBalls, Deck.WTF };
+	public static Card[] epicCards = {Deck.OmaeWaMouShindeiru, Deck.SaltBae };
+	public static Card[] legedaryCards = {Deck.Shenron, Deck.TheExcutiveProducer, Deck.UltraMegaChicken };
 	
 	public ShopScreen(int width, int height) {
 		super(width, height);
@@ -84,8 +81,8 @@ public class ShopScreen extends FullFunctionScreen {
 					tempCardDis.setText("You do not have enough gold");
 				}
 				
-				//Do stuff so you get 5 cards.
-				//Animate the cards so they all are revealed at the same time.
+				//Move function---> 5 face-down cards move towards the right.
+				//the cards all go through some animation and will be face-up.
 			}
 		});
 		viewObjects.add(buyPack);

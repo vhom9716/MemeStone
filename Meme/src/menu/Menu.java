@@ -23,6 +23,7 @@ public class Menu extends GUIApplication {
 	}
 	
 	 public static Menu menu;
+	 public int gold = 400;
 
 	
 	public static void main(String[] args){

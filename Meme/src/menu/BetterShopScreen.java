@@ -15,9 +15,11 @@ public class BetterShopScreen extends FullFunctionScreen {
 	private static final long serialVersionUID = 258186143576427947L;
 	
 	public int gold;
-	private Card[] cardsChosen;
-	private Deck[] cardsOwned;
 	public TextArea tempCardDis;
+	public static Card[] commonCards = {Deck.Doge, Deck.DewYuKnoDeWae, Deck.Pikachu, Deck.PotOfGreed, Deck.RainbowDash, Deck.UWot };
+	public static Card[] rareCards = {Deck.IQ, Deck.ScrewTheRulesIHaveMoney, Deck.DragonBalls, Deck.WTF };
+	public static Card[] epicCards = {Deck.OmaeWaMouShindeiru, Deck.SaltBae };
+	public static Card[] legedaryCards = {Deck.Shenron, Deck.TheExcutiveProducer, Deck.UltraMegaChicken };
 	
 	public BetterShopScreen(int width, int height) {
 		super(width, height);
