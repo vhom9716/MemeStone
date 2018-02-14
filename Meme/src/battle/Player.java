@@ -53,7 +53,7 @@ public class Player {
 		//sendinfortofront();
 
 	}
-	boolean[] sendinfortofront() {
+	/*boolean[] sendinfortofront() {
 		playable=new boolean[hand.size()];
 		for(int i=0;i<hand.size();i++) {
 			if(hand.get(i).getCost()>currentmana) {
@@ -65,12 +65,12 @@ public class Player {
 		return playable;
 		
 
-	}
+	}*/
 	public void updategold(int x) {
 		gold+=x;
 	}
 	public void drawcard(int amount) {
-		if(decksize()==0) {
+		if(deckSize()==0) {
 			System.out.println("out of cards");
 			health--;
 		}else {
@@ -80,7 +80,7 @@ public class Player {
 			
 				deck.remove(0);
 				hand.add(x);
-				checkhand();
+				checkHand();
 				amount--;
 				//menu.Menu.screen3.drawACard(x.getImage());
 			}
@@ -90,16 +90,16 @@ public class Player {
 		
 
 	} 
-	public int decksize() {
+	public int deckSize() {
 		return deck.size();
 	}
-	private void checkhand() {
+	private void checkHand() {
 		if(hand.size()>4) {
 			hand.remove(3);
 		}
 		
 	}
-	public void givemanaslot() {
+	public void giveManaSlot() {
 		if(manaslot<maxmana) {
 			manaslot++;
 		}
@@ -115,22 +115,22 @@ public class Player {
 		}
 		
 	}
-	public void takedamage(int damage) {
+	public void takeDamage(int damage) {
 		health-=damage;
 	}
-	public boolean canplaycard() {
+	public boolean canPlayCard() {
 		return hand.stream().filter(card->card.getCost()<=currentmana).count() >0;
 	}
-	public static int returnhp() {
+	public static int returnHp() {
 		return health;
 	}
 	public int returnGold() {
 		return gold;
 	}
-	public static int returnmana() {
+	public static int returnMana() {
 		return currentmana;
 	}
-	public String returnmanastring() {
+	public String returnManaString() {
 		return Integer.toString(currentmana);
 	}
 	

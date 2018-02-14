@@ -93,9 +93,9 @@ import menu.Menu;
 		currentFieldImages = new ArrayList<String>();
 		
 		TextLabel.setTextColor(Color.PINK);
-		healthslot = new TextLabel(650,765,50,50, Integer.toString(Player.returnhp()));
+		healthslot = new TextLabel(650,765,50,50, Integer.toString(Player.returnHp()));
 		TextLabel.setTextColor(new Color(60,100,200));
-		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(Player.returnmana())+"/"+"10");
+		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(Player.returnMana())+"/"+"10");
 
 		TextLabel.setTextColor(Color.BLACK);
 
@@ -204,14 +204,8 @@ import menu.Menu;
 		ClickableGraphic end = new ClickableGraphic(1300, 400, 100, 60, "resources/endturn.png");
 		end.setAction(new Action() {
 			public void act() {
-				System.out.println("heh");
-				ArrayList<Card> hand = BattleBackend.player.hand;
-				ArrayList<Card> deck = BattleBackend.player.deck;
-				if(deck.size() > 0) {
-					BattleBackend.player.drawcard(1); 
-					currentHandImages.add(hand.get(hand.size() - 1).getImage());
-					updateHand();
-				}
+				
+				
 			}
 		}); 
 		viewObjects.add(end);
