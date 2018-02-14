@@ -80,7 +80,7 @@ import menu.Menu;
 		TextLabel.setTextColor(Color.BLACK);
 
 		
-		BattleBackend.cpu.drawCard(4);
+		backend.cpu.drawCard(4);
 		AIcardsInHand = new ArrayList<Card>();
 		AIcardsOnField = new ArrayList<Card>();
 		AIhandSlots = new ArrayList<CardButton>();
@@ -88,7 +88,7 @@ import menu.Menu;
 		AIcurrentHandImages = new ArrayList<String>(); 
 		AIcurrentFieldImages = new ArrayList<String>();
 		
-		AImanaslot = new TextLabel(850, 763, 50, 50, Integer.toString(BattleBackend.cpu.returnmana())+"/"+"10");
+		AImanaslot = new TextLabel(850, 763, 50, 50, Integer.toString(backend.cpu.returnmana())+"/"+"10");
 		
 
 		//Temp. For testing
@@ -123,17 +123,22 @@ import menu.Menu;
 			viewObjects.add(handSlots.get(i));
 		}
 		
-//		generateHandSlots(300, AIhandSlots, AIcurrentHandImages, BattleBackend.cpu); 	
-//		for(int i = 0; i < AIhandSlots.size(); i++) { 
-//			viewObjects.add(AIhandSlots.get(i));
-//		}
+		generateHandSlots(300, AIhandSlots, AIcurrentHandImages, backend.cpu); 	
+		for(int i = 0; i < AIhandSlots.size(); i++) { 
+			viewObjects.add(AIhandSlots.get(i));
+		}
 		
 		//do stuff to generate things for the AI
 		
 		
-		generateFieldSlots();
+		generateFieldSlots(460, fieldSlots);
 		for(int i = 0; i < fieldSlots.size(); i++) {
 			viewObjects.add(fieldSlots.get(i));
+		}
+		
+		generateFieldSlots(260, AIfieldSlots);
+		for(int i = 0; i < AIfieldSlots.size(); i++) {
+			viewObjects.add(AIfieldSlots.get(i));
 		}
 		
 		//Former Code at the Bottom
@@ -216,7 +221,7 @@ import menu.Menu;
 //					BattleBackend.player.hand.remove(pos);
 					
 					if(chara.getFromHand(pos) instanceof MonsterCard) {
-						activateCardMon(chara.getFromHand(pos), pos);
+						activateCardMon(chara.getFromHand(pos), pos, selStringList, selSlotList);
 						chara.addToBoard((MonsterCard) chara.getFromHand(pos));
 						//System.out.println(BattleBackend.player.deck.size());
 
@@ -269,16 +274,15 @@ import menu.Menu;
 		}
 	}
 	
-	public void activateCardMon(Card card, int pos) {
-		currentFieldImages.add(card.getImage());
-		cardsOnField.add(card);
-		updateField(pos);
+	public void activateCardMon(Card card, int pos, ArrayList<String> selStringList, ArrayList<CardButton> selButtonList) {
+		selStringList.add(card.getImage());
+		updateField(pos, selStringList, selButtonList);
 	}
 	
-	private void generateFieldSlots() {
+	private void generateFieldSlots(int yPos, ArrayList<CardButton> selSlotList) {
 		int counter = 300;
 		for(int i = 0; i < 5; i++) {
-			CardButton fieldCardSlot = new CardButton(counter, 460, 120, 160, "resources/placeholder.png", null);
+			CardButton fieldCardSlot = new CardButton(counter, yPos, 120, 160, "resources/placeholder.png", null);
 			fieldCardSlot.changeCardImage("resources/placeholder.png", 2, 2);
 			fieldCardSlot.setAction(new Action() {
 				public void act() {
@@ -286,23 +290,23 @@ import menu.Menu;
 					//For attacking/defending
 				}
 			});
-			fieldSlots.add(fieldCardSlot);
+			selSlotList.add(fieldCardSlot);
 			counter += 100;
 		}  
 	}
 
 	
-	public void updateField(int pos) {
-		for(int i = 0; i < fieldSlots.size(); i++) {
-			System.out.println(i + "size:" + currentFieldImages.size());
-			if(currentFieldImages.size() > i && currentFieldImages.get(i) != null) {
-				if (fieldSlots.get(i).getHasCard() == false) {
+	public void updateField(int pos, ArrayList<String> selStringList, ArrayList<CardButton> selButtonList) {
+		for(int i = 0; i < selButtonList.size(); i++) {
+			System.out.println(i + "size:" + selStringList.size()+  selStringList.get(i));
+			if(selStringList.size() > i && selStringList.get(i) != null) {
+				if (selButtonList.get(i).getHasCard() == false) {
 					//fieldSlots.get(i).moveCard(pos);
-					fieldSlots.get(i).setHasCard(true);
+					selButtonList.get(i).setHasCard(true);
 				}
-				fieldSlots.get(i).changeCardImage(currentFieldImages.get(i), 120, 160);
+				selButtonList.get(i).changeCardImage(selStringList.get(i), 120, 160);
 			}else {
-				fieldSlots.get(i).changeCardImage("resources/placeholder.png", 2, 2);
+				selButtonList.get(i).changeCardImage("resources/placeholder.png", 2, 2);
 			}
 			
 		}

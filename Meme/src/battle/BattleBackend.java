@@ -10,7 +10,7 @@ public class BattleBackend {
 	public boolean playerTurn;
 	public boolean cpuTurn;
 	
-	public static AI cpu;
+	public AI cpu;
 	
 	public Card selectedCard;
 	public Card opponentCard;  
