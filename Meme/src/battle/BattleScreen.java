@@ -35,6 +35,7 @@ import menu.Menu;
 	ArrayList<String> currentHandImages;
 	ArrayList<CardButton> fieldSlots;
 	ArrayList<String> currentFieldImages;
+	ArrayList<Graphic> currentHpPos;
 
 	private ArrayList<Card> cardsInHand;
 	private ArrayList<Card> cardsOnField;
@@ -82,7 +83,7 @@ import menu.Menu;
 		backend = new BattleBackend();
 		computer = new AI();
 	}
-	
+		
 	public void initAllObjects(List<Visible> viewObjects) {
 		BattleBackend.player.drawcard(4);
 		cardsInHand = new ArrayList<Card>();
@@ -91,6 +92,7 @@ import menu.Menu;
 		fieldSlots = new ArrayList<CardButton>();
 		currentHandImages = new ArrayList<String>();
 		currentFieldImages = new ArrayList<String>();
+		currentHpPos = new ArrayList<Graphic>();
 		
 		TextLabel.setTextColor(Color.PINK);
 		healthslot = new TextLabel(650,765,50,50, Integer.toString(Player.returnhp()));
@@ -98,8 +100,18 @@ import menu.Menu;
 		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(Player.returnmana())+"/"+"10");
 
 		TextLabel.setTextColor(Color.BLACK);
-
-		healthpos1 = new Graphic (380, 570, 40, 40, "resources/1.png");
+		healthpos1 = new Graphic (389, 580, 38, 38, "");
+		healthpos2 = new Graphic (489, 580, 38, 38, "");
+		healthpos3 = new Graphic (589, 580, 38, 38, "");
+		healthpos4 = new Graphic (689, 580, 38, 38, "");
+		healthpos5 = new Graphic (789, 580, 38, 38, "");
+		
+		currentHpPos.add(healthpos1);
+		currentHpPos.add(healthpos2);
+		currentHpPos.add(healthpos3);
+		currentHpPos.add(healthpos4);
+		currentHpPos.add(healthpos5);
+		
 		quit = new Button(545,310, 347, 76, "", new Action() {
 			public void act() {
 				Menu.menu.setScreen(Menu.screen1);
@@ -227,6 +239,10 @@ import menu.Menu;
 		viewObjects.add(resume);
 		
 		viewObjects.add(healthpos1);
+		viewObjects.add(healthpos2);
+		viewObjects.add(healthpos3);
+		viewObjects.add(healthpos4);
+		viewObjects.add(healthpos5);
 		
 
 		
@@ -299,7 +315,7 @@ import menu.Menu;
 					//Add later
 					//For attacking/defending
 				}
-			});
+			});	
 			fieldSlots.add(fieldCardSlot);
 			counter += 100;
 		}
@@ -319,6 +335,11 @@ import menu.Menu;
 				fieldSlots.get(i).changeCardImage("resources/placeholder.png", 2, 2);
 			}
 			
+		}
+	}
+	public void updateHpField(int pos, int hpupdated) {
+		if ((hpupdated > 0)&&(hpupdated<10)) {
+		currentHpPos.set(pos, new Graphic(389+ ((pos)*100),580, 38, 38, "resources/"+Integer.toString(hpupdated)+".png"));
 		}
 	}
 }
