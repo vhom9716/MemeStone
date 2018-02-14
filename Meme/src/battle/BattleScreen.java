@@ -167,7 +167,7 @@ import menu.Menu;
 				if(deck.size() > 0) {
 					backend.player.drawcard(1); 
 					currentHandImages.add(hand.get(hand.size() - 1).getImage());
-					updateHand(handSlots, currentHandImages, null);
+					updateHand(handSlots, currentHandImages, backend.player);
 				}
 			}
 		}); 
