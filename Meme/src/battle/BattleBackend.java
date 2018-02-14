@@ -24,7 +24,7 @@ public class BattleBackend {
 	public String move;
 
 	public static Deck craftDeck = new Deck();
-	public Deck newDeck = new Deck();
+	public Deck newDeck;
 
 	public Player player = new Player("Bob", 100, 30, 10, 0, newDeck.deck, new ArrayList<Card>());
 	
@@ -47,6 +47,9 @@ public class BattleBackend {
 		
 		move = "";
 		
+		for(int i=0; i < craftDeck.deck.size();i++) {
+			newDeck.addCard(craftDeck.deck.get(i));
+		}
 	//	player.drawcard(4);
 	//	newDeck.deck.get(0).a.act();
 		
@@ -62,7 +65,7 @@ public class BattleBackend {
 			addMana();
 			refreshMana();
 			player.drawcard(1);
-			cpu.draw(1);
+			cpu.drawCard(1);
 			playerTurn= true;
 			//playerTurn();
 			while(playerTurn) {
