@@ -288,7 +288,7 @@ import menu.Menu;
 			});
 			fieldSlots.add(fieldCardSlot);
 			counter += 100;
-		} 
+		}  
 	}
 
 	
