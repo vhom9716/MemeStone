@@ -31,6 +31,9 @@ public class AI implements Character{
 		deck.add(Deck.UltraMegaChicken);
 		deck.add(Deck.Shenron);
 		deck.add(Deck.WTF);
+		
+		board.add(deck.get(0));
+		board.add(deck.get(0));
 	}
 	
 	public ArrayList<Card> getBoard() {
@@ -149,20 +152,22 @@ public class AI implements Character{
 
 	@Override
 	public Card getFromHand(int pos) {
-		// TODO Auto-generated method stub
-		return null;
+		return hand.get(pos);
 	}
 
 	@Override
 	public void addToBoard(MonsterCard c) {
-		// TODO Auto-generated method stub
-		
+		board.add(c);
 	}
 
 	@Override
 	public void removeFromHand(int pos) {
-		// TODO Auto-generated method stub
-		
+		hand.remove(pos);
+	}
+
+	@Override
+	public int getHandSize() {
+		return hand.size();
 	}
 }
  

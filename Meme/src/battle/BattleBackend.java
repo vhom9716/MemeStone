@@ -26,14 +26,14 @@ public class BattleBackend {
 	public static Deck craftDeck = new Deck();
 	public Deck newDeck;
 
-	public Player player = new Player("Bob", 100, 30, 10, 0, newDeck.deck, new ArrayList<Card>());
+	public Player player;
 	
 	public BattleBackend() {
 		running = true;
 		playerTurn = true;
 		cpuTurn = false;
 		
-		//player = new Player("Bob", 100, 30, 10, 0, newDeck.deck,null);
+		player = new Player("Bob", 100, 30, 10, 0, newDeck.deck,null);
 		cpu = new AI();
 		
 		selectedCard = null;
@@ -62,7 +62,7 @@ public class BattleBackend {
 	 */
 	public void run() {
 		while(running) {
-			addMana();
+			addMana(); 
 			refreshMana();
 			player.drawcard(1);
 			cpu.drawCard(1);
