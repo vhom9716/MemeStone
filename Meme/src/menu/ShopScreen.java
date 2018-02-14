@@ -14,18 +14,20 @@ public class ShopScreen extends FullFunctionScreen {
 
 	private static final long serialVersionUID = 258186143576427947L;
 	
-	public int gold;
+	public static int gold;
+	public int passingGold;
 	public TextArea tempCardDis;
 	public static Card[] commonCards = {Deck.Doge, Deck.DewYuKnoDeWae, Deck.Pikachu, Deck.PotOfGreed, Deck.RainbowDash, Deck.UWot };
 	public static Card[] rareCards = {Deck.IQ, Deck.ScrewTheRulesIHaveMoney, Deck.DragonBalls, Deck.WTF };
 	public static Card[] epicCards = {Deck.OmaeWaMouShindeiru, Deck.SaltBae };
-	public static Card[] legedaryCards = {Deck.Shenron, Deck.TheExcutiveProducer, Deck.UltraMegaChicken };
+	public static Card[] legendaryCards = {Deck.Shenron, Deck.TheExcutiveProducer, Deck.UltraMegaChicken };
+	public TextLabel displayGold;
 	
 	public ShopScreen(int width, int height) {
 		super(width, height);
 		
 	}
-
+	
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
 		gold = 400;
@@ -34,7 +36,7 @@ public class ShopScreen extends FullFunctionScreen {
 		tempCardDis.setCustomTextColor(Color.WHITE);
 		tempCardDis.setSize(29);
 		viewObjects.add(tempCardDis);
-		TextLabel displayGold = new TextLabel(350, 13,200,200,Integer.toString(gold));
+		displayGold = new TextLabel(350, 13,200,200,Integer.toString(gold));
 		displayGold.setCustomTextColor(Color.WHITE);
 		displayGold.setSize(29);
 		displayGold.setText(Integer.toString(gold));
@@ -54,6 +56,7 @@ public class ShopScreen extends FullFunctionScreen {
 			@Override
 			public void act() {
 				Menu.menu.setScreen(Menu.screen5);
+				Menu.screen5.displayGold.setText(Integer.toString(ShopScreen.gold));
 			}
 		});
 		viewObjects.add(shop2);
@@ -64,22 +67,30 @@ public class ShopScreen extends FullFunctionScreen {
 			
 			@Override
 			public void act() {
-				String s = "You have obtained:";
-				if (gold >= 100) {
-					gold -= 100;
-					tempCardDis.setText("");
-					int getCard = (int) (Math.random()*15);
-					for(int i = 0; i < 5; i++) {
-						Card c = Deck.collection.get(getCard);
-						s += c.getName() + ", ";
-						c.setAmt(c.getAmt()+1);
-						getCard = (int) (Math.random()*15);
-					}
-					displayGold.setText(Integer.toString(gold));
-					tempCardDis.setText(s);
-				}else {
-					tempCardDis.setText("You do not have enough gold");
-				}
+				
+				int randomInt;
+//				randomInt = (int) ((Math.random()*100)+1);
+//				if(randomInt > 95){
+//				 	int randomCard = (int)(Math.random()*legendaryCards[].length);
+//				 	Graphic card1= new Graphic(x,y,width,height,legendaryCards[randomCard].getImage());
+				 
+				
+//				String s = "You have obtained:";
+//				if (gold >= 100) {
+//					gold -= 100;
+//					tempCardDis.setText("");
+//					int getCard = (int) (Math.random()*15);
+//					for(int i = 0; i < 5; i++) {
+//						Card c = Deck.collection.get(getCard);
+//						s += c.getName() + ", ";
+//						c.setAmt(c.getAmt()+1);
+//						getCard = (int) (Math.random()*15);
+//					}
+//					displayGold.setText(Integer.toString(gold));
+//					tempCardDis.setText(s);
+//				}else {
+//					tempCardDis.setText("You do not have enough gold");
+//				}
 				
 				//Move function---> 5 face-down cards move towards the right.
 				//the cards all go through some animation and will be face-up.

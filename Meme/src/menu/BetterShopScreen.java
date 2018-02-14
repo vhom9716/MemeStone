@@ -1,6 +1,7 @@
 package menu;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.util.List;
 
 import battle.Player;
@@ -13,13 +14,14 @@ import guiTeacher.userInterfaces.FullFunctionScreen;
 public class BetterShopScreen extends FullFunctionScreen {
 
 	private static final long serialVersionUID = 258186143576427947L;
+	int gold = ShopScreen.gold;
 	
-	public int gold;
 	public TextArea tempCardDis;
+	protected TextLabel displayGold;
 	public static Card[] commonCards = {Deck.Doge, Deck.DewYuKnoDeWae, Deck.Pikachu, Deck.PotOfGreed, Deck.RainbowDash, Deck.UWot };
 	public static Card[] rareCards = {Deck.IQ, Deck.ScrewTheRulesIHaveMoney, Deck.DragonBalls, Deck.WTF };
 	public static Card[] epicCards = {Deck.OmaeWaMouShindeiru, Deck.SaltBae };
-	public static Card[] legedaryCards = {Deck.Shenron, Deck.TheExcutiveProducer, Deck.UltraMegaChicken };
+	public static Card[] legendaryCards = {Deck.Shenron, Deck.TheExcutiveProducer, Deck.UltraMegaChicken };
 	
 	public BetterShopScreen(int width, int height) {
 		super(width, height);
@@ -28,16 +30,15 @@ public class BetterShopScreen extends FullFunctionScreen {
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
-		gold = 400;
 		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/BetterCardsShop.png"));
 		tempCardDis = new TextArea(500, 500, 400, 200, "");
 		tempCardDis.setCustomTextColor(Color.WHITE);
 		tempCardDis.setSize(29);
 		viewObjects.add(tempCardDis);
-		TextLabel displayGold = new TextLabel(350, 13,200,200,Integer.toString(gold));
+		displayGold = new TextLabel(350, 13,200,200,Integer.toString(ShopScreen.gold));
 		displayGold.setCustomTextColor(Color.WHITE);
 		displayGold.setSize(29);
-		displayGold.setText(Integer.toString(gold));
+		displayGold.setText(Integer.toString(ShopScreen.gold));
 		viewObjects.add(displayGold);
 		
 		Button open = new Button((getWidth()-1500)/2,getHeight()-40,400,55," ",new Action() {
@@ -54,6 +55,7 @@ public class BetterShopScreen extends FullFunctionScreen {
 			@Override
 			public void act() {
 				Menu.menu.setScreen(Menu.screen2);
+				Menu.screen2.displayGold.setText(Integer.toString(ShopScreen.gold));
 			}
 		});
 		viewObjects.add(shop1);
@@ -63,9 +65,10 @@ public class BetterShopScreen extends FullFunctionScreen {
 			
 			@Override
 			public void act() {
+				displayGold.setText(Integer.toString(ShopScreen.gold));
 				String s = "You have obtained:";
-				if (gold >= 175) {
-					gold -= 175;
+				if (ShopScreen.gold >= 175) {
+					ShopScreen.gold -= 175;
 					tempCardDis.setText("");
 					int getCard = (int) (Math.random()*15);
 					for(int i = 0; i < 5; i++) {
@@ -74,7 +77,7 @@ public class BetterShopScreen extends FullFunctionScreen {
 						c.setAmt(c.getAmt()+1);
 						getCard = (int) (Math.random()*15);
 					}
-					displayGold.setText(Integer.toString(gold));
+					displayGold.setText(Integer.toString(ShopScreen.gold));
 					tempCardDis.setText(s);
 				}else {
 					tempCardDis.setText("You do not have enough gold");
