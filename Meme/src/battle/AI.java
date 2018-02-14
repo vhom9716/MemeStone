@@ -57,11 +57,7 @@ public class AI implements Character{
 	}
 	//ensure that taunts are accounted for
 	public void declareAttack(int sel) {
-		for(Monster m: Player.board) {
-			if(m.hasTaunt) {
-				tauntPresent = true;
-			}
-		}
+		
 		if(board.get(sel).canAttack) { 
 			
 		}
@@ -77,6 +73,7 @@ public class AI implements Character{
 	
 	public void playSpell(Card selCard) {
 		hand.get(selCard).act();
+	}
 	public void playSpell(int cardPos) {
 		hand.get(cardPos);
 	}
@@ -162,9 +159,6 @@ public class AI implements Character{
 		return 0;
 	}
 
-	public void drawCard(int i) {
-		return currentMana;
-	}
 
 	@Override
 	public Card getFromHand(int pos) {

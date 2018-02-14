@@ -75,9 +75,9 @@ import menu.Menu;
 		currentFieldImages = new ArrayList<String>();
 		
 		TextLabel.setTextColor(Color.PINK);
-		healthslot = new TextLabel(650,765,50,50, Integer.toString(backend.player.returnhp()));
+		healthslot = new TextLabel(650,765,50,50, Integer.toString(backend.player.returnHp()));
 		TextLabel.setTextColor(new Color(60,100,200));
-		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(Player.returnmana())+"/"+"10");
+		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(Player.returnMana())+"/"+"10");
 
 		TextLabel.setTextColor(Color.BLACK);
 
@@ -293,7 +293,6 @@ import menu.Menu;
 		}  
 	}
 
-	
 	public void updateField(int pos) {
 		for(int i = 0; i < fieldSlots.size(); i++) {
 			System.out.println(i + "size:" + currentFieldImages.size());
@@ -306,7 +305,6 @@ import menu.Menu;
 			}else {
 				fieldSlots.get(i).changeCardImage("resources/placeholder.png", 2, 2);
 			}
-			
 		}
 	}
 }

@@ -9,7 +9,7 @@ public class Card{
 	private int amt;
 	private String imageLoc;
 	public boolean summon;
-	private boolean canAttack;
+	public boolean canAttack;
 	/**
 	 * Action a - Passes in a new action so that you can create a method for each individual cards	
 	 * 
