@@ -25,7 +25,13 @@ public class CardButton extends ClickableGraphic {
 	public void changeCardImage(String location, int w, int h) {
 		loadImages(location, w, h);
 	}
-	
+	public void moveCard(int x) {
+		int dx = getX();
+		int dy = getY();
+		setX(30+x*150);
+		setY(614);
+		move(dx, dy, 500);
+	}
 	public void setHasCard(boolean b) {
 		hasCard = b;
 	}

@@ -60,7 +60,7 @@ public class Deck{
 		
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
 			if(turn.equals("player")) {
-				player.takedamage(15);
+				player.takeDamage(15);
 			}else {
 				cpu.changeHealth(-15);
 			}

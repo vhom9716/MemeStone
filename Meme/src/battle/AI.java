@@ -7,6 +7,9 @@ import cards.Deck;
 import cards.Monster;
 import cards.MonsterCard;
 
+import cards.SpellCard;
+
+
 public class AI implements Character{
 	public ArrayList<Card> deck;
 	public ArrayList<Card> hand;
@@ -54,17 +57,23 @@ public class AI implements Character{
 	}
 	//ensure that taunts are accounted for
 	public void declareAttack(int sel) {
+		
 		if(board.get(sel).canAttack) { 
 			
 		}
 		board.get(sel).setCanAttack(false);
 	}
 	
-	public void playMonster(int cardPos) {
-		board.add(hand.get(cardPos));
-		hand.remove(cardPos);
+	public void playMonster(MonsterCard m) {
+		board.add(m);
+		hand.remove(m);
+		//updateHand
+		//updateField
 	}
 	
+	public void playSpell(Card selCard) {
+		hand.get(selCard).act();
+	}
 	public void playSpell(int cardPos) {
 		hand.get(cardPos);
 	}
@@ -73,10 +82,13 @@ public class AI implements Character{
 	 * plays a card, if the board is less than 5, (max size) it can play a monster
 	 */
 	public void playCard() {
-		int selCard = 1;
-		playSpell(selCard);
-		if(board.size() < 5) {
-			playMonster(selCard);
+		int a = 1;
+		Card selCard = hand.get(a);
+		if(board.size() < 5 && selCard instanceof MonsterCard) {
+			playMonster((MonsterCard)selCard);
+		}
+		if(selCard instanceof SpellCard) {
+			playSpell(selCard);
 		}
 	}
 	
@@ -84,10 +96,7 @@ public class AI implements Character{
 		drawCard();
 		maxMana++;
 		currentMana = maxMana;
-		while(!checkTurnDone()) {
-			playCard();
-			declareAttack();
-		}
+		checkTurnDone(); 
 	}
 	 
 	//checking turn completion can go into battle class 
@@ -104,7 +113,7 @@ public class AI implements Character{
 			return false;
 		}
 		for(Card c: hand) {
-			if(c.cost < currentMana) {
+			if(c.getCost() < currentMana) {
 				 return true;
 			}
 		}
@@ -117,16 +126,15 @@ public class AI implements Character{
 	 * then if there are available monsterAttacks.
 	 * @return 
 	 */
-	public boolean checkTurnDone() {
-		if(checkManaCostsInHand()) {
-			return true;
-		}else {
-			if(availableAttacksOnBoard()) {
-				return true;
-			}
+	public void checkTurnDone() {
+		while(checkManaCostsInHand()) {
+			playCard();
+			//updateHand
+			//updateField
 		}
-		return false;
-		
+		while(availableAttacksOnBoard()) {
+			declareAttack(0);
+		}
 	}
 	/**
 	 * checks if there are available attacks on the player's board
@@ -147,8 +155,10 @@ public class AI implements Character{
 	}
 
 	public int returnmana() {
-		return currentMana;
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 
 	@Override
 	public Card getFromHand(int pos) {
@@ -160,7 +170,7 @@ public class AI implements Character{
 		board.add(c);
 	}
 
-	@Override
+
 	public void removeFromHand(int pos) {
 		hand.remove(pos);
 	}
@@ -168,6 +178,7 @@ public class AI implements Character{
 	@Override
 	public int getHandSize() {
 		return hand.size();
+
 	}
 }
  
