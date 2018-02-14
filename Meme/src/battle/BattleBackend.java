@@ -184,7 +184,7 @@ public class BattleBackend {
 	 * @return
 	 */
 	public int returnWinNumber() {
-		if (player.returnhp() <= 0) {
+		if (player.returnHp() <= 0) {
 			return 0;
 		}
 		else if (cpu.health <= 0) {
