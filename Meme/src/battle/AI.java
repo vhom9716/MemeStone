@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import cards.Card;
 import cards.Deck;
 import cards.Monster;
+import cards.MonsterCard;
 
 public class AI implements Character{
 	public ArrayList<Card> deck;
@@ -144,6 +145,24 @@ public class AI implements Character{
 
 	public int returnmana() {
 		return currentMana;
+	}
+
+	@Override
+	public Card getFromHand(int pos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addToBoard(MonsterCard c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeFromHand(int pos) {
+		// TODO Auto-generated method stub
+		
 	}
 }
  

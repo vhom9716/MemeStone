@@ -3,6 +3,7 @@ package battle;
 import java.util.ArrayList;
 
 import cards.Card;
+import cards.MonsterCard;
 
 public class Player implements Character{
 	
@@ -23,6 +24,7 @@ public class Player implements Character{
 		this.deck=deck;
 		//this.hand=hand;
 		this.hand = new ArrayList<Card>();
+		this.board = new ArrayList<Card>();
 		this.currentmana=mana;
 		this.maxmana=maxmana;
 		this.gold=gold;
@@ -136,6 +138,26 @@ public class Player implements Character{
 	
 	public void declareAttack(Card attacker,Card victim) {
 		
+	}
+
+	@Override
+	public Card getFromHand(int pos) {
+		return hand.get(pos);
+	}
+
+	@Override
+	public void addToBoard(MonsterCard c) {
+		board.add(c);
+	}
+
+	@Override
+	public void removeFromHand(int pos) {
+		hand.remove(pos);
+	}
+
+	@Override
+	public int getHandSize() {
+		return hand.size();
 	}
 	
  

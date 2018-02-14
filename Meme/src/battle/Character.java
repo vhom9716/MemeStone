@@ -9,5 +9,6 @@ public interface Character {
 	Card getFromHand(int pos);
 	void addToBoard(MonsterCard c);
 	void removeFromHand(int pos);
+	int getHandSize();
 	
 }
