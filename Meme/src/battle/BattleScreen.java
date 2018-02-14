@@ -218,21 +218,33 @@ import menu.Menu;
 //					}
 //					currentHandImages.remove(pos);
 //					BattleBackend.player.hand.remove(pos);
-					
-					if(chara.getFromHand(pos) instanceof MonsterCard) {
-						activateCardMon(chara.getFromHand(pos), pos);
-						chara.addToBoard((MonsterCard) chara.getFromHand(pos));
-						//System.out.println(BattleBackend.player.deck.size());
+					if(backend.player.hand.get(pos).getCost()<backend.player.returnmana()) {
+						System.out.println(backend.player.returnmana());
+						if(chara.getFromHand(pos) instanceof MonsterCard) {
+							activateCardMon(chara.getFromHand(pos), pos);
+							chara.addToBoard((MonsterCard) chara.getFromHand(pos));
+							//System.out.println(BattleBackend.player.deck.size());
 
-//					if(backend.player.hand.get(pos) instanceof MonsterCard) {
-//						activateCardMon(backend.player.hand.get(pos));
-//						backend.playerBoard.add((MonsterCard) backend.player.hand.get(pos));
-//						System.out.println(backend.player.deck.size());
+//						if(backend.player.hand.get(pos) instanceof MonsterCard) {
+//							activateCardMon(backend.player.hand.get(pos));
+//							backend.playerBoard.add((MonsterCard) backend.player.hand.get(pos));
+//							System.out.println(backend.player.deck.size());
 
+						}else {
+
+							activateCardSpell(chara.getFromHand(pos));
+
+//							activateCardSpell(backend.player.hand.get(pos));
+						}
+
+						selStringList.remove(pos);
+						chara.removeFromHand(pos);
+						updateHand(selSlotList, selStringList, chara);
 					}else {
 
 						activateCardSpell(chara.getFromHand(pos));
 //						activateCardSpell(backend.player.hand.get(pos));
+						System.out.println("gg");
 					}
 
 					selStringList.remove(pos);
@@ -240,6 +252,7 @@ import menu.Menu;
 					updateHand(selSlotList, selStringList, chara);
 					updateMana();
 					updateHp();
+					
 
 //					currentHandImages.remove(pos);
 //					backend.player.hand.remove(pos);
