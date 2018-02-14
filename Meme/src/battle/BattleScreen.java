@@ -93,7 +93,7 @@ import menu.Menu;
 		
 		generateFieldSlots();
 		for(int i = 0; i < fieldSlots.size(); i++) {
-			viewObjects.add(fieldSlots.get(i));
+			viewObjects.add(fieldSlots.get(i)); 
 		}
 		
 		//Former Code at the Bottom
