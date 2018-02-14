@@ -3,11 +3,14 @@ package battle;
 import java.util.ArrayList;
 
 import cards.Card;
+import cards.Deck;
 import cards.Monster;
 import cards.MonsterCard;
+
 import cards.SpellCard;
 
-public class AI {
+
+public class AI implements Character{
 	public ArrayList<Card> deck;
 	public ArrayList<Card> hand;
 	public ArrayList<Card> board;
@@ -15,6 +18,23 @@ public class AI {
 	public int maxMana;
 	public int currentMana;
 	
+	public AI() {
+		deck = new ArrayList<Card>();
+		hand = new ArrayList<Card>();
+		board = new ArrayList<Card>();
+		deck.add(Deck.Doge);
+		deck.add(Deck.PotOfGreed);
+		deck.add(Deck.OmaeWaMouShindeiru);
+		deck.add(Deck.RainbowDash);
+		deck.add(Deck.Pikachu);
+		deck.add(Deck.ScrewTheRulesIHaveMoney);
+		deck.add(Deck.SaltBae);
+		deck.add(Deck.DewYuKnoDeWae);
+		deck.add(Deck.UWot);
+		deck.add(Deck.UltraMegaChicken);
+		deck.add(Deck.Shenron);
+		deck.add(Deck.WTF);
+	}
 	
 	public ArrayList<Card> getBoard() {
 		return board;
@@ -24,9 +44,16 @@ public class AI {
 		health += change;
 	}
 	
+	public void drawCard(int num) {
+		while(num > 0 && deck.size() == 0) {
+			System.out.println(num + deck.get(0).getImage());
+			hand.add(deck.get(0));
+			deck.remove(0);
+			num--;	
+		}
+	}
 	//ensure that taunts are accounted for
 	public void declareAttack(int sel) {
-		
 		for(Monster m: Player.board) {
 			if(m.hasTaunt) {
 				tauntPresent = true;
@@ -35,6 +62,7 @@ public class AI {
 		if(board.get(sel).canAttack) { 
 			
 		}
+		board.get(sel).setCanAttack(false);
 	}
 	
 	public void playMonster(MonsterCard m) {
@@ -46,7 +74,8 @@ public class AI {
 	
 	public void playSpell(Card selCard) {
 		hand.get(selCard).act();
-		
+	public void playSpell(int cardPos) {
+		hand.get(cardPos);
 	}
 	
 	/**
@@ -121,7 +150,7 @@ public class AI {
 			if(m.canAttack) {
 				return true;
 			}
-		}
+		} 
 		return false;
 	}
 
@@ -131,8 +160,31 @@ public class AI {
 	}
 
 	public void drawCard(int i) {
+		return currentMana;
+	}
+
+	@Override
+	public Card getFromHand(int pos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addToBoard(MonsterCard c) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void removeFromHand(int pos) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getHandSize() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
  
