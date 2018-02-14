@@ -85,7 +85,7 @@ import menu.Menu;
 		AIcardsOnField = new ArrayList<Card>();
 		AIhandSlots = new ArrayList<CardButton>();
 		AIfieldSlots = new ArrayList<CardButton>();
-		AIcurrentHandImages = new ArrayList<String>();
+		AIcurrentHandImages = new ArrayList<String>(); 
 		AIcurrentFieldImages = new ArrayList<String>();
 		
 		AImanaslot = new TextLabel(850, 763, 50, 50, Integer.toString(BattleBackend.cpu.returnmana())+"/"+"10");
