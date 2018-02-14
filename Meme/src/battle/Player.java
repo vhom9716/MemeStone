@@ -9,7 +9,7 @@ public class Player implements Character{
 	
 	public ArrayList<Card> deck;
 	public ArrayList<Card> hand;
-	public ArrayList<Card> board;
+	public ArrayList<MonsterCard> board;
 	public boolean[] playable; 
 	private String name;
 	public int health;
@@ -24,7 +24,7 @@ public class Player implements Character{
 		this.deck=deck;
 		//this.hand=hand;
 		this.hand = new ArrayList<Card>();
-		this.board = new ArrayList<Card>();
+		this.board = new ArrayList<MonsterCard>();
 		this.currentmana=mana;
 		this.maxmana=maxmana;
 		this.gold=gold;

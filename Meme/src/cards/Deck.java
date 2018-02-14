@@ -15,11 +15,9 @@ public class Deck{
 			if(turn.equals("player")) {
 				for(int i =0;i<player.deck.size()-1;i++) {
 					if(player.deck.get(i) instanceof MonsterCard) {
-						System.out.println(player.hand.size());
 						player.hand.add(player.deck.get(i));
 						player.deck.remove(i);
-						System.out.println("its me");
-						System.out.println(player.hand.size());
+						player.currentmana -= 2;
 						return;
 					}
 				}
@@ -27,11 +25,9 @@ public class Deck{
 			else {
 				for(int i =0;i<cpu.deck.size()-1;i++) {
 					if(cpu.deck.get(i) instanceof MonsterCard) {
-						System.out.println(cpu.hand.size());
 						cpu.hand.add(player.deck.get(i));
 						cpu.deck.remove(i);
-						System.out.println("its him");
-						System.out.println(player.hand.size());
+						cpu.currentMana -= 2;
 						return;
 					}
 				}
@@ -44,7 +40,7 @@ public class Deck{
 
 		@Override
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
-			// TODO Auto-generated method stub
+			
 			
 		}
 	},"resources/dog.png" );

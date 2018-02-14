@@ -32,6 +32,11 @@ public class BattleBackend {
 		running = true;
 		playerTurn = true;
 		cpuTurn = false;
+		newDeck = new Deck();
+		for(int i=0; i < craftDeck.deck.size();i++) {
+			//System.out.println(craftDeck.deck.size());
+			newDeck.deck.add((craftDeck.deck.get(i)));
+		}
 		
 		player = new Player("Bob", 100, 30, 10, 0, newDeck.deck,null);
 		cpu = new AI();
@@ -39,7 +44,7 @@ public class BattleBackend {
 		selectedCard = null;
 		opponentCard = null;
 		
-		playerBoard = new ArrayList<MonsterCard>();
+		playerBoard = player.board;
 		computerBoard = new ArrayList<MonsterCard>();
 		
 		playerBoardNum= 0;
@@ -47,9 +52,6 @@ public class BattleBackend {
 		
 		move = "";
 		
-		for(int i=0; i < craftDeck.deck.size();i++) {
-			newDeck.addCard(craftDeck.deck.get(i));
-		}
 	//	player.drawcard(4);
 	//	newDeck.deck.get(0).a.act();
 		
@@ -89,9 +91,11 @@ public class BattleBackend {
 		}
 	}
 
-	private void checkStatus() {
-		// TODO Auto-generated method stub
-		
+	public String checkStatus() {
+		if (player.health <=0) {
+			return "CPU";
+		}
+		return "Player";
 	}
 
 	/*public void playerTurn() {

@@ -85,7 +85,7 @@ import menu.Menu;
 		AIcardsOnField = new ArrayList<Card>();
 		AIhandSlots = new ArrayList<CardButton>();
 		AIfieldSlots = new ArrayList<CardButton>();
-		AIcurrentHandImages = new ArrayList<String>();
+		AIcurrentHandImages = new ArrayList<String>(); 
 		AIcurrentFieldImages = new ArrayList<String>();
 		
 		AImanaslot = new TextLabel(850, 763, 50, 50, Integer.toString(BattleBackend.cpu.returnmana())+"/"+"10");
@@ -167,7 +167,7 @@ import menu.Menu;
 				if(deck.size() > 0) {
 					backend.player.drawcard(1); 
 					currentHandImages.add(hand.get(hand.size() - 1).getImage());
-					updateHand(handSlots, currentHandImages, null);
+					updateHand(handSlots, currentHandImages, backend.player);
 				}
 			}
 		}); 
@@ -288,7 +288,7 @@ import menu.Menu;
 			});
 			fieldSlots.add(fieldCardSlot);
 			counter += 100;
-		}
+		} 
 	}
 
 	
