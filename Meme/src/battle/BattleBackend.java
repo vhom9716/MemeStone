@@ -80,17 +80,17 @@ public class BattleBackend {
 	
 	}
 	
-	private void refreshMana() {
+	public void refreshMana() {
 		player.currentmana = player.maxmana;
 		cpu.currentMana = cpu.maxMana;
 	}
 
-	private void addMana() {
+	public void addMana() {
 		if(player.maxmana <10) {
-			player.currentmana++;
 			player.maxmana++;
+		}
+		if(cpu.maxMana <10) {
 			cpu.maxMana++;
-			cpu.currentMana++;
 		}
 	}
 
