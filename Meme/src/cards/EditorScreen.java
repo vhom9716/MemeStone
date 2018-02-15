@@ -275,6 +275,5 @@ public class EditorScreen extends FullFunctionScreen {
 		for(TextArea t: panel) {
 			t.setText(" ");
 		}
-		
 	}
 }
