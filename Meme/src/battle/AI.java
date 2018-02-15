@@ -41,7 +41,7 @@ public class AI implements Character{
 		hand.add(deck.get(3));
 	}
 	
-	public ArrayList<Card> getBoard() {
+	public ArrayList<MonsterCard> getBoard() {
 		return board;
 	}
 	
