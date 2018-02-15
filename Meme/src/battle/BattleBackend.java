@@ -10,7 +10,7 @@ public class BattleBackend {
 	public boolean playerTurn;
 	public boolean cpuTurn;
 	
-	public AI cpu;
+	public static AI cpu;
 	
 	public Card selectedCard;
 	public Card opponentCard;  
@@ -22,22 +22,29 @@ public class BattleBackend {
 	public int cpuBoardNum;
 	
 	public String move;
-	public static Deck newDeck = new Deck();
 
-	public static Player player = new Player("Bob", 100, 30, 10, 0, newDeck.deck, new ArrayList<Card>());
+	public static Deck craftDeck = new Deck();
+	public Deck newDeck;
+
+	public Player player;
 	
 	public BattleBackend() {
 		running = true;
 		playerTurn = true;
 		cpuTurn = false;
+		newDeck = new Deck();
+		for(int i=0; i < craftDeck.deck.size();i++) {
+			//System.out.println(craftDeck.deck.size());
+			newDeck.deck.add((craftDeck.deck.get(i)));
+		}
 		
-		//player = new Player("Bob", 100, 30, 10, 0, newDeck.deck,null);
+		player = new Player("Bob", 100, 30, 10, 0, newDeck.deck,null);
 		cpu = new AI();
 		
 		selectedCard = null;
 		opponentCard = null;
 		
-		playerBoard = new ArrayList<MonsterCard>();
+		playerBoard = player.board;
 		computerBoard = new ArrayList<MonsterCard>();
 		
 		playerBoardNum= 0;
@@ -57,10 +64,10 @@ public class BattleBackend {
 	 */
 	public void run() {
 		while(running) {
-			addMana();
+			addMana(); 
 			refreshMana();
 			player.drawcard(1);
-			cpu.draw();
+			cpu.drawCard(1);
 			playerTurn= true;
 			//playerTurn();
 			while(playerTurn) {
@@ -84,9 +91,11 @@ public class BattleBackend {
 		}
 	}
 
-	private void checkStatus() {
-		// TODO Auto-generated method stub
-		
+	public String checkStatus() {
+		if (player.health <=0) {
+			return "CPU";
+		}
+		return "Player";
 	}
 
 	/*public void playerTurn() {
@@ -179,7 +188,7 @@ public class BattleBackend {
 	 * @return
 	 */
 	public int returnWinNumber() {
-		if (player.returnhp() <= 0) {
+		if (player.returnHp() <= 0) {
 			return 0;
 		}
 		else if (cpu.health <= 0) {

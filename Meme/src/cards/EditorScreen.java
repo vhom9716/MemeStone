@@ -72,10 +72,14 @@ public class EditorScreen extends FullFunctionScreen {
 		panel = new TextArea[15];
 		removers = new Button[15];
 		background = new Graphic(0, 0, 1440, 824, "resources/CardBackgroundFinal.png");
-		String amt1 = Integer.toString(page1[1].getAmt() - page1[1].getAmtUsed());
-		String amt2 = Integer.toString(page1[2].getAmt() - page1[2].getAmtUsed());
-		String amt3 = Integer.toString(page1[3].getAmt() - page1[3].getAmtUsed());
-		String amt4 = Integer.toString(page1[4].getAmt() - page1[4].getAmtUsed());
+		card1= page1[0];
+		card2= page1[1];
+		card3= page1[2];
+		card4= page1[3];
+		String amt1 = Integer.toString(card1.getAmt() - card1.getAmtUsed());
+		String amt2 = Integer.toString(card2.getAmt() - card2.getAmtUsed());
+		String amt3 = Integer.toString(card3.getAmt() - card3.getAmtUsed());
+		String amt4 = Integer.toString(card4.getAmt() - card4.getAmtUsed());
 		deckCapacity = new TextArea(1200,700,150,40,deckSize+"/15");
 		
 		incompleteOrDone = new TextArea(980,40,430,200," ");
@@ -177,6 +181,7 @@ public class EditorScreen extends FullFunctionScreen {
 						}
 						deckSize--;
 						deckCapacity.setText(deckSize+"/15");
+						updateCardAmts();
 					}
 				}
 			});
@@ -202,6 +207,10 @@ public class EditorScreen extends FullFunctionScreen {
 		picture3amt.setSize(16);
 		picture4amt.setCustomTextColor(Color.WHITE);
 		picture4amt.setSize(16);
+		saveButton.setCustomTextColor(Color.WHITE);
+		saveButton.setSize(16);
+		emptyButton.setCustomTextColor(Color.WHITE);
+		emptyButton.setSize(16);
 	}
 
 	public void updateCards() {
