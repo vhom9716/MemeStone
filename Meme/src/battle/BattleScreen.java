@@ -78,7 +78,6 @@ import menu.Menu;
 
 
 
-
 	public BattleScreen(int width, int height) {
 		super(width, height);
 	}
@@ -104,8 +103,6 @@ import menu.Menu;
 		
 		backend.cpu.drawCard(4);
 
-		Graphic test = new Graphic(389, 580, 40, 40, "resources/1.png");
-		backend.cpu.drawCard(4);
 
 		AIcardsInHand = new ArrayList<Card>();
 		AIcardsOnField = new ArrayList<Card>();
@@ -130,19 +127,35 @@ import menu.Menu;
 //		for(int i = 0; i < 4; i++) {
 //			System.out.println(backend.player.hand.get(i).getImage());
 //			currentHandImages.add(backend.player.hand.get(i).getImage());
+//		}				
+				
+				quit = new Button(545,310, 347, 76, "", new Action() {
+					public void act() {
+						Menu.menu.setScreen(Menu.screen1);
+						System.out.println("dfsdf");
+					}
+				});
+				resume = new Button(545, 455, 347, 76, "", new Action() {
+					
+					@Override
+					public void act() {
+						settings.setVisible(!settings.isVisible());
+						quit.setVisible(!quit.isVisible());
+						concede.setVisible(!concede.isVisible());
+						resume.setVisible(!resume.isVisible());	
+					}
+				});
+				concede = new Button(545, 200, 347, 76, "", new Action() {
+					
+					@Override
+					public void act() {
+						//basically end game?
+						
+					}
+				});
+
 //		}
 		
-		healthpos1 = new Graphic (389, 580, 38, 38, "");
-		healthpos2 = new Graphic (489, 580, 38, 38, "");
-		healthpos3 = new Graphic (589, 580, 38, 38, "");
-		healthpos4 = new Graphic (689, 580, 38, 38, "");
-		healthpos5 = new Graphic (789, 580, 38, 38, "");
-		
-		currentHpPos.add(healthpos1);
-		currentHpPos.add(healthpos2);
-		currentHpPos.add(healthpos3);
-		currentHpPos.add(healthpos4);
-		currentHpPos.add(healthpos5);
 		
 		
 		quit = new Button(545,310, 347, 76, "", new Action() {
@@ -169,8 +182,6 @@ import menu.Menu;
 				
 			}
 		});
-		
-		
 		viewObjects.add(manaslot);
 		viewObjects.add(AImanaslot);
 		viewObjects.add(new Graphic(0, 20, getWidth(),getHeight(),"resources/background.jpg"));
@@ -188,12 +199,14 @@ import menu.Menu;
 				resume.setVisible(!resume.isVisible());
 			}
 		}));
-		
+
 		viewObjects.add(new Graphic(750,130, 120, 80, "resources/hp.png"));
 		viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png")); 
 		
+
 		quit.setVisible(false);
 		viewObjects.add(quit);
+
 		
 		generateHandSlots(614, handSlots, currentHandImages, fieldSlots, currentFieldImages, backend.player); 	
 		for(int i = 0; i < handSlots.size(); i++) { 
@@ -230,13 +243,6 @@ import menu.Menu;
 //				System.out.println("dfsdf");
 //			}
 //		}));
-
-		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
-			public void act() {
-				Menu.menu.setScreen(Menu.screen1);
-				System.out.println("dfsdf");
-			}
-		}));
 		Graphic deck = new Graphic(1200, 600, 100, 200, "resources/cardBack.png");
 		viewObjects.add(deck);
 		
@@ -253,7 +259,6 @@ import menu.Menu;
 				}
 			}
 		}); 
-	
 		viewObjects.add(end);
 		System.out.println(healthslot.getTextColor());
 		viewObjects.add(manaslot);
@@ -265,12 +270,8 @@ import menu.Menu;
 		viewObjects.add(concede);
 		resume.setVisible(false);
 		viewObjects.add(resume);
-		
-		viewObjects.add(healthpos1);
-		viewObjects.add(healthpos2);
-		viewObjects.add(healthpos3);
-		viewObjects.add(healthpos4);
-		viewObjects.add(healthpos5);
+		quit.setVisible(false);
+		viewObjects.add(quit);
 		
 	}
 
@@ -373,7 +374,6 @@ import menu.Menu;
 					
 					//not working with ai
 					fieldSlots.get(i).moveCard(pos);
-					
 					selButtonList.get(i).setHasCard(true);
 				}
 				selButtonList.get(i).changeCardImage(selStringList.get(i), 120, 160);
