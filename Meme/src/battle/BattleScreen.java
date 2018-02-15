@@ -29,6 +29,11 @@ import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
 import menu.Menu;
 	
+
+	
+
+/////////////////////////////
+
 	public class BattleScreen extends FullFunctionScreen {
 	ArrayList<Clip> allSounds;
 	
@@ -58,6 +63,19 @@ import menu.Menu;
 	TextLabel healthslot;
 
 	TextLabel AImanaslot;
+	
+	Graphic settings;
+	Button quit;
+	Button concede;
+	Button resume;
+	Graphic healthpos1;
+	Graphic healthpos2;
+	Graphic healthpos3;
+	Graphic healthpos4;
+	Graphic healthpos5;
+
+	private ArrayList<Graphic> currentHpPos;
+
 
 
 
@@ -74,7 +92,7 @@ import menu.Menu;
 		fieldSlots = new ArrayList<CardButton>();
 		currentHandImages = new ArrayList<String>();
 		currentFieldImages = new ArrayList<String>();
-		currentFieldHp = new ArrayList<Graphic>();
+		currentHpPos = new ArrayList<Graphic>();
 		
 		TextLabel.setTextColor(Color.PINK);
 		healthslot = new TextLabel(650,765,50,50, Integer.toString(backend.player.returnHp()));
@@ -114,16 +132,72 @@ import menu.Menu;
 //			currentHandImages.add(backend.player.hand.get(i).getImage());
 //		}
 		
-
+		healthpos1 = new Graphic (389, 580, 38, 38, "");
+		healthpos2 = new Graphic (489, 580, 38, 38, "");
+		healthpos3 = new Graphic (589, 580, 38, 38, "");
+		healthpos4 = new Graphic (689, 580, 38, 38, "");
+		healthpos5 = new Graphic (789, 580, 38, 38, "");
+		
+		currentHpPos.add(healthpos1);
+		currentHpPos.add(healthpos2);
+		currentHpPos.add(healthpos3);
+		currentHpPos.add(healthpos4);
+		currentHpPos.add(healthpos5);
+		
+		
+		quit = new Button(545,310, 347, 76, "", new Action() {
+			public void act() {
+				Menu.menu.setScreen(Menu.screen1);
+				System.out.println("dfsdf");
+			}
+		});
+		resume = new Button(545, 455, 347, 76, "", new Action() {
+			
+			@Override
+			public void act() {
+				settings.setVisible(!settings.isVisible());
+				quit.setVisible(!quit.isVisible());
+				concede.setVisible(!concede.isVisible());
+				resume.setVisible(!resume.isVisible());	
+			}
+		});
+		concede = new Button(545, 200, 347, 76, "", new Action() {
+			
+			@Override
+			public void act() {
+				//basically end game?
+				
+			}
+		});
+		
+		
 		viewObjects.add(manaslot);
 		viewObjects.add(AImanaslot);
 		viewObjects.add(new Graphic(0, 20, getWidth(),getHeight(),"resources/background.jpg"));
 		viewObjects.add(new Graphic(800,760,60,60, "resources/mana.png"));
 		viewObjects.add(new Graphic(630,614,350,250,"resources/player.png"));
 		viewObjects.add(new Graphic(630, 25, 350,250, "resources/cpu.png"));
-		//viewObjects.add(new Graphic(1250,25, 150, 150, "resources/setbutton1.png"));
+		viewObjects.add(new Graphic(1250,25, 150, 150, "resources/setbutton1.png"));
+		viewObjects.add(new Button(1300,75,60,50, "", new Action() {
+			
+			@Override
+			public void act() {
+				settings.setVisible(!settings.isVisible());
+				quit.setVisible(!quit.isVisible());
+				concede.setVisible(!concede.isVisible());
+				resume.setVisible(!resume.isVisible());
+			}
+		}));
+		
 		viewObjects.add(new Graphic(750,130, 120, 80, "resources/hp.png"));
 		viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png")); 
+		
+		quit.setVisible(false);
+		viewObjects.add(quit);
+		
+
+		
+		
 
 		
 		generateHandSlots(614, handSlots, currentHandImages, fieldSlots, currentFieldImages, backend.player); 	
@@ -184,17 +258,25 @@ import menu.Menu;
 				}
 			}
 		}); 
+	
 		viewObjects.add(end);
 		System.out.println(healthslot.getTextColor());
 		viewObjects.add(manaslot);
 		viewObjects.add(healthslot);
-		viewObjects.add(test);
-	//	Graphic settings = new Graphic(450, 100, 500, 600, "resources/menu.png");
-	//	viewObjects.add(settings);
-
+		settings = new Graphic(450, 100, 500, 600, "resources/menu.png");
+		settings.setVisible(false);
+		viewObjects.add(settings);
+		concede.setVisible(false);
+		viewObjects.add(concede);
+		resume.setVisible(false);
+		viewObjects.add(resume);
 		
-	//	ClickableGraphic test = new ClickableGraphic(300,460,120,160, "resources/dog.png");
-	//	viewObjects.add(test);
+		viewObjects.add(healthpos1);
+		viewObjects.add(healthpos2);
+		viewObjects.add(healthpos3);
+		viewObjects.add(healthpos4);
+		viewObjects.add(healthpos5);
+		
 	}
 
 	public void activateCardSpell(Card card) {
@@ -290,7 +372,10 @@ import menu.Menu;
 			//System.out.println(i + "size:" + selStringList.size()+  selStringList.get(i));
 			if(selStringList.size() > i && selStringList.get(i) != null) {
 				if (selButtonList.get(i).getHasCard() == false) {
-					//fieldSlots.get(i).moveCard(pos);
+					
+					//not working with ai
+					fieldSlots.get(i).moveCard(pos);
+					
 					selButtonList.get(i).setHasCard(true);
 				}
 				selButtonList.get(i).changeCardImage(selStringList.get(i), 120, 160);
@@ -307,7 +392,7 @@ import menu.Menu;
 		System.out.println("mana");
 		manaslot.setText(Integer.toString(backend.player.returnMana())+"/"+"10");
 	}
-	public void updateFieldHp(int pos, int hpupdated) {
+	public void updateHpField(int pos, int hpupdated) {
 		if ((hpupdated > 0) && (hpupdated< 10)) {
 		currentFieldHp.set(pos, new Graphic (389+ pos*100, 580, 40,40,"resources/"+Integer.toString(hpupdated)+".png"));
 		}
