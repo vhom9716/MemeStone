@@ -33,6 +33,7 @@ public class BattleBackend {
 		playerTurn = true;
 		cpuTurn = false;
 		newDeck = new Deck();
+		newDeck.deck.clear();
 		for(int i=0; i < craftDeck.deck.size();i++) {
 			System.out.println("yo " + craftDeck.deck.size());
 			newDeck.deck.add((craftDeck.deck.get(i)));
