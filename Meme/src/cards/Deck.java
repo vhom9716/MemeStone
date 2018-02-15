@@ -205,14 +205,17 @@ public class Deck{
 				for(int i=0;i<backend.player.hand.size()-1;i++) {
 					if(backend.player.hand.get(i).getName().equals("Shenron"))  {
 						System.out.println("true");
-						//backend.playerBoard.add((MonsterCard) Shenron);
+						backend.playerBoard.add((MonsterCard) Shenron);
+						backend.player.hand.remove((MonsterCard) Shenron);
 						break;
+					}else {
+						System.out.println("hehe");
 					}
-					System.out.println("hehe");
 				}
 				for(int x=0;x<backend.player.deck.size()-1;x++) {
 					if(backend.player.deck.get(x).getName().equals("Shenron"))  {
-						//backend.playerBoard.add((MonsterCard) Shenron);
+						backend.playerBoard.add((MonsterCard) Shenron);
+						backend.player.deck.remove((MonsterCard) Shenron);
 						System.out.println("true");
 						break;
 					}
