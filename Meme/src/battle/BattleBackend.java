@@ -212,5 +212,9 @@ public class BattleBackend {
 			return 2;
 		}
 	}
+	
+	public void summonMonster(MonsterCard card) {
+		playerBoard.add(card);
+	}
 }
   
