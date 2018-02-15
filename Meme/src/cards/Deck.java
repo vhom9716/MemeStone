@@ -318,7 +318,7 @@ public class Deck{
 	}, "resources/sevendragonballs.png");
 	
 	public static ArrayList<Card> collection;
-	public static ArrayList<Card> deck= new ArrayList<Card>();
+	public ArrayList<Card> deck= new ArrayList<Card>();
 	public ArrayList<Card> playDeck = new ArrayList<Card>();
 	public Deck() {
 
