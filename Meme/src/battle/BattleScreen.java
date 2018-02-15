@@ -294,7 +294,9 @@ import menu.Menu;
 	}
 
 	public void activateCardSpell(Card card) {
-		card.a.act(backend.player, backend.cpu, "player", null, backend);
+		if(backend.validSpell(card)) {
+			card.a.act(backend.player, backend.cpu, "player", null, backend);
+		}
 	}
 	
 	public void drawACard(Card card, ArrayList<String> selImageList) {

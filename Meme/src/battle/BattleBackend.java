@@ -186,7 +186,7 @@ public class BattleBackend {
 	 * @param card
 	 * @return
 	 */
-	private boolean validSpell(Card card) {
+	public boolean validSpell(Card card) {
 		return player.currentmana >= card.getCost();
 	}
 	/**
