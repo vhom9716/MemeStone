@@ -57,8 +57,15 @@ import menu.Menu;
 	TextLabel healthslot;
 
 	TextLabel AImanaslot;
-
-
+	Graphic settings;
+	Button quit;
+	Button concede;
+	Button resume;
+	Graphic healthpos1;
+	Graphic healthpos2;
+	Graphic healthpos3;
+	Graphic healthpos4; 
+	Graphic healthpos5;
 
 	public BattleScreen(int width, int height) {
 		super(width, height);
@@ -85,7 +92,7 @@ import menu.Menu;
 		BattleBackend.cpu.drawCard(4);
 		AIcardsInHand = new ArrayList<Card>();
 		AIcardsOnField = new ArrayList<Card>();
-		AIhandSlots = new ArrayList<CardButton>();
+		AIhandSlots = new ArrayList<CardButton>(); 
 		AIfieldSlots = new ArrayList<CardButton>();
 		AIcurrentHandImages = new ArrayList<String>(); 
 		AIcurrentFieldImages = new ArrayList<String>();
