@@ -407,7 +407,7 @@ import menu.Menu;
 			friendlySelected = true;
 			friendlyFighter = backend.playerBoard.get(pos);
 		}
-		if (field == AIfieldSlots) {
+		if (field == AIfieldSlots) { 
 			enemySelected = true;
 			enemyFighter = backend.computerBoard.get(pos);
 		}
