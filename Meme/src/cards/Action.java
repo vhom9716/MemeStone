@@ -1,5 +1,6 @@
 package cards;
 
+import battle.AI;
 import battle.BattleBackend;
 import battle.Player;
 
@@ -11,4 +12,6 @@ public interface Action {
 	 * @author Jason Yan
 	 */
 	public void act(Player player, BattleBackend backend);
+
+	void act(Player player, AI cpu, String turn, Card card, BattleBackend backend);
 }

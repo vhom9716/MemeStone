@@ -34,6 +34,12 @@ public class Deck{
 			}
 		}
 
+		@Override
+		public void act(Player player, BattleBackend backend) {
+			// TODO Auto-generated method stub
+			
+		}
+
 		
 	}, "resources/200iq.png");
 	static public Card Doge = new MonsterCard("Doge",6,"Taunt",null, 1, 6, 6, false, new Action() {
@@ -41,6 +47,12 @@ public class Deck{
 		@Override
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
 			
+			
+		}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
+			// TODO Auto-generated method stub
 			
 		}
 	},"resources/dog.png" );
@@ -55,6 +67,12 @@ public class Deck{
 			// TODO Auto-generated method stub
 			
 		}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
+			// TODO Auto-generated method stub
+			
+		}
 	},"resources/UltraMegaChicken.png");
 	static public Card OmaeWaMouShindeiru = new SpellCard("Omae wa mou Shindeiru",7, "Damage the hero 15 health", 1, new Action() {
 		
@@ -66,6 +84,12 @@ public class Deck{
 			}
 			
 		}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
+			// TODO Auto-generated method stub
+			
+		}
 	}, "resources/omaewa.png");
 	static public Card Pikachu = new MonsterCard("Pikachu",4,"Battlecry",null, 1, 7, 7, false, new Action() {
 		public void act() {
@@ -74,6 +98,12 @@ public class Deck{
 
 		@Override
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -98,6 +128,12 @@ public class Deck{
 					}
 				}
 			}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
+			// TODO Auto-generated method stub
+			
+		}
 		
 	}, "resources/pog.png");
 	static public Card TheExcutiveProducer = new MonsterCard("The Excutive Producer",3,"",null, 3, 4, 2, false, new Action() {
@@ -110,6 +146,12 @@ public class Deck{
 			// TODO Auto-generated method stub
 			
 		}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
+			// TODO Auto-generated method stub
+			
+		}
 	}, "resources/theexecutiveproducter.png");
 	static public Card RainbowDash = new MonsterCard("Rainbow Dash!",3,"Charge",null, 2,5,1, false, new Action() {
 		public void act() {
@@ -119,6 +161,12 @@ public class Deck{
 		@Override
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
 			card.summon = true;
+		}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
+			// TODO Auto-generated method stub
+			
 		}
 	}, "resources/rd.png");
 	static public Card SaltBae = new SpellCard("Salt Bae",5,"Heals hero for 10",2, new Action() {
@@ -133,6 +181,12 @@ public class Deck{
 			}else {
 				cpu.changeHealth(10);
 			}
+			
+		}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
+			// TODO Auto-generated method stub
 			
 		}
 	}, "resources/saltbae.png");
@@ -150,6 +204,12 @@ public class Deck{
 			}
 			
 		}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
+			// TODO Auto-generated method stub
+			
+		}
 	}, "resources/screwingtherules.png");
 	static public Card Shenron = new MonsterCard("Shenron",50,"Charge","Taunt",0,99,99, false, new Action() {
 		public void act() {
@@ -160,6 +220,12 @@ public class Deck{
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
 			card.setCanAttack(true);
 		}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
+			// TODO Auto-generated method stub
+			
+		}
 	}, "resources/shenrun.png");
 	static public Card DewYuKnoDeWae = new MonsterCard("Dew yu kno de wae", 4, null, null, 1, 5, 4, false, new Action() {
 		public void act() {
@@ -168,6 +234,12 @@ public class Deck{
 
 		@Override
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -182,6 +254,12 @@ public class Deck{
 			// TODO Auto-generated method stub
 			
 		}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
+			// TODO Auto-generated method stub
+			
+		}
 	}, "resources/wotm8.png");
 	static public Card WTF = new SpellCard("WTF?!?", 3, "Deals 3 damage to a random player",2, new Action() {
 
@@ -192,6 +270,12 @@ public class Deck{
 			}else {
 				player.health -= 3;
 			}
+		}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
+			// TODO Auto-generated method stub
+			
 		}
 	}, "resources/wtfs.png");
 	static public Card DragonBalls = new SpellCard("Seven Dragon Balls", 10, "Summon Shenron",0, new Action() {
@@ -224,6 +308,12 @@ public class Deck{
 			
 			
 			}
+		}
+
+		@Override
+		public void act(Player player, BattleBackend backend) {
+			// TODO Auto-generated method stub
+			
 		}
 	}, "resources/sevendragonballs.png");
 	
@@ -277,11 +367,11 @@ public class Deck{
 		return deck;
 	}
 	
-	public static void setDeck() {
-		playDeck.clear();
-		for(Card c: deck) {
-			playDeck.add(c);
-		}
-	}
+	//public static void setDeck() {
+	//	playDeck.clear();
+	//	for(Card c: deck) {
+	//		playDeck.add(c);
+	//	}
+	//}
 	
 }
