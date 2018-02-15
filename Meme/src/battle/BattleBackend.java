@@ -10,7 +10,7 @@ public class BattleBackend {
 	public boolean playerTurn;
 	public boolean cpuTurn;
 	
-	public static AI cpu;
+	public AI cpu;
 	
 	public Card selectedCard;
 	public Card opponentCard;  
@@ -46,7 +46,7 @@ public class BattleBackend {
 		opponentCard = null;
 		
 		playerBoard = player.board;
-		computerBoard = new ArrayList<MonsterCard>();
+		computerBoard = cpu.board;
 		
 		playerBoardNum= 0;
 		cpuBoardNum = 0;
@@ -87,8 +87,10 @@ public class BattleBackend {
 
 	private void addMana() {
 		if(player.maxmana <10) {
+			player.currentmana++;
 			player.maxmana++;
 			cpu.maxMana++;
+			cpu.currentMana++;
 		}
 	}
 

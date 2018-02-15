@@ -280,7 +280,7 @@ public class Deck{
 	}, "resources/wtfs.png");
 	static public Card DragonBalls = new SpellCard("Seven Dragon Balls", 10, "Summon Shenron",0, new Action() {
 		public void act() {
-			
+			 
 		}
 
 		@Override
