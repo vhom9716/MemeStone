@@ -33,10 +33,10 @@ public class BattleBackend {
 		playerTurn = true;
 		cpuTurn = false;
 		newDeck = new Deck();
-		for(int i=0; i < craftDeck.deck.size();i++) {
-			//System.out.println(craftDeck.deck.size());
-			newDeck.deck.add((craftDeck.deck.get(i)));
-		}
+		//for(int i=0; i < craftDeck.deck.size();i++) {
+		//	System.out.println("yo " + craftDeck.deck.size());
+			//newDeck.deck.add((craftDeck.deck.get(i)));
+		//}
 		
 		player = new Player("Bob", 100, 30, 10, 0, newDeck.deck,null);
 		cpu = new AI();

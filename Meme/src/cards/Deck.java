@@ -60,7 +60,7 @@ public class Deck{
 		
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
 			if(turn.equals("player")) {
-				player.takedamage(15);
+				player.takeDamage(15);
 			}else {
 				cpu.changeHealth(-15);
 			}
@@ -202,7 +202,24 @@ public class Deck{
 		@Override
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
 			if(turn.equals("player")) {
-				backend.playerBoard.add((MonsterCard) card);
+				for(int i=0;i<backend.player.hand.size()-1;i++) {
+					if(backend.player.hand.get(i).getName().equals("Shenron"))  {
+						System.out.println("true");
+						//backend.playerBoard.add((MonsterCard) Shenron);
+						break;
+					}
+					System.out.println("hehe");
+				}
+				for(int x=0;x<backend.player.deck.size()-1;x++) {
+					if(backend.player.deck.get(x).getName().equals("Shenron"))  {
+						//backend.playerBoard.add((MonsterCard) Shenron);
+						System.out.println("true");
+						break;
+					}
+					System.out.println("haha");
+				}
+			
+			
 			}
 		}
 	}, "resources/sevendragonballs.png");
@@ -224,16 +241,14 @@ public class Deck{
 		collection.add(RainbowDash);
 		collection.add(SaltBae);
 		collection.add(ScrewTheRulesIHaveMoney);
-		collection.add(Shenron);
 		collection.add(DewYuKnoDeWae);
 		collection.add(UWot);
 		collection.add(WTF);
-		collection.add(DragonBalls);
 		
-		//deck.add(IQ);
-		deck.add(PotOfGreed);
+		deck.add(DragonBalls);
+		deck.add(Shenron);
 		for(int i = 0; i<10; i++) {
-			int r =  (int) Math.floor(Math.random() * 14);
+			int r =  (int) Math.floor(Math.random() * 12);
 			deck.add(collection.get(r));
 		}
 
