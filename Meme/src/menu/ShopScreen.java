@@ -34,6 +34,7 @@ public class ShopScreen extends FullFunctionScreen {
 	public void initAllObjects(List<Visible> viewObjects) {
 		gold = 400;
 		cardDisplays = new Graphic[5];
+		cardDisList = new ArrayList<String>();
 		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/ShopFinal4.png"));
 		displayGold = new TextLabel(350, 13,200,200,Integer.toString(gold));
 		displayGold.setCustomTextColor(Color.WHITE);
@@ -84,25 +85,29 @@ public class ShopScreen extends FullFunctionScreen {
 					displayGold.setText(Integer.toString(gold));
 					int randomInt;
 					randomInt = (int) ((Math.random()*100)+1);
-					if(randomInt > 95){
-						int randomCard = (int)(Math.random()*legendaryCards.length);
-						cardDisList.add(legendaryCards[randomCard].getImage());		
+					for(int i = 0; i < 5; i++) {
+						if(randomInt > 95){
+							int randomCard = (int)(Math.random()*legendaryCards.length);
+							cardDisList.add(legendaryCards[randomCard].getImage());		
+						}
+						if(randomInt > 75 && randomInt < 95) {
+							int randomCard = (int)(Math.random()*epicCards.length);
+							cardDisList.add(epicCards[randomCard].getImage());	
+						}
+						if(randomInt > 45 && randomInt < 75) {
+							int randomCard = (int)(Math.random()*rareCards.length);
+							cardDisList.add(rareCards[randomCard].getImage());	
+						}
+						if(randomInt < 45) {
+							int randomCard = (int)(Math.random()*commonCards.length);
+							cardDisList.add(commonCards[randomCard].getImage());	
+						}
 					}
-					if(randomInt > 75 && randomInt < 95) {
-						int randomCard = (int)(Math.random()*epicCards.length);
-						cardDisList.add(epicCards[randomCard].getImage());	
-					}
-					if(randomInt > 45 && randomInt < 75) {
-						int randomCard = (int)(Math.random()*rareCards.length);
-						cardDisList.add(rareCards[randomCard].getImage());	
-					}
-					if(randomInt < 45) {
-						int randomCard = (int)(Math.random()*commonCards.length);
-						cardDisList.add(commonCards[randomCard].getImage());	
-					}
+					
+					displayCards();
 				}
 					 
-				displayCards();
+				
 			}
 		});
 		viewObjects.add(buyPack);
