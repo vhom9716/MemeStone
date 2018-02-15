@@ -414,12 +414,12 @@ import menu.Menu;
 	}
 	public void updateHpField(int posP, int posC) {
 		System.out.println(fieldSlots.size());
-		if (fieldSlots.size() > backend.playerBoard.size()) {
+		if (currentFieldImages.size() > backend.playerBoard.size()) {
 			fieldSlots.get(posP).changeCardImage("resources/placeholder.png", 2, 2);
 			currentFieldImages.remove(posP);
 			update();
 		}
-		if (AIfieldSlots.size() > backend.computerBoard.size()) {
+		if (AIcurrentFieldImages.size() > backend.computerBoard.size()) {
 			AIfieldSlots.get(posC).changeCardImage("resources/placeholder.png", 2, 2);
 			AIcurrentFieldImages.remove(posC);
 			update();
@@ -437,7 +437,11 @@ import menu.Menu;
 			enemyFighter = backend.computerBoard.get(pos);
 		}
 		if (friendlySelected==true && enemySelected==true) {
+			System.out.println("myside"+backend.playerBoard.size());
+			System.out.println("urside"+backend.computerBoard.size());
 			backend.attack(friendlyFighter, enemyFighter);
+			System.out.println("myyside"+backend.playerBoard.size());
+			System.out.println("ursside"+backend.computerBoard.size());
 			updateHpField(selectedPosP, selectedPosC);
 			friendlySelected = false;
 			enemySelected = false;
