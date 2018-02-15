@@ -82,6 +82,9 @@ import menu.Menu;
 	
 	TextLabel aimanaslot;
 	TextLabel aihealthslot;
+	
+	int selectedPosP;
+	int selectedPosC;
 
 
 	public BattleScreen(int width, int height) {
@@ -303,7 +306,7 @@ import menu.Menu;
 		for(int i = 0; i < 4; i++) {
 			CardButton handCardSlot = new CardButton(counter, yPos, 150, 200, "resources/placeholder.png", null);
 			int pos = i;
-			if(chara instanceof Player) {
+		//	if(chara instanceof Player) {
 				handCardSlot.setAction(new Action() {
 					public void act() {
 						//this fails if the number of cards in cardsInHand is not at max. 
@@ -328,7 +331,7 @@ import menu.Menu;
 						//}
 					}
 				});
-			}
+			//}
 			
 			selSlotHandList.add(handCardSlot);
 			counter += 150;
@@ -391,6 +394,16 @@ import menu.Menu;
 			}
 		}
 	}
+	public void updateField(ArrayList<String> selStringList, ArrayList<CardButton> selButtonList) {
+		for(int i = 0; i < selButtonList.size(); i++) {
+			//System.out.println(i + "size:" + selStringList.size()+  selStringList.get(i));
+			if(selStringList.size() > i && selStringList.get(i) != null) {
+				selButtonList.get(i).changeCardImage(selStringList.get(i), 120, 160);
+			}else {
+				selButtonList.get(i).changeCardImage("resources/placeholder.png", 2, 2);
+			}
+		}
+	}
 	public void updateHp() {
 		System.out.println("df");
 		healthslot.setText(Integer.toString(backend.player.returnHp()));
@@ -399,22 +412,37 @@ import menu.Menu;
 		System.out.println("mana");
 		manaslot.setText(Integer.toString(backend.player.returnMana())+"/"+"10");
 	}
-	public void updateHpField() {
-		
+	public void updateHpField(int posP, int posC) {
+		System.out.println(fieldSlots.size());
+		if (fieldSlots.size() > backend.playerBoard.size()) {
+			fieldSlots.get(posP).changeCardImage("resources/placeholder.png", 2, 2);
+			currentFieldImages.remove(posP);
+			update();
+		}
+		if (AIfieldSlots.size() > backend.computerBoard.size()) {
+			AIfieldSlots.get(posC).changeCardImage("resources/placeholder.png", 2, 2);
+			AIcurrentFieldImages.remove(posC);
+			update();
+		}
 	}
 	public void fighting(int pos, ArrayList<CardButton> field ) {
 		if (field == fieldSlots) {
+			selectedPosP = pos;
 			friendlySelected = true;
 			friendlyFighter = backend.playerBoard.get(pos);
 		}
-		if (field == AIfieldSlots) { 
+		if (field == AIfieldSlots) {
+			selectedPosC = pos;
 			enemySelected = true;
 			enemyFighter = backend.computerBoard.get(pos);
 		}
 		if (friendlySelected==true && enemySelected==true) {
 			backend.attack(friendlyFighter, enemyFighter);
-			updateHpField();
+			updateHpField(selectedPosP, selectedPosC);
+			friendlySelected = false;
+			enemySelected = false;
+			System.out.println("fought");
 		}
 	}
-}
+} 
 
