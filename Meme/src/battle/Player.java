@@ -123,13 +123,13 @@ public class Player implements Character{
 	public boolean canPlayCard() {
 		return hand.stream().filter(card->card.getCost()<=currentmana).count() >0;
 	}
-	public static int returnHp() {
+	public int returnHp() {
 		return health;
 	}
 	public int returnGold() {
 		return gold;
 	}
-	public static int returnMana() {
+	public int returnMana() {
 		return currentmana;
 	}
 	public String returnManaString() {
