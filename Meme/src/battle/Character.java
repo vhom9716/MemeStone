@@ -12,4 +12,6 @@ public interface Character {
 	void removeFromHand(int pos);
 	int getHandSize();
 	void playSpell(SpellCard card);
+	Card getFromBoard(int i);
+	int getBoardSize();
 }

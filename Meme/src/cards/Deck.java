@@ -82,11 +82,10 @@ public class Deck{
 			if(turn.equals("player")) {
 				for(int i =0;i<2;i++) {
 					if(player.deck.size() > 0) {
-						if(player.hand.size() < 4) {
-							player.hand.add(player.deck.get(0));
-						}
-						player.deck.remove(0);
+		
+						player.hand.add(player.deck.get(0));
 					}
+					player.deck.remove(0);
 				}	
 			}
 			else {
@@ -235,7 +234,7 @@ public class Deck{
 		collection.add(WTF);
 		
 		
-		for(int i = 0; i<10; i++) {
+		for(int i = 0; i < 20; i++) {
 			int r =  (int) Math.floor(Math.random() * 12);
 			deck.add(collection.get(r));
 		}

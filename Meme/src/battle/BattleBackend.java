@@ -38,7 +38,7 @@ public class BattleBackend {
 			newDeck.deck.add((craftDeck.deck.get(i)));
 		}
 		
-		player = new Player("Bob", 100, 30, 10, 0, newDeck.deck,null);
+		player = new Player("Bob", 100, 30, 10, 1, newDeck.deck, null);
 		cpu = new AI();
 		
 		selectedCard = null;
@@ -65,12 +65,16 @@ public class BattleBackend {
 				player.drawcard(1);
 				System.out.print("The current turn is player");
 			}
-			System.out.print("The current turn is cpu");
-			cpuTurn();
-			System.out.print("The current turn is switched to player");
 			checkStatus();
 		}
 	
+	}
+	
+	public void startPlayerTurn() {
+		addMana(); 
+		refreshMana();
+		player.drawcard(1);
+		System.out.print("The current turn is player");
 	}
 	
 	void refreshMana() {

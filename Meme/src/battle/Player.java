@@ -76,6 +76,7 @@ public class Player implements Character{
 	private void checkHand() {
 		if(hand.size()>4) {
 			hand.remove(4);
+			System.out.println("removedCard");
 		}
 		
 	}
@@ -142,5 +143,15 @@ public class Player implements Character{
 	@Override
 	public void playSpell(SpellCard card) {
 		currentmana -= card.getCost();
+	}
+
+	@Override
+	public Card getFromBoard(int i) {
+		return board.get(i);
+	}
+
+	@Override
+	public int getBoardSize() {
+		return board.size();
 	}
 }

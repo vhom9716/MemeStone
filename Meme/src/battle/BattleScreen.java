@@ -49,7 +49,6 @@ import menu.Menu;
 	
 	TextLabel manaslot;
 	TextLabel healthslot;
-	TextLabel AImanaslot;
 	
 	Graphic settings;
 	Button quit;
@@ -106,8 +105,6 @@ import menu.Menu;
 		AIcurrentHandImages = new ArrayList<String>(); 
 		AIcurrentFieldImages = new ArrayList<String>();
 		
-		AImanaslot = new TextLabel(850, 763, 50, 50, Integer.toString(backend.cpu.returnmana())+"/"+"10");
-		
 		for(int i = 0; i < 4; i++) {
 			System.out.println("Player card" + backend.player.hand.get(i).getImage());
 			currentHandImages.add(backend.player.hand.get(i).getImage());
@@ -141,7 +138,6 @@ import menu.Menu;
 			}
 		});
 		viewObjects.add(manaslot);
-		viewObjects.add(AImanaslot);
 		viewObjects.add(new Graphic(0, 20, getWidth(),getHeight(),"resources/background.jpg"));
 		viewObjects.add(new Graphic(800,760,60,60, "resources/mana.png"));
 		viewObjects.add(new Graphic(630,614,350,250,"resources/player.png"));
@@ -192,8 +188,9 @@ import menu.Menu;
 			public void act() {
 				backend.playerTurn = !backend.playerTurn;
 				backend.cpuTurn = !backend.cpuTurn;
-				backend.cpuTurn();
 				System.out.print("The current turn is cpu");
+				backend.cpuTurn();
+				
 				//ArrayList<Card> hand = backend.player.hand;
 				//ArrayList<Card> deck = backend.player.deck;
 //				if(deck.size() > 0) {
@@ -235,15 +232,16 @@ import menu.Menu;
 		for(int i = 0; i < 4; i++) {
 			CardButton handCardSlot = new CardButton(counter, yPos, 150, 200, "resources/placeholder.png", null);
 			int pos = i;
-		//	if(chara instanceof Player) {
+			if(chara instanceof Player) {
 				handCardSlot.setAction(new Action() {
 					public void act() {
 						//this fails if the number of cards in cardsInHand is not at max. 
 						//So we set a temp hand at creation, then we can update with the real hand.
-						if(backend.player.hand.get(pos).getCost()<backend.player.returnMana()) {
+						if(backend.player.hand.get(pos).getCost()<=backend.player.returnMana()) {
 							if(chara.getFromHand(pos) instanceof MonsterCard) {
-								activateCardMon(chara.getFromHand(pos), pos, selFieldStringList, selSlotFieldList);
+								System.out.println(chara.getFromHand(pos).getName());
 								chara.addToBoard((MonsterCard) chara.getFromHand(pos));
+								activateCardMon(chara.getFromHand(pos), pos, selFieldStringList, selSlotFieldList);
 							}else {
 								activateCardSpell(chara.getFromHand(pos));
 								chara.playSpell((SpellCard)chara.getFromHand(pos));
@@ -253,14 +251,10 @@ import menu.Menu;
 							updateHand(selSlotHandList, selHandStringList, chara);
 							updateMana();
 							updateHp();
-						//}
-						//test
-						//else {
-						//	System.out.println("OOM");
 						}
 					}
 				});
-			//}
+			}
 			
 			selSlotHandList.add(handCardSlot);
 			counter += 150;
@@ -287,7 +281,7 @@ import menu.Menu;
 	
 	public void activateCardMon(Card card, int pos, ArrayList<String> selStringList, ArrayList<CardButton> selButtonList) {
 		selStringList.add(card.getImage());
-		updateField(pos, selStringList, selButtonList);
+		updateField(pos, selStringList, selButtonList, backend.player);
 	}
 	
 	private void generateFieldSlots(int yPos, ArrayList<CardButton> selSlotList) {
@@ -306,13 +300,22 @@ import menu.Menu;
 		}  
 	}
 	
-	public void updateField(int pos, ArrayList<String> selStringList, ArrayList<CardButton> selButtonList) {
+	public void updateField(int pos, ArrayList<String> selStringList, ArrayList<CardButton> selButtonList, Character chara) {
+		selStringList.clear();
+		System.out.println(chara.getBoardSize());
+		for(int i = 0; i < chara.getBoardSize(); i++) {
+			System.out.println(chara.getBoardSize());
+			selStringList.add(chara.getFromBoard(i).getImage());
+		}
+		for(int i = 0; i < chara.getBoardSize()-1; i++) {
+			chara.getFromBoard(i).setCanAttack(true);
+		}
 		for(int i = 0; i < selButtonList.size(); i++) {
 			if(selStringList.size() > i && selStringList.get(i) != null) {
 				if (selButtonList.get(i).getHasCard() == false) {
-					
-					//not working with ai
-					fieldSlots.get(i).moveCard(pos);
+					if(chara == backend.player) {
+						fieldSlots.get(i).moveCard(pos);
+					}
 					selButtonList.get(i).setHasCard(true);
 				}
 				selButtonList.get(i).changeCardImage(selStringList.get(i), 120, 160);
@@ -321,20 +324,14 @@ import menu.Menu;
 			}
 		}
 	}
-	public void updateField(ArrayList<String> selStringList, ArrayList<CardButton> selButtonList) {
-		for(int i = 0; i < selButtonList.size(); i++) {
-			if(selStringList.size() > i && selStringList.get(i) != null) {
-				selButtonList.get(i).changeCardImage(selStringList.get(i), 120, 160);
-			}else {
-				selButtonList.get(i).changeCardImage("resources/placeholder.png", 2, 2);
-			}
-		}
-	}
+
 	public void updateHp() {
 		healthslot.setText(Integer.toString(backend.player.returnHp()));
+		aihealthslot.setText(Integer.toString(backend.cpu.returnHp()));
 	}
 	public void updateMana() {
 		manaslot.setText(Integer.toString(backend.player.returnMana())+"/"+"10");
+		aimanaslot.setText(Integer.toString(backend.cpu.returnmana())+"/"+"10");
 	}
 	public void updateHpField(int posP, int posC) {
 		if (currentFieldImages.size() > backend.playerBoard.size()) {
@@ -349,15 +346,17 @@ import menu.Menu;
 		}
 	}
 	public void fighting(int pos, ArrayList<CardButton> field ) {
-		if (field == fieldSlots) {
+		if (field == fieldSlots && backend.playerBoard.get(pos).canAttack) {
 			selectedPosP = pos;
 			friendlySelected = true;
 			friendlyFighter = backend.playerBoard.get(pos);
+			System.out.println("Frieldny chossen");
 		}
-		if (field == AIfieldSlots) {
+		if (field == AIfieldSlots && backend.computerBoard.get(pos).canAttack) {
 			selectedPosC = pos;
 			enemySelected = true;
 			enemyFighter = backend.computerBoard.get(pos);
+			System.out.println("Enemy chossen");
 		}
 		if (friendlySelected==true && enemySelected==true) {
 			System.out.println("myside"+backend.playerBoard.size());
@@ -368,8 +367,18 @@ import menu.Menu;
 			updateHpField(selectedPosP, selectedPosC);
 			friendlySelected = false;
 			enemySelected = false;
+			friendlyFighter.setCanAttack(false);
+			enemyFighter.setCanAttack(false);
 			System.out.println("fought");
 		}
+	}
+	
+	public void updateTurn(Character c) {
+		updateHp();
+		updateMana();
+		updateHand(AIhandSlots, AIcurrentHandImages, c);
+		updateHand(handSlots, currentHandImages, backend.player);
+		updateField(0, AIcurrentFieldImages, AIfieldSlots, c);
 	}
 } 
 

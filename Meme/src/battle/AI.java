@@ -1,14 +1,12 @@
 package battle;
 
-import java.awt.Menu;
+import menu.Menu;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import cards.Card;
 import cards.Deck;
-import cards.Monster;
 import cards.MonsterCard;
-
 import cards.SpellCard;
 
 
@@ -29,9 +27,15 @@ public class AI implements Character{
 		board = new ArrayList<MonsterCard>();
 		deck.add(Deck.Doge);
 		deck.add(Deck.PotOfGreed);
+		deck.add(Deck.PotOfGreed);
 		deck.add(Deck.OmaeWaMouShindeiru);
+		deck.add(Deck.PotOfGreed);
+		deck.add(Deck.PotOfGreed);
 		deck.add(Deck.RainbowDash);
 		deck.add(Deck.Pikachu);
+		deck.add(Deck.UWot);
+		deck.add(Deck.PotOfGreed);
+		deck.add(Deck.UWot);
 		deck.add(Deck.ScrewTheRulesIHaveMoney);
 		deck.add(Deck.SaltBae);
 		deck.add(Deck.DewYuKnoDeWae);
@@ -41,7 +45,11 @@ public class AI implements Character{
 		deck.add(Deck.WTF);
 		deck.add(Deck.DragonBalls);
 		deck.add(Deck.WTF);
+		deck.add(Deck.UWot);
 		deck.add(Deck.WTF);
+		deck.add(Deck.UWot);
+		deck.add(Deck.UWot);
+		deck.add(Deck.UWot);
 		
 		Collections.shuffle(deck);
 		
@@ -60,7 +68,7 @@ public class AI implements Character{
 	}
 	
 	public void drawCard(int num) {
-		while(num > 0 && deck.size() == 0) {
+		while(num > 0 && deck.size() != 0) {
 			System.out.println(num + deck.get(0).getImage());
 			hand.add(deck.get(0));
 			deck.remove(0);
@@ -68,12 +76,9 @@ public class AI implements Character{
 		}
 	}
 	//ensure that taunts are accounted for
-	public void declareAttack(int sel) {
-		
-		if(board.get(sel).canAttack) { 
-			
-		}
-		board.get(sel).setCanAttack(false);
+	public void declareAttack(int sel, int i) {
+		Menu.screen3.fighting(sel, Menu.screen3.AIfieldSlots);
+		Menu.screen3.fighting(i, Menu.screen3.fieldSlots);
 	}
 	
 	public void playMonster(MonsterCard m) {
@@ -97,13 +102,11 @@ public class AI implements Character{
 	
 	public void executeTurn() {
 		drawCard(1);
-		if(maxMana < 10) {
-			maxMana += 1;
-		}
-		currentMana = maxMana;
 		checkTurnDone(); 
 		System.out.println("CPU turn over");
-		Menu.screen3.update();
+		Menu.screen3.backend.startPlayerTurn();
+		Menu.screen3.updateTurn(this);
+		
 //		BattleScreen.backend.playerTurn = !BattleScreen.backend.playerTurn;
 //		BattleScreen.backend.cpuTurn = !BattleScreen.backend.cpuTurn;
 	}
@@ -122,7 +125,7 @@ public class AI implements Character{
 			return false;
 		}
 		for(Card c: hand) {
-			if(c.getCost() < currentMana) {
+			if(c.getCost() <= currentMana) {
 				System.out.println(c.getCost());
 				 return true;
 			}
@@ -142,16 +145,19 @@ public class AI implements Character{
 				System.out.println(currentMana);
 				if(currentMana >= hand.get(i).getCost()) {
 					playCard(hand.get(i));
-					System.out.println(hand.get(i).getName() + " " + currentMana);
 				}
 			}
-			
-			//updateHand
-			//updateField
 		}
-//		while(availableAttacksOnBoard()) {
-//			declareAttack(0);
-//		}
+		while(availableAttacksOnBoard()) {
+			int attPos = (int)(Math.random()*board.size());
+			if(board.get(attPos).canAttack) {
+				declareAttack(attPos, (int)(Math.random()*Menu.screen3.backend.player.board.size()));
+				System.out.println("AI attack");
+			}else {
+				attPos = (int)(Math.random()*board.size());
+			}
+
+		}
 	}
 	/**
 	 * checks if there are available attacks on the player's board
@@ -161,13 +167,17 @@ public class AI implements Character{
 	 */
 	private boolean availableAttacksOnBoard() {
 		if(board.size() == 0) {
+			System.out.println("Empty board");
 			return false;
 		}
-		for(MonsterCard m: board) {
-			if(m.canAttack) {
-				return true;
-			}
-		} 
+		if(Menu.screen3.backend.player.board.size() > 0) {
+			for(MonsterCard m: board) {
+				if(m.canAttack) {
+					System.out.println(m.getName() + "Can attack");
+					return true;
+				}
+			} 
+		}
 		return false;
 	}
 
@@ -204,6 +214,17 @@ public class AI implements Character{
 	public void playSpell(SpellCard card) {
 		card.a.act(BattleScreen.backend.player, BattleScreen.backend.cpu, "cpu", card, BattleScreen.backend);
 		currentMana -= card.getCost();
+		hand.remove(card);
+	}
+
+	@Override
+	public Card getFromBoard(int i) {
+		return board.get(i);
+	}
+
+	@Override
+	public int getBoardSize() {
+		return board.size();
 	}
 }
  
