@@ -322,6 +322,7 @@ import menu.Menu;
 								chara.addToBoard((MonsterCard) chara.getFromHand(pos));
 							}else {
 								activateCardSpell(chara.getFromHand(pos));
+								chara.playSpell((SpellCard)chara.getFromHand(pos));
 							}
 							selHandStringList.remove(pos);
 							chara.removeFromHand(pos);
