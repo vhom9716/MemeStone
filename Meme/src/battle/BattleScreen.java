@@ -195,11 +195,6 @@ import menu.Menu;
 		quit.setVisible(false);
 		viewObjects.add(quit);
 		
-
-		
-		
-
-		
 		generateHandSlots(614, handSlots, currentHandImages, fieldSlots, currentFieldImages, backend.player); 	
 		for(int i = 0; i < handSlots.size(); i++) { 
 			viewObjects.add(handSlots.get(i));
@@ -296,30 +291,33 @@ import menu.Menu;
 		for(int i = 0; i < 4; i++) {
 			CardButton handCardSlot = new CardButton(counter, yPos, 150, 200, "resources/placeholder.png", null);
 			int pos = i;
-			handCardSlot.setAction(new Action() {
-				public void act() {
-					//this fails if the number of cards in cardsInHand is not at max. 
-					//So we set a temp hand at creation, then we can update with the real hand.
-					//if(backend.player.hand.get(pos).getCost()<backend.player.returnMana()) {
-						System.out.println(backend.player.returnMana());
-						if(chara.getFromHand(pos) instanceof MonsterCard) {
-							activateCardMon(chara.getFromHand(pos), pos, selFieldStringList, selSlotFieldList);
-							chara.addToBoard((MonsterCard) chara.getFromHand(pos));
-						}else {
-							activateCardSpell(chara.getFromHand(pos));
-						}
-						selHandStringList.remove(pos);
-						chara.removeFromHand(pos);
-						updateHand(selSlotHandList, selHandStringList, chara);
-						updateMana();
-						updateHp();
-					//}
-					//test
-					//else {
-					//	System.out.println("OOM");
-					//}
-				}
-			});
+			if(chara instanceof Player) {
+				handCardSlot.setAction(new Action() {
+					public void act() {
+						//this fails if the number of cards in cardsInHand is not at max. 
+						//So we set a temp hand at creation, then we can update with the real hand.
+						//if(backend.player.hand.get(pos).getCost()<backend.player.returnMana()) {
+							System.out.println(backend.player.returnMana());
+							if(chara.getFromHand(pos) instanceof MonsterCard) {
+								activateCardMon(chara.getFromHand(pos), pos, selFieldStringList, selSlotFieldList);
+								chara.addToBoard((MonsterCard) chara.getFromHand(pos));
+							}else {
+								activateCardSpell(chara.getFromHand(pos));
+							}
+							selHandStringList.remove(pos);
+							chara.removeFromHand(pos);
+							updateHand(selSlotHandList, selHandStringList, chara);
+							updateMana();
+							updateHp();
+						//}
+						//test
+						//else {
+						//	System.out.println("OOM");
+						//}
+					}
+				});
+			}
+			
 			selSlotHandList.add(handCardSlot);
 			counter += 150;
 		}
