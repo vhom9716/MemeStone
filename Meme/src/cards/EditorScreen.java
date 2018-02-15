@@ -48,12 +48,9 @@ public class EditorScreen extends FullFunctionScreen {
 	
 	private int pageNumber = 1;
 	private int deckSize = 0;
-	private int currentY = 100;
 
 	private TextArea[] panel;
 	private Button[] removers;
-
-	private Button[] cardsChosen;
 	
 	//each button will be 40 pixels high and 100 wide
 	
@@ -67,7 +64,6 @@ public class EditorScreen extends FullFunctionScreen {
 	}
 
 	public void initAllObjects(List<Visible> viewObjects) {
-		cardsChosen = new Button[16];
 		playerDeck = new ArrayList<Card>();
 		panel = new TextArea[15];
 		removers = new Button[15];
@@ -259,6 +255,7 @@ public class EditorScreen extends FullFunctionScreen {
 	
 	public void saveCards() {
 		if(playerDeck.size() == 15) {
+			Deck.deck.clear();
 			for(Card c: playerDeck) {
 				Deck.deck.add(c);
 			}
