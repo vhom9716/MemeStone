@@ -22,6 +22,7 @@ public class Menu extends GUIApplication {
 	}
 	
 	 public static Menu menu;
+	 public int gold = 400;
 
 	
 	public static void main(String[] args){
@@ -35,9 +36,11 @@ public class Menu extends GUIApplication {
 
     public static ShopScreen screen2;
     
-    public static BattleScreen screen3;
+    public static BattleScreen screen3; 
 	
     public static EditorScreen screen4;
+    
+    public static BetterShopScreen screen5;
 	 
 	@Override
 	public void initScreen() {
@@ -45,6 +48,7 @@ public class Menu extends GUIApplication {
 		screen2 = new ShopScreen(getWidth(), getHeight());
 		screen3 = new BattleScreen(1440, 824);
 		screen4 = new EditorScreen(getWidth(), getHeight());
+		screen5 = new BetterShopScreen(getWidth(), getHeight());
 		setScreen(screen1);
 	}
 }
