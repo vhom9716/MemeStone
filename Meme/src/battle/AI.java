@@ -35,8 +35,10 @@ public class AI implements Character{
 		deck.add(Deck.Shenron);
 		deck.add(Deck.WTF);
 		
-		board.add(deck.get(0));
-		board.add(deck.get(0));
+		hand.add(deck.get(0));
+		hand.add(deck.get(1));
+		hand.add(deck.get(2));
+		hand.add(deck.get(3));
 	}
 	
 	public ArrayList<Card> getBoard() {

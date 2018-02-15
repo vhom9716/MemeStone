@@ -35,11 +35,11 @@ import menu.Menu;
 	//slot arrayLists have the CardSlots while image arrayLists have the images that will be loaded onto the slots
 	ArrayList<CardButton> handSlots;
 	ArrayList<String> currentHandImages;
-	ArrayList<CardButton> fieldSlots;
+	ArrayList<CardButton> fieldSlots; 
 	ArrayList<String> currentFieldImages;
 	ArrayList<Graphic> currentFieldHp;
 	
-	private ArrayList<Card> cardsInHand;
+	private ArrayList<Card> cardsInHand; 
 	private ArrayList<Card> cardsOnField;
 	
 	ArrayList<CardButton> AIhandSlots;
@@ -79,7 +79,7 @@ import menu.Menu;
 		TextLabel.setTextColor(Color.PINK);
 		healthslot = new TextLabel(650,765,50,50, Integer.toString(backend.player.returnHp()));
 		TextLabel.setTextColor(new Color(60,100,200));
-		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(Player.returnMana())+"/"+"10");
+		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(backend.player.returnMana())+"/"+"10");
 		TextLabel.setTextColor(Color.BLACK);
 
 
@@ -87,7 +87,7 @@ import menu.Menu;
 		backend.cpu.drawCard(4);
 
 		Graphic test = new Graphic(389, 580, 40, 40, "resources/1.png");
-		BattleBackend.cpu.drawCard(4);
+		backend.cpu.drawCard(4);
 
 		AIcardsInHand = new ArrayList<Card>();
 		AIcardsOnField = new ArrayList<Card>();
@@ -105,13 +105,13 @@ import menu.Menu;
 			System.out.println("Player card" + backend.player.hand.get(i).getImage());
 			currentHandImages.add(backend.player.hand.get(i).getImage());
 			
-//			System.out.println("AI card" + BattleBackend.cpu.hand.get(i).getImage());
-//			AIcurrentHandImages.add(BattleBackend.cpu.hand.get(i).getImage());
+			System.out.println("AI card" + backend.cpu.hand.get(i).getImage());
+			AIcurrentHandImages.add(backend.cpu.hand.get(i).getImage());
 		}
 		
 //		for(int i = 0; i < 4; i++) {
-//			System.out.println(BattleBackend.player.hand.get(i).getImage());
-//			currentHandImages.add(BattleBackend.player.hand.get(i).getImage());
+//			System.out.println(backend.player.hand.get(i).getImage());
+//			currentHandImages.add(backend.player.hand.get(i).getImage());
 //		}
 		
 
@@ -126,12 +126,12 @@ import menu.Menu;
 		viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png")); 
 
 		
-		generateHandSlots(614, handSlots, currentHandImages, backend.player); 	
+		generateHandSlots(614, handSlots, currentHandImages, fieldSlots, currentFieldImages, backend.player); 	
 		for(int i = 0; i < handSlots.size(); i++) { 
 			viewObjects.add(handSlots.get(i));
 		}
 		
-		generateHandSlots(300, AIhandSlots, AIcurrentHandImages, backend.cpu); 	
+		generateHandSlots(40, AIhandSlots, AIcurrentHandImages, AIfieldSlots, AIcurrentFieldImages, backend.cpu); 	
 		for(int i = 0; i < AIhandSlots.size(); i++) { 
 			viewObjects.add(AIhandSlots.get(i));
 		}
@@ -140,7 +140,7 @@ import menu.Menu;
 		
 		
 		generateFieldSlots(460, fieldSlots);
-		for(int i = 0; i < fieldSlots.size(); i++) {
+		for(int i = 0; i < fieldSlots.size(); i++) { 
 			viewObjects.add(fieldSlots.get(i));
 		}
 		
@@ -209,81 +209,39 @@ import menu.Menu;
 		updateHand(AIfieldSlots, selImageList, backend.player);
 	}
 	
-	public void generateHandSlots(int yPos, ArrayList<CardButton> selSlotList, ArrayList<String> selStringList, Character chara) {
+	public void generateHandSlots(int yPos, ArrayList<CardButton> selSlotHandList, ArrayList<String> selHandStringList, ArrayList<CardButton> selSlotFieldList, ArrayList<String> selFieldStringList, Character chara) {
 		int counter = 30;
 		for(int i = 0; i < 4; i++) {
-			CardButton handCardSlot = new CardButton(counter, 614, 150, 200, "resources/placeholder.png", null);
+			CardButton handCardSlot = new CardButton(counter, yPos, 150, 200, "resources/placeholder.png", null);
 			int pos = i;
 			handCardSlot.setAction(new Action() {
 				public void act() {
 					//this fails if the number of cards in cardsInHand is not at max. 
 					//So we set a temp hand at creation, then we can update with the real hand.
-
-//					if(BattleBackend.player.hand.get(pos) instanceof MonsterCard) {
-//						activateCardMon(BattleBackend.player.hand.get(pos), pos);
-//						backend.player.board.add((MonsterCard) BattleBackend.player.hand.get(pos));
-//						System.out.println(BattleBackend.player.deck.size());
-//					}else {
-//						activateCardSpell(BattleBackend.player.hand.get(pos));
-//					}
-//					currentHandImages.remove(pos);
-//					BattleBackend.player.hand.remove(pos);
-
-					
-					if(chara.getFromHand(pos) instanceof MonsterCard) {
-						activateCardMon(chara.getFromHand(pos), pos, selStringList, selSlotList);
-						chara.addToBoard((MonsterCard) chara.getFromHand(pos));
-						//System.out.println(BattleBackend.player.deck.size());
-
-					if(backend.player.hand.get(pos).getCost()<backend.player.returnmana()) {
-						System.out.println(backend.player.returnmana());
+					//if(backend.player.hand.get(pos).getCost()<backend.player.returnMana()) {
+						System.out.println(backend.player.returnMana());
 						if(chara.getFromHand(pos) instanceof MonsterCard) {
-							activateCardMon(chara.getFromHand(pos), pos);
+							activateCardMon(chara.getFromHand(pos), pos, selFieldStringList, selSlotFieldList);
 							chara.addToBoard((MonsterCard) chara.getFromHand(pos));
-							//System.out.println(BattleBackend.player.deck.size());
-
-//						if(backend.player.hand.get(pos) instanceof MonsterCard) {
-//							activateCardMon(backend.player.hand.get(pos));
-//							backend.playerBoard.add((MonsterCard) backend.player.hand.get(pos));
-//							System.out.println(backend.player.deck.size());
-
 						}else {
-
 							activateCardSpell(chara.getFromHand(pos));
-
-//							activateCardSpell(backend.player.hand.get(pos));
 						}
-
-						selStringList.remove(pos);
+						selHandStringList.remove(pos);
 						chara.removeFromHand(pos);
-						updateHand(selSlotList, selStringList, chara);
-					}else {
-
-
-						activateCardSpell(chara.getFromHand(pos));
-//						activateCardSpell(backend.player.hand.get(pos));
-						System.out.println("gg");
-					}
-
-					selStringList.remove(pos);
-					chara.removeFromHand(pos);
-					updateHand(selSlotList, selStringList, chara);
-					updateMana();
-					updateHp();
-					
-
-//					currentHandImages.remove(pos);
-//					backend.player.hand.remove(pos);
-//					System.out.println("the real remove" + backend.player.hand.size());
-//					updateHand();
-
-					//System.out.println(pos + currentHandImages.get(pos));
+						updateHand(selSlotHandList, selHandStringList, chara);
+						updateMana();
+						updateHp();
+					//}
+					//test
+					//else {
+					//	System.out.println("OOM");
+					//}
 				}
 			});
-			selSlotList.add(handCardSlot);
+			selSlotHandList.add(handCardSlot);
 			counter += 150;
 		}
-		updateHand(selSlotList, selStringList, chara);
+		updateHand(selSlotHandList, selHandStringList, chara);
 		update();
 	}
 	
@@ -329,20 +287,11 @@ import menu.Menu;
 	
 	public void updateField(int pos, ArrayList<String> selStringList, ArrayList<CardButton> selButtonList) {
 		for(int i = 0; i < selButtonList.size(); i++) {
-			System.out.println(i + "size:" + selStringList.size()+  selStringList.get(i));
+			//System.out.println(i + "size:" + selStringList.size()+  selStringList.get(i));
 			if(selStringList.size() > i && selStringList.get(i) != null) {
 				if (selButtonList.get(i).getHasCard() == false) {
 					//fieldSlots.get(i).moveCard(pos);
 					selButtonList.get(i).setHasCard(true);
-
-	public void updateField(int pos) {
-		for(int i = 0; i < fieldSlots.size(); i++) {
-			System.out.println(i + "size:" + currentFieldImages.size());
-			if(currentFieldImages.size() > i && currentFieldImages.get(i) != null) {
-				if (fieldSlots.get(i).getHasCard() == false) {
-					fieldSlots.get(i).moveCard(pos);
-					fieldSlots.get(i).setHasCard(true);
-
 				}
 				selButtonList.get(i).changeCardImage(selStringList.get(i), 120, 160);
 			}else {
@@ -356,7 +305,7 @@ import menu.Menu;
 	}
 	public void updateMana() {
 		System.out.println("mana");
-		manaslot.setText(Integer.toString(Player.returnMana())+"/"+"10");
+		manaslot.setText(Integer.toString(backend.player.returnMana())+"/"+"10");
 	}
 	public void updateFieldHp(int pos, int hpupdated) {
 		if ((hpupdated > 0) && (hpupdated< 10)) {
