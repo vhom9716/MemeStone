@@ -367,11 +367,4 @@ public class Deck{
 		return deck;
 	}
 	
-	//public static void setDeck() {
-	//	playDeck.clear();
-	//	for(Card c: deck) {
-	//		playDeck.add(c);
-	//	}
-	//}
-	
 }

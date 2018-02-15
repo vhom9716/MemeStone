@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import battle.BattleBackend;
 import guiPlayer.CustomPane;
 import guiTeacher.components.Action;
 import guiTeacher.components.Button;
@@ -100,7 +102,7 @@ public class EditorScreen extends FullFunctionScreen {
 		currentDeckTest.setCustomTextColor(Color.WHITE);
 		currentDeckTest.setSize(16);
 		
-		saveButton = new Button(200,300,100,100,"Save", new Action() {
+		saveButton = new Button(1100,700,100,100,"Save", new Action() {
 			
 			@Override
 			public void act() {
@@ -128,7 +130,7 @@ public class EditorScreen extends FullFunctionScreen {
 				}
 			}
 		});
-		emptyButton = new Button(50,200,200,100,"Clear Deck", new Action() {
+		emptyButton = new Button(1200,700,200,100,"Clear Deck", new Action() {
 			public void act() {
 				System.out.println("shak");
 				playerDeck.clear();
@@ -259,11 +261,10 @@ public class EditorScreen extends FullFunctionScreen {
 	
 	public void saveCards() {
 		if(playerDeck.size() == 15) {
-			Deck.deck.clear();
+			BattleBackend.craftDeck.deck.clear();
 			for(Card c: playerDeck) {
-				Deck.deck.add(c);
+				BattleBackend.craftDeck.deck.add(c);
 			}
-			//Deck.setDeck();
 			incompleteOrDone.setText("Saved! You can now use your deck to battle.");
 		} else {
 			incompleteOrDone.setText("You must have 15 cards in your deck!");
