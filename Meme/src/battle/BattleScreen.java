@@ -70,7 +70,7 @@ import menu.Menu;
 	Graphic healthpos1;
 	Graphic healthpos2;
 	Graphic healthpos3;
-	Graphic healthpos4;
+	Graphic healthpos4; 
 	Graphic healthpos5;
 
 	public BattleScreen(int width, int height) {
