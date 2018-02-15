@@ -59,6 +59,14 @@ import menu.Menu;
 
 	TextLabel AImanaslot;
 
+	private Button quit;
+
+	private Button resume;
+
+	private Button concede;
+
+	private Graphic settings;
+
 
 
 	public BattleScreen(int width, int height) {
@@ -85,8 +93,6 @@ import menu.Menu;
 
 		
 		backend.cpu.drawCard(4);
-
-		Graphic test = new Graphic(389, 580, 40, 40, "resources/1.png");
 		backend.cpu.drawCard(4);
 
 		AIcardsInHand = new ArrayList<Card>();
@@ -112,8 +118,32 @@ import menu.Menu;
 //		for(int i = 0; i < 4; i++) {
 //			System.out.println(backend.player.hand.get(i).getImage());
 //			currentHandImages.add(backend.player.hand.get(i).getImage());
-//		}
-		
+//		}				
+				
+				quit = new Button(545,310, 347, 76, "", new Action() {
+					public void act() {
+						Menu.menu.setScreen(Menu.screen1);
+						System.out.println("dfsdf");
+					}
+				});
+				resume = new Button(545, 455, 347, 76, "", new Action() {
+					
+					@Override
+					public void act() {
+						settings.setVisible(!settings.isVisible());
+						quit.setVisible(!quit.isVisible());
+						concede.setVisible(!concede.isVisible());
+						resume.setVisible(!resume.isVisible());	
+					}
+				});
+				concede = new Button(545, 200, 347, 76, "", new Action() {
+					
+					@Override
+					public void act() {
+						//basically end game?
+						
+					}
+				});
 
 		viewObjects.add(manaslot);
 		viewObjects.add(AImanaslot);
@@ -121,7 +151,16 @@ import menu.Menu;
 		viewObjects.add(new Graphic(800,760,60,60, "resources/mana.png"));
 		viewObjects.add(new Graphic(630,614,350,250,"resources/player.png"));
 		viewObjects.add(new Graphic(630, 25, 350,250, "resources/cpu.png"));
-		//viewObjects.add(new Graphic(1250,25, 150, 150, "resources/setbutton1.png"));
+		viewObjects.add(new Graphic(1250,25, 150, 150, "resources/setbutton1.png"));
+		viewObjects.add(new Button(1300,75,60,50, "", new Action() {		
+					@Override
+					public void act() {
+						settings.setVisible(!settings.isVisible());
+						quit.setVisible(!quit.isVisible());
+						concede.setVisible(!concede.isVisible());
+						resume.setVisible(!resume.isVisible());
+					}
+				}));
 		viewObjects.add(new Graphic(750,130, 120, 80, "resources/hp.png"));
 		viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png")); 
 
@@ -161,13 +200,6 @@ import menu.Menu;
 //				System.out.println("dfsdf");
 //			}
 //		}));
-
-		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
-			public void act() {
-				Menu.menu.setScreen(Menu.screen1);
-				System.out.println("dfsdf");
-			}
-		}));
 		Graphic deck = new Graphic(1200, 600, 100, 200, "resources/cardBack.png");
 		viewObjects.add(deck);
 		
@@ -188,9 +220,19 @@ import menu.Menu;
 		System.out.println(healthslot.getTextColor());
 		viewObjects.add(manaslot);
 		viewObjects.add(healthslot);
-		viewObjects.add(test);
-	//	Graphic settings = new Graphic(450, 100, 500, 600, "resources/menu.png");
-	//	viewObjects.add(settings);
+		viewObjects.add(end);
+		System.out.println(healthslot.getTextColor());
+		viewObjects.add(manaslot);
+		viewObjects.add(healthslot);
+		settings = new Graphic(450, 100, 500, 600, "resources/menu.png");
+		settings.setVisible(false);
+		viewObjects.add(settings);
+		concede.setVisible(false);
+		viewObjects.add(concede);
+		resume.setVisible(false);
+		viewObjects.add(resume);
+		quit.setVisible(false);
+		viewObjects.add(quit);
 
 		
 	//	ClickableGraphic test = new ClickableGraphic(300,460,120,160, "resources/dog.png");
@@ -290,7 +332,7 @@ import menu.Menu;
 			//System.out.println(i + "size:" + selStringList.size()+  selStringList.get(i));
 			if(selStringList.size() > i && selStringList.get(i) != null) {
 				if (selButtonList.get(i).getHasCard() == false) {
-					//fieldSlots.get(i).moveCard(pos);
+					fieldSlots.get(i).moveCard(pos);
 					selButtonList.get(i).setHasCard(true);
 				}
 				selButtonList.get(i).changeCardImage(selStringList.get(i), 120, 160);
