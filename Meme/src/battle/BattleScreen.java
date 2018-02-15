@@ -266,7 +266,9 @@ import menu.Menu;
 				ArrayList<Card> hand = backend.player.hand;
 				ArrayList<Card> deck = backend.player.deck;
 				if(deck.size() > 0) {
-					backend.player.drawcard(1); 
+					backend.player.drawcard(1);
+					backend.addMana();
+					backend.refreshMana();
 					currentHandImages.add(hand.get(hand.size() - 1).getImage());
 					updateHand(handSlots, currentHandImages, backend.player);
 				}
@@ -311,7 +313,7 @@ import menu.Menu;
 					public void act() {
 						//this fails if the number of cards in cardsInHand is not at max. 
 						//So we set a temp hand at creation, then we can update with the real hand.
-						//if(backend.player.hand.get(pos).getCost()<backend.player.returnMana()) {
+						if(backend.player.hand.get(pos).getCost()<backend.player.returnMana()) {
 							System.out.println(backend.player.returnMana());
 							if(chara.getFromHand(pos) instanceof MonsterCard) {
 								activateCardMon(chara.getFromHand(pos), pos, selFieldStringList, selSlotFieldList);
@@ -328,7 +330,7 @@ import menu.Menu;
 						//test
 						//else {
 						//	System.out.println("OOM");
-						//}
+						}
 					}
 				});
 			//}
