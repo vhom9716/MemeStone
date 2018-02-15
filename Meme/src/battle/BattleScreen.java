@@ -123,7 +123,7 @@ import menu.Menu;
 	/*	computer.drawCard(4);
 		AIcardsInHand = new ArrayList<Card>();
 		AIcardsOnField = new ArrayList<Card>();
-		AIhandSlots = new ArrayList<CardButton>();
+		AIhandSlots = new ArrayList<CardButton>(); 
 		AIfieldSlots = new ArrayList<CardButton>();
 		AIcurrentHandImages = new ArrayList<String>();
 		AIcurrentFieldImages = new ArrayList<String>();
