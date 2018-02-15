@@ -59,9 +59,7 @@ import menu.Menu;
 	BattleBackend backend;
 	
 	TextLabel manaslot;
-
 	TextLabel healthslot;
-
 	TextLabel AImanaslot;
 	
 	Graphic settings;
@@ -81,7 +79,9 @@ import menu.Menu;
 	MonsterCard enemyFighter;
 
 	private ArrayList<Graphic> currentHpPos;
-
+	
+	TextLabel aimanaslot;
+	TextLabel aihealthslot;
 
 
 	public BattleScreen(int width, int height) {
@@ -103,10 +103,12 @@ import menu.Menu;
 		
 		TextLabel.setTextColor(Color.PINK);
 		healthslot = new TextLabel(650,765,50,50, Integer.toString(backend.player.returnHp()));
+		aihealthslot = new TextLabel(785, 165 ,50,50, Integer.toString(backend.cpu.returnHp()));
 		TextLabel.setTextColor(new Color(60,100,200));
 		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(backend.player.returnMana())+"/"+"10");
+		aimanaslot = new TextLabel(850, 165, 50, 50, Integer.toString(backend.cpu.returnmana())+"/"+"10");
 		TextLabel.setTextColor(Color.BLACK);
-
+		Graphic aimanapic = new Graphic(800, 163, 60, 60, "resources/mana.png");
 
 		
 		backend.cpu.drawCard(4);
@@ -267,6 +269,9 @@ import menu.Menu;
 				}
 			}
 		}); 
+		viewObjects.add(aihealthslot);
+		viewObjects.add(aimanaslot);
+		viewObjects.add(aimanapic);
 		viewObjects.add(end);
 		System.out.println(healthslot.getTextColor());
 		viewObjects.add(manaslot);

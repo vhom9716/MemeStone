@@ -233,7 +233,7 @@ public class Deck{
 		//deck.add(IQ);
 		deck.add(PotOfGreed);
 		for(int i = 0; i<10; i++) {
-			int r =  (int) Math.floor(Math.random() * 14);
+			int r =  (int) Math.floor(Math.random() * 15);
 			deck.add(collection.get(r));
 		}
 

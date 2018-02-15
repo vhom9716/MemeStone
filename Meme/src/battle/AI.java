@@ -182,5 +182,9 @@ public class AI implements Character{
 		return hand.size();
 
 	}
+
+	public int returnHp() {
+		return health;
+	}
 }
  
