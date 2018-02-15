@@ -45,7 +45,7 @@ import menu.Menu;
 	ArrayList<Graphic> currentFieldHp;
 	
 	private ArrayList<Card> cardsInHand; 
-	private ArrayList<Card> cardsOnField;
+	private ArrayList<MonsterCard> cardsOnField;
 	
 	ArrayList<CardButton> AIhandSlots;
 	ArrayList<String> AIcurrentHandImages;
@@ -53,7 +53,7 @@ import menu.Menu;
 	ArrayList<String> AIcurrentFieldImages;
 
 	private ArrayList<Card> AIcardsInHand;
-	private ArrayList<Card> AIcardsOnField;
+	private ArrayList<MonsterCard> AIcardsOnField;
 	
 	
 	BattleBackend backend;
@@ -73,6 +73,12 @@ import menu.Menu;
 	Graphic healthpos3;
 	Graphic healthpos4;
 	Graphic healthpos5;
+	
+	boolean friendlySelected;
+	boolean enemySelected;
+	
+	MonsterCard friendlyFighter;
+	MonsterCard enemyFighter;
 
 	private ArrayList<Graphic> currentHpPos;
 
@@ -80,13 +86,15 @@ import menu.Menu;
 
 	public BattleScreen(int width, int height) {
 		super(width, height);
+		friendlySelected = false;
+		enemySelected = false;
 	}
 	
 	public void initAllObjects(List<Visible> viewObjects) {
 		backend = new BattleBackend();
 		backend.player.drawcard(4);
 		cardsInHand = new ArrayList<Card>();
-		cardsOnField = new ArrayList<Card>();
+		cardsOnField = new ArrayList<MonsterCard>();
 		handSlots = new ArrayList<CardButton>();
 		fieldSlots = new ArrayList<CardButton>();
 		currentHandImages = new ArrayList<String>();
@@ -105,7 +113,7 @@ import menu.Menu;
 
 
 		AIcardsInHand = new ArrayList<Card>();
-		AIcardsOnField = new ArrayList<Card>();
+		AIcardsOnField = new ArrayList<MonsterCard>();
 		AIhandSlots = new ArrayList<CardButton>();
 		AIfieldSlots = new ArrayList<CardButton>();
 		AIcurrentHandImages = new ArrayList<String>(); 
@@ -348,12 +356,12 @@ import menu.Menu;
 	private void generateFieldSlots(int yPos, ArrayList<CardButton> selSlotList) {
 		int counter = 300;
 		for(int i = 0; i < 5; i++) {
+			int temp = i;
 			CardButton fieldCardSlot = new CardButton(counter, yPos, 120, 160, "resources/placeholder.png", null);
 			fieldCardSlot.changeCardImage("resources/placeholder.png", 2, 2);
 			fieldCardSlot.setAction(new Action() {
 				public void act() {
-					//Add later
-					//For attacking/defending
+					fighting(temp, selSlotList);
 				}
 			});
 			selSlotList.add(fieldCardSlot);
@@ -390,6 +398,19 @@ import menu.Menu;
 	public void updateHpField(int pos, int hpupdated) {
 		if ((hpupdated > 0) && (hpupdated< 10)) {
 		currentFieldHp.set(pos, new Graphic (389+ pos*100, 580, 40,40,"resources/"+Integer.toString(hpupdated)+".png"));
+		}
+	}
+	public void fighting(int pos, ArrayList<CardButton> field ) {
+		if (field == fieldSlots) {
+			friendlySelected = true;
+			friendlyFighter = backend.playerBoard.get(pos);
+		}
+		if (field == AIfieldSlots) {
+			enemySelected = true;
+			enemyFighter = backend.computerBoard.get(pos);
+		}
+		if (friendlySelected==true && enemySelected==true) {
+			backend.attack(friendlyFighter, enemyFighter);
 		}
 	}
 }

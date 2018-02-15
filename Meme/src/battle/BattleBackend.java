@@ -45,7 +45,7 @@ public class BattleBackend {
 		opponentCard = null;
 		
 		playerBoard = player.board;
-		computerBoard = new ArrayList<MonsterCard>();
+		computerBoard = cpu.board;
 		
 		playerBoardNum= 0;
 		cpuBoardNum = 0;

@@ -13,7 +13,7 @@ import cards.SpellCard;
 public class AI implements Character{
 	public ArrayList<Card> deck;
 	public ArrayList<Card> hand;
-	public ArrayList<Card> board;
+	public ArrayList<MonsterCard> board;
 	public int health;
 	public int maxMana;
 	public int currentMana;
@@ -21,7 +21,7 @@ public class AI implements Character{
 	public AI() {
 		deck = new ArrayList<Card>();
 		hand = new ArrayList<Card>();
-		board = new ArrayList<Card>();
+		board = new ArrayList<MonsterCard>();
 		deck.add(Deck.Doge);
 		deck.add(Deck.PotOfGreed);
 		deck.add(Deck.OmaeWaMouShindeiru);
