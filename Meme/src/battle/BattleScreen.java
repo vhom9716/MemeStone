@@ -289,9 +289,7 @@ import menu.Menu;
 	}
 
 	public void activateCardSpell(Card card) {
-
 		card.a.act(backend.player, backend.cpu, "player", null, backend);
-
 	}
 	
 	public void drawACard(Card card, ArrayList<String> selImageList) {
@@ -376,8 +374,6 @@ import menu.Menu;
 			counter += 100;
 		}  
 	}
-
-
 	
 	public void updateField(int pos, ArrayList<String> selStringList, ArrayList<CardButton> selButtonList) {
 		for(int i = 0; i < selButtonList.size(); i++) {
