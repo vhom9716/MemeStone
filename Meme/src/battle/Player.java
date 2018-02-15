@@ -28,7 +28,7 @@ public class Player implements Character{
 		this.currentmana=0;
 		this.maxmana=1;
 		this.gold=gold;
-		//sendinfortofront();
+		//sendinfortofront();//
 	}
 
 	public ArrayList<Card> getDeck() {
