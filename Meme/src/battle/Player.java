@@ -98,7 +98,7 @@ public class Player implements Character{
 	}
 	private void checkHand() {
 		if(hand.size()>4) {
-			hand.remove(3);
+			hand.remove(4);
 		}
 		
 	}
