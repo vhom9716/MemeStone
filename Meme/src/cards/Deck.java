@@ -226,6 +226,7 @@ public class Deck{
 	
 	public static ArrayList<Card> collection;
 	public static ArrayList<Card> deck= new ArrayList<Card>();
+	public ArrayList<Card> playDeck = new ArrayList<Card>();
 	public Deck() {
 
 
@@ -271,5 +272,12 @@ public class Deck{
 	
 	public ArrayList<Card> getDeck() {
 		return deck;
+	}
+	
+	public static void setDeck() {
+		playDeck.clear();
+		for(Card c: deck) {
+			playDeck.add(c);
+		}
 	}
 }

@@ -259,9 +259,11 @@ public class EditorScreen extends FullFunctionScreen {
 	
 	public void saveCards() {
 		if(playerDeck.size() == 15) {
+			Deck.deck.clear();
 			for(Card c: playerDeck) {
 				Deck.deck.add(c);
 			}
+			Deck.setDeck();
 			incompleteOrDone.setText("Saved! You can now use your deck to battle.");
 		} else {
 			incompleteOrDone.setText("You must have 15 cards in your deck!");
