@@ -139,7 +139,6 @@ public class EditorScreen extends FullFunctionScreen {
 				deckCapacity.setText(deckSize + "/15");
 				for(int i = 0; i < page1.length -1; i++) {
 					page1[i].resetAmts();
-					System.out.println("Amt reset");
 				}
 				updateCardAmts();
 			}
@@ -276,4 +275,5 @@ public class EditorScreen extends FullFunctionScreen {
 			t.setText(" ");
 		}
 	}
+	
 }
