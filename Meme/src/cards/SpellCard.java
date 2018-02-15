@@ -1,6 +1,6 @@
 package cards;
 
-public class SpellCard extends Card {
+public class SpellCard extends Card implements Spell{
 
 	private String effect;
 	
