@@ -132,7 +132,7 @@ public class BattleBackend {
 			if(playerBoard.get(i).getHealth() <= 0) {
 				playerBoard.remove(i);
 				i--;
-			}
+			} 
 		}
 		for(int i=0; i<computerBoard.size();i++) {
 			if(computerBoard.get(i).getHealth() <= 0) {
