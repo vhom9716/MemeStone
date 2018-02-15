@@ -136,7 +136,7 @@ import menu.Menu;
 			
 			@Override
 			public void act() {
-				//basically end game?
+				Menu.menu.setScreen(Menu.screen1);
 				
 			}
 		});
@@ -190,24 +190,26 @@ import menu.Menu;
 		ClickableGraphic end = new ClickableGraphic(1300, 400, 100, 60, "resources/endturn.png");
 		end.setAction(new Action() {
 			public void act() {
-				System.out.println("heh");
-				ArrayList<Card> hand = backend.player.hand;
-				ArrayList<Card> deck = backend.player.deck;
-				if(deck.size() > 0) {
-					backend.player.drawcard(1);
-					backend.addMana();
-					backend.refreshMana();
-					updateMana();
-					currentHandImages.add(hand.get(hand.size() - 1).getImage());
-					updateHand(handSlots, currentHandImages, backend.player);
-				}
+				backend.playerTurn = !backend.playerTurn;
+				backend.cpuTurn = !backend.cpuTurn;
+				backend.cpuTurn();
+				System.out.print("The current turn is cpu");
+				//ArrayList<Card> hand = backend.player.hand;
+				//ArrayList<Card> deck = backend.player.deck;
+//				if(deck.size() > 0) {
+//					backend.player.drawcard(1);
+//					backend.addMana();
+//					backend.refreshMana();
+//					updateMana();
+//					currentHandImages.add(hand.get(hand.size() - 1).getImage());
+//					updateHand(handSlots, currentHandImages, backend.player);
+//				}
 			}
 		}); 
 		viewObjects.add(aihealthslot);
 		viewObjects.add(aimanaslot);
 		viewObjects.add(aimanapic);
 		viewObjects.add(end);
-		System.out.println(healthslot.getTextColor());
 		viewObjects.add(manaslot);
 		viewObjects.add(healthslot);
 		settings = new Graphic(450, 100, 500, 600, "resources/menu.png");
@@ -239,7 +241,6 @@ import menu.Menu;
 						//this fails if the number of cards in cardsInHand is not at max. 
 						//So we set a temp hand at creation, then we can update with the real hand.
 						if(backend.player.hand.get(pos).getCost()<backend.player.returnMana()) {
-							System.out.println(backend.player.returnMana());
 							if(chara.getFromHand(pos) instanceof MonsterCard) {
 								activateCardMon(chara.getFromHand(pos), pos, selFieldStringList, selSlotFieldList);
 								chara.addToBoard((MonsterCard) chara.getFromHand(pos));
@@ -272,7 +273,6 @@ import menu.Menu;
 	public void updateHand(ArrayList<CardButton> selSlotList, ArrayList<String> selStringList, Character chara) {
 		selStringList.clear();
 		for(int i = 0; i < chara.getHandSize(); i++) {
-			System.out.println(chara.getFromHand(i).getImage());
 			selStringList.add(chara.getFromHand(i).getImage());
 		}
 
@@ -308,7 +308,6 @@ import menu.Menu;
 	
 	public void updateField(int pos, ArrayList<String> selStringList, ArrayList<CardButton> selButtonList) {
 		for(int i = 0; i < selButtonList.size(); i++) {
-			//System.out.println(i + "size:" + selStringList.size()+  selStringList.get(i));
 			if(selStringList.size() > i && selStringList.get(i) != null) {
 				if (selButtonList.get(i).getHasCard() == false) {
 					
@@ -324,7 +323,6 @@ import menu.Menu;
 	}
 	public void updateField(ArrayList<String> selStringList, ArrayList<CardButton> selButtonList) {
 		for(int i = 0; i < selButtonList.size(); i++) {
-			//System.out.println(i + "size:" + selStringList.size()+  selStringList.get(i));
 			if(selStringList.size() > i && selStringList.get(i) != null) {
 				selButtonList.get(i).changeCardImage(selStringList.get(i), 120, 160);
 			}else {
@@ -333,15 +331,12 @@ import menu.Menu;
 		}
 	}
 	public void updateHp() {
-		System.out.println("df");
 		healthslot.setText(Integer.toString(backend.player.returnHp()));
 	}
 	public void updateMana() {
-		System.out.println("mana");
 		manaslot.setText(Integer.toString(backend.player.returnMana())+"/"+"10");
 	}
 	public void updateHpField(int posP, int posC) {
-		System.out.println(fieldSlots.size());
 		if (currentFieldImages.size() > backend.playerBoard.size()) {
 			fieldSlots.get(posP).changeCardImage("resources/placeholder.png", 2, 2);
 			currentFieldImages.remove(posP);

@@ -17,7 +17,6 @@ public class Deck{
 					if(player.deck.get(i) instanceof MonsterCard) {
 						player.hand.add(player.deck.get(i));
 						player.deck.remove(i);
-						player.currentmana -= 2;
 						return;
 					}
 				}
@@ -27,7 +26,6 @@ public class Deck{
 					if(cpu.deck.get(i) instanceof MonsterCard) {
 						cpu.hand.add(player.deck.get(i));
 						cpu.deck.remove(i);
-						cpu.currentMana -= 2;
 						return;
 					}
 				}
@@ -182,8 +180,6 @@ public class Deck{
 						backend.playerBoard.add((MonsterCard) Shenron);
 						backend.player.hand.remove((MonsterCard) Shenron);
 						break;
-					}else {
-						System.out.println("hehe");
 					}
 				}
 				for(int x=0;x<backend.player.deck.size()-1;x++) {
@@ -193,7 +189,6 @@ public class Deck{
 						System.out.println("true");
 						break;
 					}
-					System.out.println("haha");
 				}	
 			}else {
 				for(int i=0;i<backend.cpu.hand.size()-1;i++) {
@@ -202,8 +197,6 @@ public class Deck{
 						backend.computerBoard.add((MonsterCard) Shenron);
 						backend.cpu.hand.remove((MonsterCard) Shenron);
 						break;
-					}else {
-						System.out.println("hehe");
 					}
 				}
 				for(int x=0;x<backend.cpu.deck.size()-1;x++) {
@@ -213,7 +206,6 @@ public class Deck{
 						System.out.println("true");
 						break;
 					}
-					System.out.println("haha");
 				}	
 			}
 		}

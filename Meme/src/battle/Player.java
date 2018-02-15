@@ -57,7 +57,6 @@ public class Player implements Character{
 			health--;
 		}else {
 			while(amount>0) {
-				System.out.println(deck.size());
 				Card x = deck.get(0);
 			
 				deck.remove(0);
@@ -144,16 +143,4 @@ public class Player implements Character{
 	public void playSpell(SpellCard card) {
 		currentmana -= card.getCost();
 	}
-
-	@Override
-	public void playSpell() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getDeckSize() {
-		// TODO Auto-generated method stub
-		return 0;
-	} 
 }

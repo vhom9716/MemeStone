@@ -11,6 +11,5 @@ public interface Character {
 	void addToBoard(MonsterCard c);
 	void removeFromHand(int pos);
 	int getHandSize();
-	void playSpell();
 	void playSpell(SpellCard card);
 }

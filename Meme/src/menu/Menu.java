@@ -8,7 +8,15 @@ import guiTeacher.userInterfaces.Screen;
 
 
 public class Menu extends GUIApplication {
+    public static MenuScreen screen1; 
 
+    public static ShopScreen screen2;
+    
+    public static BattleScreen screen3; 
+	
+    public static EditorScreen screen4;
+    
+    public static BetterShopScreen screen5;
 	/**
 	 * 
 	 */
@@ -31,16 +39,6 @@ public class Menu extends GUIApplication {
 		go = new Thread(menu);
 		go.start();
 	}
- 
-    public static MenuScreen screen1; 
-
-    public static ShopScreen screen2;
-    
-    public static BattleScreen screen3; 
-	
-    public static EditorScreen screen4;
-    
-    public static BetterShopScreen screen5;
 	 
 	@Override
 	public void initScreen() {

@@ -33,9 +33,8 @@ public class BattleBackend {
 		playerTurn = true;
 		cpuTurn = false;
 		newDeck = new Deck();
-		newDeck.deck.clear();//
+		newDeck.deck.clear();
 		for(int i=0; i < craftDeck.deck.size();i++) {
-			System.out.println("yo " + craftDeck.deck.size());
 			newDeck.deck.add((craftDeck.deck.get(i)));
 		}
 		
@@ -52,11 +51,6 @@ public class BattleBackend {
 		cpuBoardNum = 0;
 		
 		move = "";
-		
-	//	player.drawcard(4);
-	//	newDeck.deck.get(0).a.act();
-		
-		//player.drawcard(4);
 	}
 	
 	/**
@@ -67,14 +61,13 @@ public class BattleBackend {
 		while(running) {
 			addMana(); 
 			refreshMana();
-			player.drawcard(1);
-			cpu.drawCard(1);
-			playerTurn= true;
-			//playerTurn();
-			while(playerTurn) {
-				
+			if(playerTurn) {
+				player.drawcard(1);
+				System.out.print("The current turn is player");
 			}
+			System.out.print("The current turn is cpu");
 			cpuTurn();
+			System.out.print("The current turn is switched to player");
 			checkStatus();
 		}
 	
