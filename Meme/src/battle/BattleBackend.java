@@ -33,10 +33,10 @@ public class BattleBackend {
 		playerTurn = true;
 		cpuTurn = false;
 		newDeck = new Deck();
-		//for(int i=0; i < craftDeck.deck.size();i++) {
-		//	System.out.println("yo " + craftDeck.deck.size());
-			//newDeck.deck.add((craftDeck.deck.get(i)));
-		//}
+		for(int i=0; i < craftDeck.deck.size();i++) {
+			System.out.println("yo " + craftDeck.deck.size());
+			newDeck.deck.add((craftDeck.deck.get(i)));
+		}
 		
 		player = new Player("Bob", 100, 30, 10, 0, newDeck.deck,null);
 		cpu = new AI();
@@ -125,7 +125,18 @@ public class BattleBackend {
 	}
 	
 	public void updateBoard() {
-		
+		for(int i=0; i<playerBoard.size();i++) {
+			if(playerBoard.get(i).getHealth() <= 0) {
+				playerBoard.remove(i);
+				i--;
+			}
+		}
+		for(int i=0; i<computerBoard.size();i++) {
+			if(computerBoard.get(i).getHealth() <= 0) {
+				computerBoard.remove(i);
+				i--;
+			}
+		}
 	}
 	/**
 	 * Checks to see if there is at least one taunt on CPU's board
