@@ -28,11 +28,7 @@ import guiTeacher.components.TextLabel;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
 import menu.Menu;
-	
 
-	
-
-/////////////////////////////
 
 	public class BattleScreen extends FullFunctionScreen {
 	ArrayList<Clip> allSounds;
@@ -44,19 +40,12 @@ import menu.Menu;
 	ArrayList<String> currentFieldImages;
 	ArrayList<Graphic> currentFieldHp;
 	
-	private ArrayList<Card> cardsInHand; 
-	private ArrayList<MonsterCard> cardsOnField;
-	
 	ArrayList<CardButton> AIhandSlots;
 	ArrayList<String> AIcurrentHandImages;
 	ArrayList<CardButton> AIfieldSlots;
 	ArrayList<String> AIcurrentFieldImages;
 
-	private ArrayList<Card> AIcardsInHand;
-	private ArrayList<MonsterCard> AIcardsOnField;
-	
-	
-	BattleBackend backend;
+	static BattleBackend backend;
 	
 	TextLabel manaslot;
 	TextLabel healthslot;
@@ -78,8 +67,6 @@ import menu.Menu;
 	MonsterCard friendlyFighter;
 	MonsterCard enemyFighter;
 
-	private ArrayList<Graphic> currentHpPos;
-	
 	TextLabel aimanaslot;
 	TextLabel aihealthslot;
 	
@@ -96,13 +83,11 @@ import menu.Menu;
 	public void initAllObjects(List<Visible> viewObjects) {
 		backend = new BattleBackend();
 		backend.player.drawcard(4);
-		cardsInHand = new ArrayList<Card>();
-		cardsOnField = new ArrayList<MonsterCard>();
 		handSlots = new ArrayList<CardButton>();
 		fieldSlots = new ArrayList<CardButton>();
 		currentHandImages = new ArrayList<String>();
 		currentFieldImages = new ArrayList<String>();
-		currentHpPos = new ArrayList<Graphic>();
+		new ArrayList<Graphic>();
 		
 		TextLabel.setTextColor(Color.PINK);
 		healthslot = new TextLabel(650,765,50,50, Integer.toString(backend.player.returnHp()));
@@ -116,9 +101,6 @@ import menu.Menu;
 		
 		backend.cpu.drawCard(4);
 
-
-		AIcardsInHand = new ArrayList<Card>();
-		AIcardsOnField = new ArrayList<MonsterCard>();
 		AIhandSlots = new ArrayList<CardButton>();
 		AIfieldSlots = new ArrayList<CardButton>();
 		AIcurrentHandImages = new ArrayList<String>(); 
@@ -126,9 +108,6 @@ import menu.Menu;
 		
 		AImanaslot = new TextLabel(850, 763, 50, 50, Integer.toString(backend.cpu.returnmana())+"/"+"10");
 		
-
-		//Temp. For testing
-		//Stuff will be changed in backend
 		for(int i = 0; i < 4; i++) {
 			System.out.println("Player card" + backend.player.hand.get(i).getImage());
 			currentHandImages.add(backend.player.hand.get(i).getImage());
@@ -136,40 +115,6 @@ import menu.Menu;
 			System.out.println("AI card" + backend.cpu.hand.get(i).getImage());
 			AIcurrentHandImages.add(backend.cpu.hand.get(i).getImage());
 		}
-		
-//		for(int i = 0; i < 4; i++) {
-//			System.out.println(backend.player.hand.get(i).getImage());
-//			currentHandImages.add(backend.player.hand.get(i).getImage());
-//		}				
-				
-				quit = new Button(545,310, 347, 76, "", new Action() {
-					public void act() {
-						Menu.menu.setScreen(Menu.screen1);
-						System.out.println("dfsdf");
-					}
-				});
-				resume = new Button(545, 455, 347, 76, "", new Action() {
-					
-					@Override
-					public void act() {
-						settings.setVisible(!settings.isVisible());
-						quit.setVisible(!quit.isVisible());
-						concede.setVisible(!concede.isVisible());
-						resume.setVisible(!resume.isVisible());	
-					}
-				});
-				concede = new Button(545, 200, 347, 76, "", new Action() {
-					
-					@Override
-					public void act() {
-						//basically end game?
-						
-					}
-				});
-
-//		}
-		
-		
 		
 		quit = new Button(545,310, 347, 76, "", new Action() {
 			public void act() {
@@ -215,11 +160,9 @@ import menu.Menu;
 
 		viewObjects.add(new Graphic(750,130, 120, 80, "resources/hp.png"));
 		viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png")); 
-		
 
 		quit.setVisible(false);
 		viewObjects.add(quit);
-
 		
 		generateHandSlots(614, handSlots, currentHandImages, fieldSlots, currentFieldImages, backend.player); 	
 		for(int i = 0; i < handSlots.size(); i++) { 
@@ -230,10 +173,7 @@ import menu.Menu;
 		for(int i = 0; i < AIhandSlots.size(); i++) { 
 			viewObjects.add(AIhandSlots.get(i));
 		}
-		
-		//do stuff to generate things for the AI
-		
-		
+
 		generateFieldSlots(460, fieldSlots);
 		for(int i = 0; i < fieldSlots.size(); i++) { 
 			viewObjects.add(fieldSlots.get(i));
@@ -243,19 +183,7 @@ import menu.Menu;
 		for(int i = 0; i < AIfieldSlots.size(); i++) {
 			viewObjects.add(AIfieldSlots.get(i));
 		}
-		
-		//Former Code at the Bottom
 
-		
-//		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
-//			@Override
-//			public void act() {
-//				Menu.menu.setScreen(Menu.screen1);
-//				drawACard("resources/saltbae.png"); 
-//				viewObjects.add(currentHand.get(currentHand.size()-1));
-//				System.out.println("dfsdf");
-//			}
-//		}));
 		Graphic deck = new Graphic(1200, 600, 100, 200, "resources/cardBack.png");
 		viewObjects.add(deck);
 		
@@ -298,12 +226,6 @@ import menu.Menu;
 		if(backend.validSpell(card)) {
 			card.a.act(backend.player, backend.cpu, "player", null, backend);
 		}
-	}
-	
-	public void drawACard(Card card, ArrayList<String> selImageList) {
-		currentHandImages.add(card.getImage());
-		cardsInHand.add(card);
-		updateHand(AIfieldSlots, selImageList, backend.player);
 	}
 	
 	public void generateHandSlots(int yPos, ArrayList<CardButton> selSlotHandList, ArrayList<String> selHandStringList, ArrayList<CardButton> selSlotFieldList, ArrayList<String> selFieldStringList, Character chara) {

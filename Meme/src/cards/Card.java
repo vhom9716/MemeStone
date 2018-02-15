@@ -9,7 +9,6 @@ public class Card{
 	private int amt;
 	private String imageLoc;
 	private int amtUsed = 0;
-	public boolean summon;
 	public boolean canAttack;
 	/**
 	 * Action a - Passes in a new action so that you can create a method for each individual cards	

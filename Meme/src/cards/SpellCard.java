@@ -18,5 +18,9 @@ public class SpellCard extends Card implements Spell{
 	public void setEffect(String effect) {
 		this.effect = effect;
 	}
+	
+	public Action getAction() {
+		return a;
+	}
 
 }

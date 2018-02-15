@@ -1,6 +1,7 @@
 package battle;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import cards.Card;
 import cards.Deck;
@@ -34,6 +35,11 @@ public class AI implements Character{
 		deck.add(Deck.UltraMegaChicken);
 		deck.add(Deck.Shenron);
 		deck.add(Deck.WTF);
+		deck.add(Deck.DragonBalls);
+		deck.add(Deck.WTF);
+		deck.add(Deck.WTF);
+		
+		Collections.shuffle(deck);
 		
 		hand.add(deck.get(0));
 		hand.add(deck.get(1));
@@ -41,7 +47,7 @@ public class AI implements Character{
 		hand.add(deck.get(3));
 	}
 	
-	public ArrayList<Card> getBoard() {
+	public ArrayList<MonsterCard> getBoard() {
 		return board;
 	}
 	
@@ -73,12 +79,10 @@ public class AI implements Character{
 		//updateField
 	}
 	
-	public void playSpell(Card selCard) {
-		hand.get(selCard).act();
+	public void playSpell(SpellCard selCard) {	
+		selCard.a.act(player, cpu, turn, card, backend);act();
 	}
-	public void playSpell(int cardPos) {
-		hand.get(cardPos);
-	}
+
 	
 	/**
 	 * plays a card, if the board is less than 5, (max size) it can play a monster
@@ -95,7 +99,7 @@ public class AI implements Character{
 	}
 	
 	public void executeTurn() {
-		drawCard();
+		drawCard(1);
 		maxMana++;
 		currentMana = maxMana;
 		checkTurnDone(); 
@@ -188,9 +192,15 @@ public class AI implements Character{
 	}
 
 	@Override
-	public void playSpell(SpellCard card) {
+	public void playSpell() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int getDeckSize() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
  

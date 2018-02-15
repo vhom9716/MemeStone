@@ -26,7 +26,7 @@ public class Player implements Character{
 		//this.hand=hand;
 		this.hand = new ArrayList<Card>();
 		this.board = new ArrayList<MonsterCard>();
-		this.currentmana=0;
+		this.currentmana=1;
 		this.maxmana=1;
 		this.gold=gold;
 		//sendinfortofront();//
@@ -48,27 +48,6 @@ public class Player implements Character{
 		this.hand = hand; 
 	}
 
-	public Player() {
-		maxmana = 10;
-		health = 30;
-		//currentmana = 0;
-		manaslot = 0;
-		//sendinfortofront();
-
-	}
-	/*boolean[] sendinfortofront() {
-		playable=new boolean[hand.size()];
-		for(int i=0;i<hand.size();i++) {
-			if(hand.get(i).getCost()>currentmana) {
-				playable[i]=false;
-			}else {
-				playable[i]=true;
-			}
-		}
-		return playable;
-		
-
-	}*/
 	public void updategold(int x) {
 		gold+=x;
 	}
@@ -85,7 +64,6 @@ public class Player implements Character{
 				hand.add(x);
 				checkHand();
 				amount--;
-				//menu.Menu.screen3.drawACard(x.getImage());
 			}
 			
 		}
@@ -165,5 +143,17 @@ public class Player implements Character{
 	@Override
 	public void playSpell(SpellCard card) {
 		currentmana -= card.getCost();
+	}
+
+	@Override
+	public void playSpell() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getDeckSize() {
+		// TODO Auto-generated method stub
+		return 0;
 	} 
 }
