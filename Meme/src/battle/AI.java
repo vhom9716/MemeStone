@@ -186,5 +186,11 @@ public class AI implements Character{
 	public int returnHp() {
 		return health;
 	}
+
+	@Override
+	public void playSpell(SpellCard card) {
+		// TODO Auto-generated method stub
+		
+	}
 }
  

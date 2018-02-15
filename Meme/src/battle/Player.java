@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import cards.Card;
 import cards.MonsterCard;
+import cards.SpellCard;
 
 public class Player implements Character{
 	
@@ -148,6 +149,7 @@ public class Player implements Character{
 	@Override
 	public void addToBoard(MonsterCard c) {
 		board.add(c);
+		currentmana -= c.getCost();
 	}
 
 	@Override
@@ -159,6 +161,9 @@ public class Player implements Character{
 	public int getHandSize() {
 		return hand.size();
 	}
-	
- 
+
+	@Override
+	public void playSpell(SpellCard card) {
+		currentmana -= card.getCost();
+	} 
 }
