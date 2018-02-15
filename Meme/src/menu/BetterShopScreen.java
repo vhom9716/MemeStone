@@ -2,6 +2,7 @@ package menu;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.List;
 
 import battle.Player;
@@ -14,7 +15,6 @@ import guiTeacher.userInterfaces.FullFunctionScreen;
 public class BetterShopScreen extends FullFunctionScreen {
 
 	private static final long serialVersionUID = 258186143576427947L;
-	int gold = ShopScreen.gold;
 	
 	public TextArea tempCardDis;
 	protected TextLabel displayGold;
@@ -22,6 +22,10 @@ public class BetterShopScreen extends FullFunctionScreen {
 	public static Card[] rareCards = {Deck.IQ, Deck.ScrewTheRulesIHaveMoney, Deck.DragonBalls, Deck.WTF };
 	public static Card[] epicCards = {Deck.OmaeWaMouShindeiru, Deck.SaltBae };
 	public static Card[] legendaryCards = {Deck.Shenron, Deck.TheExcutiveProducer, Deck.UltraMegaChicken };
+	public Graphic[] cardDisplays;
+	public AnimatedComponent[] animatedDisplays;
+	public ArrayList<String> cardDisList;
+	
 	
 	public BetterShopScreen(int width, int height) {
 		super(width, height);
@@ -30,6 +34,9 @@ public class BetterShopScreen extends FullFunctionScreen {
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
+		cardDisplays = new Graphic[5];
+		animatedDisplays = new AnimatedComponent[5];
+		cardDisList = new ArrayList<String>();
 		viewObjects.add(new Graphic(0, 0, getWidth(),getHeight(),"resources/BetterCardsShop.png"));
 		tempCardDis = new TextArea(500, 500, 400, 200, "");
 		tempCardDis.setCustomTextColor(Color.WHITE);
@@ -56,39 +63,89 @@ public class BetterShopScreen extends FullFunctionScreen {
 			public void act() {
 				Menu.menu.setScreen(Menu.screen2);
 				Menu.screen2.displayGold.setText(Integer.toString(ShopScreen.gold));
+				for(int i = 0; i < 5; i++) {
+					Menu.screen2.cardDisplays[i].setVisible(true);
+					Menu.screen2.cardDisplays[i].loadImages("resources/placeholder.png", 2, 2);
+				}
 			}
 		});
 		viewObjects.add(shop1);
 
+		Graphic a = new Graphic(800, 60, 152, 270, "resources/cardback.png");
+		Graphic b = new Graphic(1030, 192, 152, 270, "resources/cardback.png");
+		Graphic c = new Graphic(940, 490, 152, 270, "resources/cardback.png");
+		Graphic d = new Graphic(660, 490, 152, 270, "resources/cardback.png");
+		Graphic e = new Graphic(570, 192, 152, 270, "resources/cardback.png");
+		
+		cardDisplays[0] = a;
+		cardDisplays[1] = b;
+		cardDisplays[2] = c;
+		cardDisplays[3] = d;
+		cardDisplays[4] = e;
+		for(int i = 0; i < 5; i++) {
+			viewObjects.add(cardDisplays[i]);
+			cardDisplays[i].setVisible(false);
+		}
 
 		Button buyPack = new Button(90, 660,310,100," ",new Action() {
-			
+
 			@Override
 			public void act() {
 				displayGold.setText(Integer.toString(ShopScreen.gold));
-				String s = "You have obtained:";
+				cardDisList.clear();
 				if (ShopScreen.gold >= 175) {
 					ShopScreen.gold -= 175;
-					tempCardDis.setText("");
-					int getCard = (int) (Math.random()*15);
-					for(int i = 0; i < 5; i++) {
-						Card c = Deck.collection.get(getCard);
-						s += c.getName() + ", ";
-						c.setAmt(c.getAmt()+1);
-						getCard = (int) (Math.random()*15);
-					}
 					displayGold.setText(Integer.toString(ShopScreen.gold));
-					tempCardDis.setText(s);
-				}else {
-					tempCardDis.setText("You do not have enough gold");
+					int randomInt = 0;
+					
+					for(int i = 0; i < 5; i++) {
+						randomInt = (int) ((Math.random()*100));
+						if(randomInt > 90){
+							int randomCard = (int)(Math.random()*legendaryCards.length);
+							cardDisList.add(legendaryCards[randomCard].getImage());	
+							for(int i1 = 0; i1 < Deck.collection.size(); i1++) {
+								if(Deck.collection.get(i1) == legendaryCards[randomCard]) {
+									Deck.collection.get(i1).setAmt(Deck.collection.get(i1).getAmt()+1);
+								}
+							}
+						}
+						if(randomInt > 60 && randomInt <= 90) {
+							int randomCard = (int)(Math.random()*epicCards.length);
+							cardDisList.add(epicCards[randomCard].getImage());
+							for(int i2 = 0; i2 < Deck.collection.size(); i2++) {
+								if(Deck.collection.get(i2) == epicCards[randomCard]) {
+									Deck.collection.get(i2).setAmt(Deck.collection.get(i2).getAmt()+1);
+								}
+							}
+						}
+						if(randomInt > 25 && randomInt <= 60) {
+							int randomCard = (int)(Math.random()*rareCards.length);
+							cardDisList.add(rareCards[randomCard].getImage());	
+							for(int i3 = 0; i3 < Deck.collection.size(); i3++) {
+								if(Deck.collection.get(i3) == rareCards[randomCard]) {
+									Deck.collection.get(i3).setAmt(Deck.collection.get(i3).getAmt()+1);
+								}
+							}
+						}
+						if(randomInt <= 25) {
+							int randomCard = (int)(Math.random()*commonCards.length);
+							cardDisList.add(commonCards[randomCard].getImage());	
+							for(int i4 = 0; i4 < Deck.collection.size(); i4++) {
+								if(Deck.collection.get(i4) == commonCards[randomCard]) {
+									Deck.collection.get(i4).setAmt(Deck.collection.get(i4).getAmt()+1);
+								}
+							}
+						}
+					}
+					for(int i = 0; i < 5; i++) {
+						cardDisplays[i].setVisible(true);
+						cardDisplays[i].loadImages(cardDisList.get(i), 220, 270);
+					}
 				}
+					 
 				
-				//Do stuff so you get 5 cards.
-				//Animate the cards so they all are revealed at the same time.
 			}
 		});
 		viewObjects.add(buyPack);
-		
 	}
-	
 }
