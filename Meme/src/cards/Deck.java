@@ -339,8 +339,7 @@ public class Deck{
 		collection.add(UWot);
 		collection.add(WTF);
 		
-		deck.add(DragonBalls);
-		deck.add(Shenron);
+		
 		for(int i = 0; i<10; i++) {
 			int r =  (int) Math.floor(Math.random() * 12);
 			deck.add(collection.get(r));

@@ -269,6 +269,7 @@ import menu.Menu;
 					backend.player.drawcard(1);
 					backend.addMana();
 					backend.refreshMana();
+					updateMana();
 					currentHandImages.add(hand.get(hand.size() - 1).getImage());
 					updateHand(handSlots, currentHandImages, backend.player);
 				}

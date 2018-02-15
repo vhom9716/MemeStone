@@ -80,17 +80,17 @@ public class BattleBackend {
 	
 	}
 	
-	public void refreshMana() {
+	void refreshMana() {
 		player.currentmana = player.maxmana;
 		cpu.currentMana = cpu.maxMana;
 	}
 
-	public void addMana() {
+	void addMana() {
 		if(player.maxmana <10) {
+			player.currentmana++;
 			player.maxmana++;
-		}
-		if(cpu.maxMana <10) {
 			cpu.maxMana++;
+			cpu.currentMana++;
 		}
 	}
 
@@ -100,6 +100,7 @@ public class BattleBackend {
 		}
 		return "Player";
 	}
+	
 
 	/*public void playerTurn() {
 		while(playerTurn) {
@@ -132,7 +133,7 @@ public class BattleBackend {
 			if(playerBoard.get(i).getHealth() <= 0) {
 				playerBoard.remove(i);
 				i--;
-			} 
+			}
 		}
 		for(int i=0; i<computerBoard.size();i++) {
 			if(computerBoard.get(i).getHealth() <= 0) {
@@ -186,7 +187,7 @@ public class BattleBackend {
 	 * @param card
 	 * @return
 	 */
-	public boolean validSpell(Card card) {
+	boolean validSpell(Card card) {
 		return player.currentmana >= card.getCost();
 	}
 	/**
@@ -211,10 +212,6 @@ public class BattleBackend {
 		else {
 			return 2;
 		}
-	}
-	
-	public void summonMonster(MonsterCard card) {
-		playerBoard.add(card);
 	}
 }
   
