@@ -3,6 +3,7 @@ package menu;
 import java.awt.Color;
 import java.util.List;
 
+import battle.BattleScreen;
 import guiTeacher.components.*;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
@@ -10,7 +11,6 @@ import guiTeacher.userInterfaces.FullFunctionScreen;
 public class MenuScreen extends FullFunctionScreen {
 
 	private static final long serialVersionUID = 258186143576427947L;
-	AnimatedComponent mario;
  
 	public MenuScreen(int width, int height) {
 		super(width, height);
@@ -32,6 +32,7 @@ public class MenuScreen extends FullFunctionScreen {
 			
 			@Override
 			public void act() {
+				Menu.screen3 = new BattleScreen(1440, 824);
 				Menu.menu.setScreen(Menu.screen3);
 			}
 		});

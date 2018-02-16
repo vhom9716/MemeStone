@@ -3,16 +3,18 @@ package battle;
 import java.util.ArrayList;
 
 import cards.Card;
+import cards.MonsterCard;
+import cards.SpellCard;
 
-public class Player {
+public class Player implements Character{
 	
 	public ArrayList<Card> deck;
 	public ArrayList<Card> hand;
-	public ArrayList<Card> board;
+	public ArrayList<MonsterCard> board;
 	public boolean[] playable; 
 	private String name;
 	public int health;
-	public static int currentmana =10;
+	public int currentmana;
 	public int gold=0;
 	public int maxmana;
 	public int manaslot;
@@ -23,10 +25,11 @@ public class Player {
 		this.deck=deck;
 		//this.hand=hand;
 		this.hand = new ArrayList<Card>();
-		this.currentmana=mana;
-		this.maxmana=maxmana;
+		this.board = new ArrayList<MonsterCard>();
+		this.currentmana=1;
+		this.maxmana=1;
 		this.gold=gold;
-		//sendinfortofront();
+		//sendinfortofront();//
 	}
 
 	public ArrayList<Card> getDeck() {
@@ -42,47 +45,24 @@ public class Player {
 	}
 
 	public void setHand(ArrayList<Card> hand) {
-		this.hand = hand;
+		this.hand = hand; 
 	}
 
-	public Player() {
-		maxmana = 10;
-		health = 30;
-		//currentmana = 0;
-		manaslot = 0;
-		//sendinfortofront();
-
-	}
-	boolean[] sendinfortofront() {
-		playable=new boolean[hand.size()];
-		for(int i=0;i<hand.size();i++) {
-			if(hand.get(i).getCost()>currentmana) {
-				playable[i]=false;
-			}else {
-				playable[i]=true;
-			}
-		}
-		return playable;
-		
-
-	}
 	public void updategold(int x) {
 		gold+=x;
 	}
 	public void drawcard(int amount) {
-		if(decksize()==0) {
+		if(deckSize()==0) {
 			System.out.println("out of cards");
 			health--;
 		}else {
 			while(amount>0) {
-				System.out.println(deck.size());
 				Card x = deck.get(0);
 			
 				deck.remove(0);
 				hand.add(x);
-				checkhand();
+				checkHand();
 				amount--;
-				//menu.Menu.screen3.drawACard(x.getImage());
 			}
 			
 		}
@@ -90,16 +70,17 @@ public class Player {
 		
 
 	} 
-	public int decksize() {
+	public int deckSize() {
 		return deck.size();
 	}
-	private void checkhand() {
+	private void checkHand() {
 		if(hand.size()>4) {
-			hand.remove(3);
+			hand.remove(4);
+			System.out.println("removedCard");
 		}
 		
 	}
-	public void givemanaslot() {
+	public void giveManaSlot() {
 		if(manaslot<maxmana) {
 			manaslot++;
 		}
@@ -115,28 +96,62 @@ public class Player {
 		}
 		
 	}
-	public void takedamage(int damage) {
+	public void takeDamage(int damage) {
 		health-=damage;
 	}
-	public boolean canplaycard() {
+	public boolean canPlayCard() {
 		return hand.stream().filter(card->card.getCost()<=currentmana).count() >0;
 	}
-	public int returnhp() {
+	public int returnHp() {
 		return health;
 	}
 	public int returnGold() {
 		return gold;
 	}
-	public static int returnmana() {
+	public int returnMana() {
 		return currentmana;
 	}
-	public String returnmanastring() {
+	public String returnManaString() {
 		return Integer.toString(currentmana);
 	}
 	
 	public void declareAttack(Card attacker,Card victim) {
 		
 	}
-	
- 
+
+	@Override
+	public Card getFromHand(int pos) {
+		return hand.get(pos);
+	}
+
+	@Override
+	public void addToBoard(MonsterCard c) {
+		board.add(c);
+		currentmana -= c.getCost();
+	}
+
+	@Override
+	public void removeFromHand(int pos) {
+		hand.remove(pos);
+	}
+
+	@Override
+	public int getHandSize() {
+		return hand.size();
+	}
+
+	@Override
+	public void playSpell(SpellCard card) {
+		currentmana -= card.getCost();
+	}
+
+	@Override
+	public Card getFromBoard(int i) {
+		return board.get(i);
+	}
+
+	@Override
+	public int getBoardSize() {
+		return board.size();
+	}
 }

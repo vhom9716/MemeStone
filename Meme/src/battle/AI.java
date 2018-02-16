@@ -1,20 +1,65 @@
 package battle;
 
+import menu.Menu;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import cards.Card;
-import cards.Monster;
+import cards.Deck;
+import cards.MonsterCard;
+import cards.SpellCard;
 
-public class AI {
+
+public class AI implements Character{
 	public ArrayList<Card> deck;
 	public ArrayList<Card> hand;
-	public ArrayList<Card> board;
+	public ArrayList<MonsterCard> board;
 	public int health;
-	public int maxMana;
 	public int currentMana;
+	public int maxMana = 0;
 	
+	public AI() {
+		currentMana = 0;
+		maxMana = 0;
+		health = 30;
+		deck = new ArrayList<Card>();
+		hand = new ArrayList<Card>();
+		board = new ArrayList<MonsterCard>();
+		deck.add(Deck.Doge);
+		deck.add(Deck.PotOfGreed);
+		deck.add(Deck.PotOfGreed);
+		deck.add(Deck.OmaeWaMouShindeiru);
+		deck.add(Deck.PotOfGreed);
+		deck.add(Deck.PotOfGreed);
+		deck.add(Deck.RainbowDash);
+		deck.add(Deck.Pikachu);
+		deck.add(Deck.UWot);
+		deck.add(Deck.PotOfGreed);
+		deck.add(Deck.UWot);
+		deck.add(Deck.ScrewTheRulesIHaveMoney);
+		deck.add(Deck.SaltBae);
+		deck.add(Deck.DewYuKnoDeWae);
+		deck.add(Deck.UWot);
+		deck.add(Deck.UltraMegaChicken);
+		deck.add(Deck.Shenron);
+		deck.add(Deck.WTF);
+		deck.add(Deck.DragonBalls);
+		deck.add(Deck.WTF);
+		deck.add(Deck.UWot);
+		deck.add(Deck.WTF);
+		deck.add(Deck.UWot);
+		deck.add(Deck.UWot);
+		deck.add(Deck.UWot);
+		
+		Collections.shuffle(deck);
+		
+		hand.add(deck.get(0));
+		hand.add(deck.get(1));
+		hand.add(deck.get(2));
+		hand.add(deck.get(3));
+	}
 	
-	public ArrayList<Card> getBoard() {
+	public ArrayList<MonsterCard> getBoard() {
 		return board;
 	}
 	
@@ -22,55 +67,48 @@ public class AI {
 		health += change;
 	}
 	
-	public void draw() {
-		if(deck.size() == 0) {
-			lose(); //handled by backend
-		}else {
+	public void drawCard(int num) {
+		while(num > 0 && deck.size() != 0) {
+			System.out.println(num + deck.get(0).getImage());
 			hand.add(deck.get(0));
 			deck.remove(0);
+			num--;	
 		}
 	}
 	//ensure that taunts are accounted for
-	public void declareAttack(int sel) {
-		boolean tauntPresent = false;
-		for(Monster m: Player.board) {
-			if(m.hasTaunt) {
-				tauntPresent = true;
-			}
-		}
-		if(board.get(sel).canAttack) { 
-			
-		}
+	public void declareAttack(int sel, int i) {
+		Menu.screen3.fighting(sel, Menu.screen3.AIfieldSlots);
+		Menu.screen3.fighting(i, Menu.screen3.fieldSlots);
 	}
 	
-	public void playMonster(int cardPos) {
-		board.add(hand.get(cardPos));
-		hand.remove(cardPos);
+	public void playMonster(MonsterCard m) {
+		board.add(m);
+		hand.remove(m);
+		currentMana -= m.getCost();
 	}
-	
-	public void playSpell(int cardPos) {
-		hand.get(cardPos).act();
-	}
-	
+
 	/**
 	 * plays a card, if the board is less than 5, (max size) it can play a monster
+	 * @param card 
 	 */
-	public void playCard() {
-		int selCard = 1;
-		playSpell(selCard);
-		if(board.size() < 5) {
-			playMonster(selCard);
+	public void playCard(Card selCard) {
+		if(board.size() < 5 && selCard instanceof MonsterCard) {
+			playMonster((MonsterCard)selCard);
+		}
+		if(selCard instanceof SpellCard) {
+			playSpell((SpellCard) selCard);
 		}
 	}
 	
 	public void executeTurn() {
-		draw();
-		maxMana++;
-		currentMana = maxMana;
-		while(!checkTurnDone()) {
-			playCard();
-			declareAttack();
-		}
+		drawCard(1);
+		checkTurnDone(); 
+		System.out.println("CPU turn over");
+		Menu.screen3.backend.startPlayerTurn();
+		Menu.screen3.updateTurn(this);
+		
+//		BattleScreen.backend.playerTurn = !BattleScreen.backend.playerTurn;
+//		BattleScreen.backend.cpuTurn = !BattleScreen.backend.cpuTurn;
 	}
 	 
 	//checking turn completion can go into battle class 
@@ -87,7 +125,8 @@ public class AI {
 			return false;
 		}
 		for(Card c: hand) {
-			if(c.cost < currentMana) {
+			if(c.getCost() <= currentMana) {
+				System.out.println(c.getCost());
 				 return true;
 			}
 		}
@@ -100,16 +139,25 @@ public class AI {
 	 * then if there are available monsterAttacks.
 	 * @return 
 	 */
-	public boolean checkTurnDone() {
-		if(checkManaCostsInHand()) {
-			return true;
-		}else {
-			if(availableAttacksOnBoard()) {
-				return true;
+	public void checkTurnDone() {
+		while(checkManaCostsInHand()) {
+			for(int i = 0; i < hand.size(); i++) {
+				System.out.println(currentMana);
+				if(currentMana >= hand.get(i).getCost()) {
+					playCard(hand.get(i));
+				}
 			}
 		}
-		return false;
-		
+		while(availableAttacksOnBoard()) {
+			int attPos = (int)(Math.random()*board.size());
+			if(board.get(attPos).canAttack) {
+				declareAttack(attPos, (int)(Math.random()*Menu.screen3.backend.player.board.size()));
+				System.out.println("AI attack");
+			}else {
+				attPos = (int)(Math.random()*board.size());
+			}
+
+		}
 	}
 	/**
 	 * checks if there are available attacks on the player's board
@@ -119,14 +167,64 @@ public class AI {
 	 */
 	private boolean availableAttacksOnBoard() {
 		if(board.size() == 0) {
+			System.out.println("Empty board");
 			return false;
 		}
-		for(Monster m: board) {
-			if(m.canAttack) {
-				return true;
-			}
+		if(Menu.screen3.backend.player.board.size() > 0) {
+			for(MonsterCard m: board) {
+				if(m.canAttack) {
+					System.out.println(m.getName() + "Can attack");
+					return true;
+				}
+			} 
 		}
 		return false;
+	}
+
+	public int returnmana() {
+		return currentMana;
+	}
+
+
+	@Override
+	public Card getFromHand(int pos) {
+		return hand.get(pos);
+	}
+
+	@Override
+	public void addToBoard(MonsterCard c) {
+		board.add(c);
+	}
+
+
+	public void removeFromHand(int pos) {
+		hand.remove(pos);
+	}
+
+	@Override
+	public int getHandSize() {
+		return hand.size();
+
+	}
+
+	public int returnHp() {
+		return health;
+	}
+	
+	public void playSpell(SpellCard card) {
+		card.a.act(BattleScreen.backend.player, BattleScreen.backend.cpu, "cpu", card, BattleScreen.backend);
+		currentMana -= card.getCost();
+		hand.remove(card);
+	}
+
+	@Override
+	public Card getFromBoard(int i) {
+		return board.get(i);
+	}
+
+	@Override
+	public int getBoardSize() {
+		return board.size();
 	}
 }
  

@@ -15,7 +15,8 @@ public class ClickableGraphicEditor extends ClickableGraphic{
 
 	public ClickableGraphicEditor(int x, int y, int w, int h, String imageLocation, int index) {
 		super(x, y, w, h, imageLocation);
-		
+		cardIndex = index;
+		this.graphic = graphic;
 	}
 
 	private Graphic graphic;
@@ -29,10 +30,15 @@ public class ClickableGraphicEditor extends ClickableGraphic{
 //	
 	
 	public void act() {
-		EditorScreen.playerDeck.add(EditorScreen.page1[cardIndex]);
-		Menu.screen4.updateDeck();
-		Menu.screen4.createButton();
-		Menu.screen4.changeText();
+		if(EditorScreen.playerDeck.size() < 15) {
+			if(EditorScreen.page1[cardIndex].getAmtUsed() < EditorScreen.page1[cardIndex].getAmt()) {
+				EditorScreen.playerDeck.add(EditorScreen.page1[cardIndex]);
+				EditorScreen.page1[cardIndex].usedOne();
+				Menu.screen4.updateDeck();
+				Menu.screen4.updateCardAmts();
+			}
+		//Menu.screen4.changeText();
+		}
 	}
 	
 	public void setGraphic(String location, int index, int w, int h) {

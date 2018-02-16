@@ -1,8 +1,11 @@
 package cards;
 
 import java.awt.Color;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import battle.BattleBackend;
 import guiPlayer.CustomPane;
 import guiTeacher.components.Action;
 import guiTeacher.components.Button;
@@ -16,9 +19,7 @@ import menu.Menu;
 
 public class EditorScreen extends FullFunctionScreen {
 
-	//private DeckPane pane;
 	private TextArea deckCapacity;
-	private TextArea pageNumberArea;
 	private ClickableGraphicEditor picture1;
 	private ClickableGraphicEditor picture2;
 	private ClickableGraphicEditor picture3;
@@ -28,10 +29,12 @@ public class EditorScreen extends FullFunctionScreen {
 	private TextArea picture2amt;
 	private TextArea picture3amt;
 	private TextArea picture4amt;
+	private TextArea incompleteOrDone;
 	
 	private Button pageLeft;
 	private Button pageRight;
 	private Button emptyButton;
+	private Button saveButton;
 	
 	public TextArea currentDeckTest;
 	
@@ -46,15 +49,13 @@ public class EditorScreen extends FullFunctionScreen {
 	private Card card4 = page1[3];
 	
 	private int pageNumber = 1;
-	private int deckSize;
+	private int deckSize = 0;
 	private int currentY = 100;
-	private int currentButtonCount = 0;
-	private Button cardButton;
-	
+
+	private TextArea[] panel;
+	private Button[] removers;
 
 	private Button[] cardsChosen;
-	/*= 
-	*/
 	
 	//each button will be 40 pixels high and 100 wide
 	
@@ -67,37 +68,47 @@ public class EditorScreen extends FullFunctionScreen {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	private Action removeCard(int index) {
-		cardsChosen[index].setText("");
-		return null;
-	}
-
 	public void initAllObjects(List<Visible> viewObjects) {
 		cardsChosen = new Button[16];
 		playerDeck = new ArrayList<Card>();
+		panel = new TextArea[15];
+		removers = new Button[15];
 		background = new Graphic(0, 0, 1440, 824, "resources/CardBackgroundFinal.png");
-		String amt1 = Integer.toString(page1[0].getAmt());
-		String amt2 = Integer.toString(page1[1].getAmt());
-		String amt3 = Integer.toString(page1[2].getAmt());
-		String amt4 = Integer.toString(page1[3].getAmt());
-		//pane = new DeckPane(this, 1200, 100,150,600);
-		//pane.update();
+		card1= page1[0];
+		card2= page1[1];
+		card3= page1[2];
+		card4= page1[3];
+		String amt1 = Integer.toString(card1.getAmt() - card1.getAmtUsed());
+		String amt2 = Integer.toString(card2.getAmt() - card2.getAmtUsed());
+		String amt3 = Integer.toString(card3.getAmt() - card3.getAmtUsed());
+		String amt4 = Integer.toString(card4.getAmt() - card4.getAmtUsed());
 		deckCapacity = new TextArea(1200,700,150,40,deckSize+"/15");
+		
+		incompleteOrDone = new TextArea(980,40,430,200," ");
+		incompleteOrDone.setCustomTextColor(Color.WHITE);
+		incompleteOrDone.setSize(22);
 		
 		picture1 = new ClickableGraphicEditor(300,20, 250, 350, "resources/200iq.png",0);
 		picture2 = new ClickableGraphicEditor(700,20, 250, 350, "resources/dewyuknodewae.png",1);
 		picture3 = new ClickableGraphicEditor(300,400, 250, 350, "resources/dog.png",2);
 		picture4 = new ClickableGraphicEditor(700,400, 250, 350, "resources/omaewa.png",3);
 		
-		picture1amt = new TextArea(330,360,200,150,amt1);
-		picture2amt = new TextArea(730,360,200,150,amt2);
-		picture3amt = new TextArea(330,740,200,150,amt3);
-		picture4amt = new TextArea(730,740,200,150,amt4);
+		picture1amt = new TextArea(395,360,200,150,"Amt: " + amt1);
+		picture2amt = new TextArea(795,360,200,150,"Amt: " + amt2);
+		picture3amt = new TextArea(395,740,200,150,"Amt: " + amt3);
+		picture4amt = new TextArea(795,740,200,150,"Amt: " + amt4);
 		
 		currentDeckTest = new TextArea(1000,100,300,600,"");
 		currentDeckTest.setCustomTextColor(Color.WHITE);
 		currentDeckTest.setSize(16);
+		
+		saveButton = new Button(1100,700,100,100,"Save", new Action() {
+			
+			@Override
+			public void act() {
+				saveCards();
+			}
+		});
 		
 		pageLeft = new Button(500,750,100,75," ",new Action() {
 			@Override
@@ -119,32 +130,21 @@ public class EditorScreen extends FullFunctionScreen {
 				}
 			}
 		});
-		emptyButton = new Button(50,200,200,100,"Clear Deck", new Action() {
+		emptyButton = new Button(1200,700,200,100,"Clear Deck", new Action() {
 			public void act() {
 				System.out.println("shak");
 				playerDeck.clear();
-				String s = "Cleared";
-				for(Card c: playerDeck) {
-					s+=c;
+				clearPanel();
+				deckSize = 0;
+				deckCapacity.setText(deckSize + "/15");
+				for(int i = 0; i < page1.length -1; i++) {
+					page1[i].resetAmts();
 				}
-				currentDeckTest.setText("");
-				System.out.println("sdhak");
+				updateCardAmts();
 			}
 		});
-		int counter = 140;
-		for(int i = 0; i < 16; i++) {
-			Button a = new Button(1000,counter,100,40,"hi", null);
-			//a.setVisible(false);
-			viewObjects.add(a);
-			System.out.println(a.getText());
-			cardsChosen[i] = a;
-			a.setAction(removeCard(i));
-			counter += 40;
-		}
-		
-		
+
 		viewObjects.add(background);
-		//viewObjects.add(pane);
 		viewObjects.add(deckCapacity);
 		viewObjects.add(picture1);
 		viewObjects.add(picture2);
@@ -166,11 +166,52 @@ public class EditorScreen extends FullFunctionScreen {
 		viewObjects.add(pageRight);
 		viewObjects.add(currentDeckTest);
 		viewObjects.add(emptyButton);
-	}
-
-	public void changeText() {
-		cardsChosen[1].setText("LOL");
-		cardsChosen[1].setVisible(true);
+		
+		int counter = 100;
+		for(int i = 0; i < 15; i++) {
+			int index = i;
+			TextArea card = new TextArea(1100,counter,280,40,"");
+			Button button = new Button(1050,counter,40,40,"X",new Action() {
+				public void act() {
+					if(index < playerDeck.size()) {
+						playerDeck.get(index).removedOneFromDeck();
+						playerDeck.remove(index);
+						clearPanel();
+						for(int i = 0; i < playerDeck.size(); i++) {
+							panel[i].setText(playerDeck.get(i).getName());
+						}
+						deckSize--;
+						deckCapacity.setText(deckSize+"/15");
+						updateCardAmts();
+					}
+				}
+			});
+			counter += 40;
+			card.setCustomTextColor(Color.WHITE);
+			card.setSize(18);
+			button.setCustomTextColor(Color.WHITE);
+			button.setSize(18);
+			viewObjects.add(card);
+			viewObjects.add(button);
+			panel[i] = card;
+			removers[i] = button;
+		}
+		viewObjects.add(saveButton);
+		viewObjects.add(incompleteOrDone);
+		deckCapacity.setCustomTextColor(Color.WHITE);
+		deckCapacity.setSize(18);
+		picture1amt.setCustomTextColor(Color.WHITE);
+		picture1amt.setSize(16);
+		picture2amt.setCustomTextColor(Color.WHITE);
+		picture2amt.setSize(16);
+		picture3amt.setCustomTextColor(Color.WHITE);
+		picture3amt.setSize(16);
+		picture4amt.setCustomTextColor(Color.WHITE);
+		picture4amt.setSize(16);
+		saveButton.setCustomTextColor(Color.WHITE);
+		saveButton.setSize(16);
+		emptyButton.setCustomTextColor(Color.WHITE);
+		emptyButton.setSize(16);
 	}
 
 	public void updateCards() {
@@ -190,49 +231,49 @@ public class EditorScreen extends FullFunctionScreen {
 			picture4.setGraphic("resources/placeholder.png", (4*(pageNumber-1))+3, 2, 2);
 			//card4 = null;
 		}
+		
+		updateCardAmts();
 	}
 
 	public void updateDeck() {
 		if(playerDeck.size() < 16) {
-			int counter = 1;
-			String s = "Deck: \n";
-		
-			for(Card c: playerDeck) {
-				s += counter +". " + c+"\n";
-				counter++;
+			for(int i = 0; i < playerDeck.size(); i++) {
+				panel[i].setText(playerDeck.get(i).getName());
 			}
-			currentDeckTest.setText(s);
+		}
+		if(deckSize < 15) {
+			deckSize++;
+			deckCapacity.setText(deckSize + "/15");
 		}
 	}
-	
-	public Action addACard(Card card) {
-		playerDeck.add(card);
-		updateDeck();
-		return null;
-	}
 
-	private void updateCardAmts() {
-		picture1amt.setText(Integer.toString(card1.getAmt()));
-		picture2amt.setText(Integer.toString(card2.getAmt()));
-		picture3amt.setText(Integer.toString(card3.getAmt()));
+	void updateCardAmts() {
+		picture1amt.setText("Amt: " + Integer.toString(card1.getAmt() - card1.getAmtUsed()));
+		picture2amt.setText("Amt: " + Integer.toString(card2.getAmt() - card2.getAmtUsed()));
+		picture3amt.setText("Amt: " + Integer.toString(card3.getAmt() - card3.getAmtUsed()));
 		if(pageNumber == 4) {
 			picture4amt.setText("");
 		} else {
-			picture4amt.setText(Integer.toString(card4.getAmt()));
+			picture4amt.setText("Amt: " + Integer.toString(card4.getAmt() - card4.getAmtUsed()));
+		}
+	}
+	
+	public void saveCards() {
+		if(playerDeck.size() == 15) {
+			BattleBackend.craftDeck.deck.clear();
+			for(Card c: playerDeck) {
+				BattleBackend.craftDeck.deck.add(c);
+			}
+			incompleteOrDone.setText("Saved! You can now use your deck to battle.");
+		} else {
+			incompleteOrDone.setText("You must have 15 cards in your deck!");
 		}
 	}
 
-	public void createButton() {
-		currentY = 100;
-		for(Card c: playerDeck) {
-			cardButton= new Button(1000, currentY, 150,40,c.getName(), Color.white, new Action() {
-				
-				@Override
-				public void act() {
-					playerDeck.remove(c);
-				}
-			});
-			currentY += 40;
+	private void clearPanel() {
+		for(TextArea t: panel) {
+			t.setText(" ");
 		}
 	}
+	
 }

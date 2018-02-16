@@ -8,6 +8,8 @@ public class Card{
 	private String effect2;
 	private int amt;
 	private String imageLoc;
+	private int amtUsed = 0;
+	public boolean canAttack;
 	/**
 	 * Action a - Passes in a new action so that you can create a method for each individual cards	
 	 * 
@@ -27,8 +29,25 @@ public class Card{
 		this.effect = effect;
 		this.a = a;
 		this.imageLoc = imageLoc;
+		this.setCanAttack(false);
 	}
 
+	public int getAmtUsed() {
+		return amtUsed;
+	}
+	
+	public void resetAmts() {
+		amtUsed = 0;
+	}
+	
+	public void usedOne() {
+		amtUsed ++;
+	}
+	
+	public void removedOneFromDeck() {
+		amtUsed --;
+	}
+	
 	public void setName(String s) {
 		this.name = s;
 	}
@@ -63,5 +82,13 @@ public class Card{
 	}
 	public String getImage() {
 		return imageLoc;
+	}
+
+	public boolean isCanAttack() {
+		return canAttack;
+	}
+
+	public boolean setCanAttack(boolean canAttack) {
+		return this.canAttack = canAttack;
 	}
 }

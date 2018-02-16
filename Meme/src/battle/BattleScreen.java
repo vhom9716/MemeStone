@@ -1,3 +1,5 @@
+
+
 package battle;
 
 import java.awt.Color;
@@ -26,294 +28,358 @@ import guiTeacher.components.TextLabel;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
 import menu.Menu;
-	
+
+
 	public class BattleScreen extends FullFunctionScreen {
 	ArrayList<Clip> allSounds;
 	
 	//slot arrayLists have the CardSlots while image arrayLists have the images that will be loaded onto the slots
 	ArrayList<CardButton> handSlots;
 	ArrayList<String> currentHandImages;
-	ArrayList<CardButton> fieldSlots;
+	ArrayList<CardButton> fieldSlots; 
 	ArrayList<String> currentFieldImages;
+	ArrayList<Graphic> currentFieldHp;
+	
+	ArrayList<CardButton> AIhandSlots;
+	ArrayList<String> AIcurrentHandImages;
+	ArrayList<CardButton> AIfieldSlots;
+	ArrayList<String> AIcurrentFieldImages;
 
-	private ArrayList<Card> cardsInHand;
-	private ArrayList<Card> cardsOnField;
+	static BattleBackend backend;
 	
-	
-	BattleBackend backend;
 	TextLabel manaslot;
-	//od stuff
-//	ClickableGraphic a;
-//	ClickableGraphic b;
-//	ClickableGraphic c;
-//	ClickableGraphic d; 
-//	Graphic f1;
-//	Graphic f2;
-//	Graphic f3;
-//	Graphic f4;
+	TextLabel healthslot;
+	
+	Graphic settings;
+	Button quit;
+	Button concede;
+	Button resume;
+	Graphic healthpos1;
+	Graphic healthpos2;
+	Graphic healthpos3;
+	Graphic healthpos4;
+	Graphic healthpos5;
+	
+	boolean friendlySelected;
+	boolean enemySelected;
+	
+	MonsterCard friendlyFighter;
+	MonsterCard enemyFighter;
+
+	TextLabel aimanaslot;
+	TextLabel aihealthslot;
+	
+	int selectedPosP;
+	int selectedPosC;
+
 
 	public BattleScreen(int width, int height) {
 		super(width, height);
-		backend = new BattleBackend();
+		friendlySelected = false;
+		enemySelected = false;
 	}
 	
 	public void initAllObjects(List<Visible> viewObjects) {
-		BattleBackend.player.drawcard(4);
-		cardsInHand = new ArrayList<Card>();
-		cardsOnField = new ArrayList<Card>();
+		backend = new BattleBackend();
+		backend.player.drawcard(4);
 		handSlots = new ArrayList<CardButton>();
 		fieldSlots = new ArrayList<CardButton>();
 		currentHandImages = new ArrayList<String>();
 		currentFieldImages = new ArrayList<String>();
+		new ArrayList<Graphic>();
 		
-		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(Player.returnmana())+"/"+"10");
+		TextLabel.setTextColor(Color.PINK);
+		healthslot = new TextLabel(650,765,50,50, Integer.toString(backend.player.returnHp()));
+		aihealthslot = new TextLabel(785, 165 ,50,50, Integer.toString(backend.cpu.returnHp()));
+		TextLabel.setTextColor(new Color(60,100,200));
+		manaslot = new TextLabel(850, 763, 50, 50, Integer.toString(backend.player.returnMana())+"/"+"10");
+		aimanaslot = new TextLabel(850, 165, 50, 50, Integer.toString(backend.cpu.returnmana())+"/"+"10");
+		TextLabel.setTextColor(Color.BLACK);
+		Graphic aimanapic = new Graphic(800, 163, 60, 60, "resources/mana.png");
+
 		
-		//Temp. For testing
-		//Stuff will be changed in backend
+		backend.cpu.drawCard(4);
+
+		AIhandSlots = new ArrayList<CardButton>();
+		AIfieldSlots = new ArrayList<CardButton>();
+		AIcurrentHandImages = new ArrayList<String>(); 
+		AIcurrentFieldImages = new ArrayList<String>();
+		
 		for(int i = 0; i < 4; i++) {
-			System.out.println(BattleBackend.player.hand.get(i).getImage());
-			currentHandImages.add(BattleBackend.player.hand.get(i).getImage());
+			System.out.println("Player card" + backend.player.hand.get(i).getImage());
+			currentHandImages.add(backend.player.hand.get(i).getImage());
+			
+			System.out.println("AI card" + backend.cpu.hand.get(i).getImage());
+			AIcurrentHandImages.add(backend.cpu.hand.get(i).getImage());
 		}
-		//cardsInHand = backend.player.getHand();
 		
+		quit = new Button(545,310, 347, 76, "", new Action() {
+			public void act() {
+				Menu.menu.setScreen(Menu.screen1);
+				System.out.println("dfsdf");
+			}
+		});
+		resume = new Button(545, 455, 347, 76, "", new Action() {
+			
+			@Override
+			public void act() {
+				settings.setVisible(!settings.isVisible());
+				quit.setVisible(!quit.isVisible());
+				concede.setVisible(!concede.isVisible());
+				resume.setVisible(!resume.isVisible());	
+			}
+		});
+		concede = new Button(545, 200, 347, 76, "", new Action() {
+			
+			@Override
+			public void act() {
+				Menu.menu.setScreen(Menu.screen1);
+				
+			}
+		});
 		viewObjects.add(manaslot);
 		viewObjects.add(new Graphic(0, 20, getWidth(),getHeight(),"resources/background.jpg"));
 		viewObjects.add(new Graphic(800,760,60,60, "resources/mana.png"));
 		viewObjects.add(new Graphic(630,614,350,250,"resources/player.png"));
 		viewObjects.add(new Graphic(630, 25, 350,250, "resources/cpu.png"));
-		viewObjects.add(new Graphic(1200,70, 90, 80, "resources/quitButton.png"));
+		viewObjects.add(new Graphic(1250,25, 150, 150, "resources/setbutton1.png"));
+		viewObjects.add(new Button(1300,75,60,50, "", new Action() {
+			
+			@Override
+			public void act() {
+				settings.setVisible(!settings.isVisible());
+				quit.setVisible(!quit.isVisible());
+				concede.setVisible(!concede.isVisible());
+				resume.setVisible(!resume.isVisible());
+			}
+		}));
+
 		viewObjects.add(new Graphic(750,130, 120, 80, "resources/hp.png"));
 		viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png")); 
 
+		quit.setVisible(false);
+		viewObjects.add(quit);
 		
-		generateHandSlots(); 	
+		generateHandSlots(614, handSlots, currentHandImages, fieldSlots, currentFieldImages, backend.player); 	
 		for(int i = 0; i < handSlots.size(); i++) { 
 			viewObjects.add(handSlots.get(i));
 		}
 		
-		generateFieldSlots();
-		for(int i = 0; i < fieldSlots.size(); i++) {
+		generateHandSlots(40, AIhandSlots, AIcurrentHandImages, AIfieldSlots, AIcurrentFieldImages, backend.cpu); 	
+		for(int i = 0; i < AIhandSlots.size(); i++) { 
+			viewObjects.add(AIhandSlots.get(i));
+		}
+
+		generateFieldSlots(460, fieldSlots);
+		for(int i = 0; i < fieldSlots.size(); i++) { 
 			viewObjects.add(fieldSlots.get(i));
 		}
 		
-		//Former Code at the Bottom
+		generateFieldSlots(260, AIfieldSlots);
+		for(int i = 0; i < AIfieldSlots.size(); i++) {
+			viewObjects.add(AIfieldSlots.get(i));
+		}
 
-		
-//		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
-//			@Override
-//			public void act() {
-//				Menu.menu.setScreen(Menu.screen1);
-//				drawACard("resources/saltbae.png"); 
-//				viewObjects.add(currentHand.get(currentHand.size()-1));
-//				System.out.println("dfsdf");
-//			}
-//		}));
-
-		viewObjects.add(new Button(1200,65, 80, 70, "", new Action() {
-			public void act() {
-				Menu.menu.setScreen(Menu.screen1);
-				System.out.println("dfsdf");
-			}
-		}));
 		Graphic deck = new Graphic(1200, 600, 100, 200, "resources/cardBack.png");
 		viewObjects.add(deck);
 		
 		ClickableGraphic end = new ClickableGraphic(1300, 400, 100, 60, "resources/endturn.png");
 		end.setAction(new Action() {
 			public void act() {
-				System.out.println("heh");
-				ArrayList<Card> hand = BattleBackend.player.hand;
-				ArrayList<Card> deck = BattleBackend.player.deck;
-				if(deck.size() > 0) {
-					BattleBackend.player.drawcard(1); 
-					currentHandImages.add(hand.get(hand.size() - 1).getImage());
-					updateHand();
-				}
+				backend.playerTurn = !backend.playerTurn;
+				backend.cpuTurn = !backend.cpuTurn;
+				System.out.print("The current turn is cpu");
+				backend.cpuTurn();
+				
+				//ArrayList<Card> hand = backend.player.hand;
+				//ArrayList<Card> deck = backend.player.deck;
+//				if(deck.size() > 0) {
+//					backend.player.drawcard(1);
+//					backend.addMana();
+//					backend.refreshMana();
+//					updateMana();
+//					currentHandImages.add(hand.get(hand.size() - 1).getImage());
+//					updateHand(handSlots, currentHandImages, backend.player);
+//				}
 			}
 		}); 
+		viewObjects.add(aihealthslot);
+		viewObjects.add(aimanaslot);
+		viewObjects.add(aimanapic);
 		viewObjects.add(end);
-
+		viewObjects.add(manaslot);
+		viewObjects.add(healthslot);
+		settings = new Graphic(450, 100, 500, 600, "resources/menu.png");
+		settings.setVisible(false);
+		viewObjects.add(settings);
+		concede.setVisible(false);
+		viewObjects.add(concede);
+		resume.setVisible(false);
+		viewObjects.add(resume);
+		quit.setVisible(false);
+		viewObjects.add(quit);
 		
-	//	ClickableGraphic test = new ClickableGraphic(300,460,120,160, "resources/dog.png");
-	//	viewObjects.add(test);
 	}
 
 	public void activateCardSpell(Card card) {
-		
+		if(backend.validSpell(card)) {
+			card.a.act(backend.player, backend.cpu, "player", null, backend);
+		}
 	}
 	
-	public void drawACard(Card card) {
-		currentHandImages.add(card.getImage());
-		cardsInHand.add(card);
-		updateHand();
-	}
-	
-	public void generateHandSlots() {
+	public void generateHandSlots(int yPos, ArrayList<CardButton> selSlotHandList, ArrayList<String> selHandStringList, ArrayList<CardButton> selSlotFieldList, ArrayList<String> selFieldStringList, Character chara) {
 		int counter = 30;
 		for(int i = 0; i < 4; i++) {
-			CardButton handCardSlot = new CardButton(counter, 614, 150, 200, "resources/placeholder.png", null);
+			CardButton handCardSlot = new CardButton(counter, yPos, 150, 200, "resources/placeholder.png", null);
 			int pos = i;
-			handCardSlot.setAction(new Action() {
-				public void act() {
-					//this fails if the number of cards in cardsInHand is not at max. 
-					//So we set a temp hand at creation, then we can update with the real hand.
-					
-					//if the user keeps adding cards past the hand limit, playing the cards wont work properly. 
-					if(BattleBackend.player.hand.get(pos) instanceof MonsterCard) {
-						activateCardMon(BattleBackend.player.hand.get(pos));
-						backend.playerBoard.add((MonsterCard) BattleBackend.player.hand.get(pos));
-						System.out.println(BattleBackend.player.deck.size());
-					}else {
-						activateCardSpell(BattleBackend.player.hand.get(pos));
+			if(chara instanceof Player) {
+				handCardSlot.setAction(new Action() {
+					public void act() {
+						//this fails if the number of cards in cardsInHand is not at max. 
+						//So we set a temp hand at creation, then we can update with the real hand.
+						if(backend.player.hand.get(pos).getCost()<=backend.player.returnMana()) {
+							if(chara.getFromHand(pos) instanceof MonsterCard) {
+								System.out.println(chara.getFromHand(pos).getName());
+								chara.addToBoard((MonsterCard) chara.getFromHand(pos));
+								activateCardMon(chara.getFromHand(pos), pos, selFieldStringList, selSlotFieldList);
+							}else {
+								activateCardSpell(chara.getFromHand(pos));
+								chara.playSpell((SpellCard)chara.getFromHand(pos));
+							}
+							selHandStringList.remove(pos);
+							chara.removeFromHand(pos);
+							updateHand(selSlotHandList, selHandStringList, chara);
+							updateMana();
+							updateHp();
+						}
 					}
-					currentHandImages.remove(pos);
-					BattleBackend.player.hand.remove(pos);
-					updateHand();
-					//System.out.println(pos + currentHandImages.get(pos));
-				}
-			});
-			handSlots.add(handCardSlot);
+				});
+			}
+			
+			selSlotHandList.add(handCardSlot);
 			counter += 150;
 		}
-		updateHand();
+		updateHand(selSlotHandList, selHandStringList, chara);
 		update();
 	}
 	
-	public void updateHand() {
-		for(int i = 0; i < handSlots.size(); i++) {
-			if(currentHandImages.size() > i && currentHandImages.get(i) != null) {
-				handSlots.get(i).changeCardImage(currentHandImages.get(i), 150, 200);
+
+	public void updateHand(ArrayList<CardButton> selSlotList, ArrayList<String> selStringList, Character chara) {
+		selStringList.clear();
+		for(int i = 0; i < chara.getHandSize(); i++) {
+			selStringList.add(chara.getFromHand(i).getImage());
+		}
+
+		for(int i = 0; i < selSlotList.size(); i++) {
+			if(selStringList.size() > i && selStringList.get(i) != null) {
+				selSlotList.get(i).changeCardImage(selStringList.get(i), 150, 200);
 			}else {
-				handSlots.get(i).changeCardImage("resources/placeholder.png", 2, 2);
+				selSlotList.get(i).changeCardImage("resources/placeholder.png", 2, 2);
 			}
 		}
 	}
 	
-	public void activateCardMon(Card card) {
-		currentFieldImages.add(card.getImage());
-		cardsOnField.add(card);
-		updateField();
+	public void activateCardMon(Card card, int pos, ArrayList<String> selStringList, ArrayList<CardButton> selButtonList) {
+		selStringList.add(card.getImage());
+		updateField(pos, selStringList, selButtonList, backend.player);
 	}
 	
-	private void generateFieldSlots() {
+	private void generateFieldSlots(int yPos, ArrayList<CardButton> selSlotList) {
 		int counter = 300;
 		for(int i = 0; i < 5; i++) {
-			CardButton fieldCardSlot = new CardButton(counter, 460, 120, 160, "resources/placeholder.png", null);
+			int temp = i;
+			CardButton fieldCardSlot = new CardButton(counter, yPos, 120, 160, "resources/placeholder.png", null);
 			fieldCardSlot.changeCardImage("resources/placeholder.png", 2, 2);
 			fieldCardSlot.setAction(new Action() {
 				public void act() {
-					//Add later
-					//For attacking/defending
+					fighting(temp, selSlotList);
 				}
 			});
-			fieldSlots.add(fieldCardSlot);
+			selSlotList.add(fieldCardSlot);
 			counter += 100;
-		}
+		}  
 	}
-
 	
-	public void updateField() {
-		for(int i = 0; i < fieldSlots.size(); i++) {
-			System.out.println(i + "size:" + currentFieldImages.size());
-			if(currentFieldImages.size() > i && currentFieldImages.get(i) != null) {
-				fieldSlots.get(i).changeCardImage(currentFieldImages.get(i), 120, 160);
+	public void updateField(int pos, ArrayList<String> selStringList, ArrayList<CardButton> selButtonList, Character chara) {
+		selStringList.clear();
+		System.out.println(chara.getBoardSize());
+		for(int i = 0; i < chara.getBoardSize(); i++) {
+			System.out.println(chara.getBoardSize());
+			selStringList.add(chara.getFromBoard(i).getImage());
+		}
+		for(int i = 0; i < chara.getBoardSize()-1; i++) {
+			chara.getFromBoard(i).setCanAttack(true);
+		}
+		for(int i = 0; i < selButtonList.size(); i++) {
+			if(selStringList.size() > i && selStringList.get(i) != null) {
+				if (selButtonList.get(i).getHasCard() == false) {
+					if(chara == backend.player) {
+						fieldSlots.get(i).moveCard(pos);
+					}
+					selButtonList.get(i).setHasCard(true);
+				}
+				selButtonList.get(i).changeCardImage(selStringList.get(i), 120, 160);
 			}else {
-				fieldSlots.get(i).changeCardImage("resources/placeholder.png", 2, 2);
+				selButtonList.get(i).changeCardImage("resources/placeholder.png", 2, 2);
 			}
-			
 		}
 	}
 
-//			if (cardsOnBoard.size() < 0) {
-//				currentField.add(new ClickableGraphic(counter, 460, 120, 160, "resources/dog.png"));
-//			counter= counter+ 100;
-//			}
-//			else {
-//				for(int i =0; i<currentField.size();i++) {
-//					counter= counter+100;
-//				}
-//				currentField.add(new Graphic(counter, 460, 120, 160, "resources/dog.png"));
-//			}
+	public void updateHp() {
+		healthslot.setText(Integer.toString(backend.player.returnHp()));
+		aihealthslot.setText(Integer.toString(backend.cpu.returnHp()));
+	}
+	public void updateMana() {
+		manaslot.setText(Integer.toString(backend.player.returnMana())+"/"+"10");
+		aimanaslot.setText(Integer.toString(backend.cpu.returnmana())+"/"+"10");
+	}
+	public void updateHpField(int posP, int posC) {
+		if (currentFieldImages.size() > backend.playerBoard.size()) {
+			fieldSlots.get(posP).changeCardImage("resources/placeholder.png", 2, 2);
+			currentFieldImages.remove(posP);
+			update();
+		}
+		if (AIcurrentFieldImages.size() > backend.computerBoard.size()) {
+			AIfieldSlots.get(posC).changeCardImage("resources/placeholder.png", 2, 2);
+			AIcurrentFieldImages.remove(posC);
+			update();
+		}
+	}
+	public void fighting(int pos, ArrayList<CardButton> field ) {
+		if (field == fieldSlots && backend.playerBoard.get(pos).canAttack) {
+			selectedPosP = pos;
+			friendlySelected = true;
+			friendlyFighter = backend.playerBoard.get(pos);
+			System.out.println("Frieldny chossen");
+		}
+		if (field == AIfieldSlots && backend.computerBoard.get(pos).canAttack) {
+			selectedPosC = pos;
+			enemySelected = true;
+			enemyFighter = backend.computerBoard.get(pos);
+			System.out.println("Enemy chossen");
+		}
+		if (friendlySelected==true && enemySelected==true) {
+			System.out.println("myside"+backend.playerBoard.size());
+			System.out.println("urside"+backend.computerBoard.size());
+			backend.attack(friendlyFighter, enemyFighter);
+			System.out.println("myyside"+backend.playerBoard.size());
+			System.out.println("ursside"+backend.computerBoard.size());
+			updateHpField(selectedPosP, selectedPosC);
+			friendlySelected = false;
+			enemySelected = false;
+			friendlyFighter.setCanAttack(false);
+			enemyFighter.setCanAttack(false);
+			System.out.println("fought");
+		}
+	}
 	
-	/*	try {
-    // Open an audio input stream.           
-     File soundFile = new File("resources/boomm.wav"); //you could also get the sound file with an URL
-     AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);              
-    // Get a sound clip resource.
-    Clip clip = AudioSystem.getClip();
-    // Open audio clip and load samples from the audio input stream.
-    clip.open(audioIn);
-    clip.start();
-    clip.stop();
- } catch (UnsupportedAudioFileException e) {
-    e.printStackTrace();
- } catch (IOException e) {
-    e.printStackTrace();
- } catch (LineUnavailableException e) {
-    e.printStackTrace();
- }
-*/
+	public void updateTurn(Character c) {
+		updateHp();
+		updateMana();
+		updateHand(AIhandSlots, AIcurrentHandImages, c);
+		updateHand(handSlots, currentHandImages, backend.player);
+		updateField(0, AIcurrentFieldImages, AIfieldSlots, c);
+	}
+} 
 
-//a = new ClickableGraphic(30,614,150,200, "resources/dog.png");
-//b = new ClickableGraphic(180,614,150,200, "resources/pog.png");
-//c = new ClickableGraphic(330,614,150,200, "resources/pika.png");
-//d = new ClickableGraphic(480,614,150,200, "resources/shenrun.png");
-//
-//currentHand.add(a);
-//currentHand.add(b);
-//currentHand.add(c);
-//currentHand.add(d); 
-//
-//
-//viewObjects.add(new Graphic(0, 20, getWidth(),getHeight(),"resources/background.jpg"));
-//viewObjects.add(new Graphic(800,760,60,60, "resources/mana.png"));
-//viewObjects.add(new Graphic(630,614,350,250,"resources/player.png"));
-//viewObjects.add(new Graphic(630, 25, 350,250, "resources/cpu.png"));
-//viewObjects.add(new Graphic(1200,70, 90, 80, "resources/quitButton.png"));
-//viewObjects.add(new Graphic(750,130, 120, 80, "resources/hp.png"));
-//viewObjects.add(new Graphic(620,730, 120, 80, "resources/hp.png")); 
-//a.setAction(new Action() {
-//	public void act() {
-//	//	backend.playCard(backend.player.hand.get(0), 0);
-//		activateCardMon();
-//		for(int i = 0;i<currentField.size();i++) {
-//			viewObjects.add(currentField.get(i));
-//		}
-//	}
-//	
-//});
-//b.setAction(new Action() {
-//	public void act() {
-//	//	backend.playCard(backend.player.hand.get(1), 1);
-//		activateCardMon(b);
-//		for(int i = 0;i<currentField.size();i++) {
-//			viewObjects.add(currentField.get(i));
-//		}
-//	}
-//	
-//}); 
-//c.setAction(new Action() {
-//	public void act() {
-//	//	backend.playCard(backend.player.hand.get(2), 2);
-//		activateCardMon(c);
-//		for(int i = 0;i<currentField.size();i++) {
-//			viewObjects.add(currentField.get(i));
-//		}
-//	}
-//	
-//}); 
-//d.setAction(new Action() {
-//	public void act() {
-//	//	backend.playCard(backend.player.hand.get(3), 3);
-//		activateCardMon(d);
-//		for(int i = 0;i<currentField.size();i++) {
-//			viewObjects.add(currentField.get(i));
-//		}
-//	}
-//	
-//});
-//viewObjects.add(a);
-//viewObjects.add(b);
-//viewObjects.add(c);
-//viewObjects.add(d);
-}
+ 

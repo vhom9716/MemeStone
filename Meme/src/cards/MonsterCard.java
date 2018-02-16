@@ -1,6 +1,6 @@
 package cards;
 
-public class MonsterCard extends Card {
+public class MonsterCard extends Card implements Monster{
 
 	private int health;
 	private int attack;

@@ -1,6 +1,6 @@
 package cards;
 
-public class SpellCard extends Card {
+public class SpellCard extends Card implements Spell{
 
 	private String effect;
 	
@@ -17,6 +17,10 @@ public class SpellCard extends Card {
 	
 	public void setEffect(String effect) {
 		this.effect = effect;
+	}
+	
+	public Action getAction() {
+		return a;
 	}
 
 }

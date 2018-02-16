@@ -22,33 +22,35 @@ public class BattleBackend {
 	public int cpuBoardNum;
 	
 	public String move;
-	public static Deck newDeck = new Deck();
 
-	public static Player player = new Player("Bob", 100, 30, 10, 0, newDeck.deck, new ArrayList<Card>());
+	public static Deck craftDeck = new Deck();
+	public Deck newDeck;
+
+	public Player player;
 	
 	public BattleBackend() {
 		running = true;
 		playerTurn = true;
 		cpuTurn = false;
+		newDeck = new Deck();
+		newDeck.deck.clear();
+		for(int i=0; i < craftDeck.deck.size();i++) {
+			newDeck.deck.add((craftDeck.deck.get(i)));
+		}
 		
-		//player = new Player("Bob", 100, 30, 10, 0, newDeck.deck,null);
+		player = new Player("Bob", 100, 30, 10, 1, newDeck.deck, null);
 		cpu = new AI();
 		
 		selectedCard = null;
 		opponentCard = null;
 		
-		playerBoard = new ArrayList<MonsterCard>();
-		computerBoard = new ArrayList<MonsterCard>();
+		playerBoard = player.board;
+		computerBoard = cpu.board;
 		
 		playerBoardNum= 0;
 		cpuBoardNum = 0;
 		
 		move = "";
-		
-	//	player.drawcard(4);
-	//	newDeck.deck.get(0).a.act();
-		
-		//player.drawcard(4);
 	}
 	
 	/**
@@ -57,37 +59,45 @@ public class BattleBackend {
 	 */
 	public void run() {
 		while(running) {
-			addMana();
+			addMana(); 
 			refreshMana();
-			player.drawcard(1);
-			cpu.draw();
-			playerTurn= true;
-			//playerTurn();
-			while(playerTurn) {
-				
+			if(playerTurn) {
+				player.drawcard(1);
+				System.out.print("The current turn is player");
 			}
-			cpuTurn();
 			checkStatus();
 		}
 	
 	}
 	
-	private void refreshMana() {
+	public void startPlayerTurn() {
+		addMana(); 
+		refreshMana();
+		player.drawcard(1);
+		System.out.print("The current turn is player");
+	}
+	
+	void refreshMana() {
 		player.currentmana = player.maxmana;
 		cpu.currentMana = cpu.maxMana;
 	}
 
-	private void addMana() {
+	void addMana() {
 		if(player.maxmana <10) {
+			player.currentmana++;
 			player.maxmana++;
 			cpu.maxMana++;
+			cpu.currentMana++;
 		}
 	}
 
-	private void checkStatus() {
-		// TODO Auto-generated method stub
-		
+	public String checkStatus() {
+		if (player.health <=0) {
+			return "CPU";
+		}
+		return "Player";
 	}
+	
 
 	/*public void playerTurn() {
 		while(playerTurn) {
@@ -116,7 +126,18 @@ public class BattleBackend {
 	}
 	
 	public void updateBoard() {
-		
+		for(int i=0; i<playerBoard.size();i++) {
+			if(playerBoard.get(i).getHealth() <= 0) {
+				playerBoard.remove(i);
+				i--;
+			}
+		}
+		for(int i=0; i<computerBoard.size();i++) {
+			if(computerBoard.get(i).getHealth() <= 0) {
+				computerBoard.remove(i);
+				i--;
+			}
+		}
 	}
 	/**
 	 * Checks to see if there is at least one taunt on CPU's board
@@ -163,7 +184,7 @@ public class BattleBackend {
 	 * @param card
 	 * @return
 	 */
-	private boolean validSpell(Card card) {
+	boolean validSpell(Card card) {
 		return player.currentmana >= card.getCost();
 	}
 	/**
@@ -179,7 +200,7 @@ public class BattleBackend {
 	 * @return
 	 */
 	public int returnWinNumber() {
-		if (player.returnhp() <= 0) {
+		if (player.returnHp() <= 0) {
 			return 0;
 		}
 		else if (cpu.health <= 0) {
