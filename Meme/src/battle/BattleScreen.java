@@ -245,7 +245,7 @@ import menu.Menu;
 						//this fails if the number of cards in cardsInHand is not at max. 
 						//So we set a temp hand at creation, then we can update with the real hand.
 						if(backend.player.hand.get(pos).getCost()<=backend.player.returnMana()) {
-							if(chara.getFromHand(pos) instanceof MonsterCard) {
+							if(chara.getFromHand(pos) instanceof MonsterCard && backend.playerBoard.size() <= 5) {
 								System.out.println(chara.getFromHand(pos).getName());
 								chara.addToBoard((MonsterCard) chara.getFromHand(pos));
 								activateCardMon(chara.getFromHand(pos), pos, selFieldStringList, selSlotFieldList);
