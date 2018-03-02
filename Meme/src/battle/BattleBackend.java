@@ -212,7 +212,7 @@ public class BattleBackend {
 	}
 	
 	public void attackFace(MonsterCard card) {
-		cpu.health -= card.atack;
+		cpu.health -= card.getAttack();
 		card.setCanAttack(false);
 	}
 }

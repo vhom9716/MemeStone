@@ -380,7 +380,8 @@ import menu.Menu;
 		}
 		if (pos == 1000 && friendlySelected == true) {
 			friendlyFighter.setCanAttack(false);
-			backend.attackFace();
+			backend.attackFace(friendlyFighter);
+			updateHp();
 		}
 	}
 	
