@@ -6,6 +6,5 @@ public interface Monster {
 	public void setAttack(int attack);
 	public int getAttack();
 	public int getHealth();
-	public boolean getTaunt();
 	
 }

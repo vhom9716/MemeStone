@@ -107,7 +107,7 @@ public class Deck{
 			
 		}
 	}, "resources/theexecutiveproducter.png");
-	static public MonsterCard RainbowDash = new MonsterCard("Rainbow Dash!",3,"Charge",null, 2,5,1, false, new Action() {
+	static public MonsterCard RainbowDash = new MonsterCard("Rainbow Dash!",3,"Charge",null, 2,5,1, true, new Action() {
 		@Override
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
 			card.setCanAttack(true);
@@ -136,7 +136,7 @@ public class Deck{
 			
 		}
 	}, "resources/screwingtherules.png");
-	static public MonsterCard Shenron = new MonsterCard("Shenron",50,"Charge","Taunt",0,99,99, false, new Action() {
+	static public MonsterCard Shenron = new MonsterCard("Shenron",50,"Charge","Taunt",0,99,99, true, new Action() {
 		@Override
 		public void act(Player player, AI cpu, String turn, Card card, BattleBackend backend) {
 			card.setCanAttack(true);
@@ -266,7 +266,7 @@ public class Deck{
 	}
 	
 	public static MonsterCard createMonsterCardInstance(MonsterCard c) {
-		return new MonsterCard(c.getName(), c.getCost(), c.getEffect(), c.getEffectTwo(), c.getAmt(), c.getAttack(), c.getHealth(), c.getTaunt(), c.a, c.getImage());
+		return new MonsterCard(c.getName(), c.getCost(), c.getEffect(), c.getEffectTwo(), c.getAmt(), c.getAttack(), c.getHealth(), c.getCharge(), c.a, c.getImage());
 	}
 	
 	public static SpellCard createSpellCardInstance(SpellCard c) {

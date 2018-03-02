@@ -137,27 +137,7 @@ public class BattleBackend {
 			}
 		}
 	}
-	/**
-	 * Checks to see if there is at least one taunt on CPU's board
-	 * @param cpuBoard
-	 * @return
-	 */
-	public boolean oneTaunt(ArrayList<MonsterCard> cpuBoard) {
-		for(int i=0; i < cpuBoard.size(); i++) {
-			if (cpuBoard.get(i).getTaunt()) {
-				return true;
-			}
-		}
-		return false;
-	}
-	/**
-	 * Checks to see if the attack is a valid move
-	 * @param card
-	 * @return
-	 */
-	public boolean validAttack(MonsterCard card) {
-		return (oneTaunt(computerBoard) == true && card.getTaunt() == true) || (oneTaunt(computerBoard) == false); 
-	}
+
 	
 
 /*	public void playCard(Card card, int pos) {
@@ -209,12 +189,12 @@ public class BattleBackend {
 		}
 	}
 	
+	
 	public void attackFace(MonsterCard card) {
 		if(card.canAttack) {
 			cpu.health -= card.getAttack();
 			card.setCanAttack(false);
-	}
-
+		}
 	}}
 
   
