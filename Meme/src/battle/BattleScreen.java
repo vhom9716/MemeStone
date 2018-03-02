@@ -411,6 +411,11 @@ import menu.Menu;
 		if (pos == 1000 && friendlySelected == true) {
 			backend.attackFace(friendlyFighter);
 			updateHp();
+			if(backend.cpu.health <=0) {
+				victoryscreen.setVisible(true);
+			}else if(backend.player.health <= 0) {
+				defeatscreen.setVisible(true);
+			}
 		}
 	}
 	
