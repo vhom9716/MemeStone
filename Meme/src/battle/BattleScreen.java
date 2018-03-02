@@ -256,7 +256,7 @@ import menu.Menu;
 			backend.playerBoard.get(i).setCanAttack(true);
 		}
 	}
-	
+	 
 	public void activateCardSpell(Card card) {
 		if(backend.validSpell(card)) {
 			card.a.act(backend.player, backend.cpu, "player", null, backend);
