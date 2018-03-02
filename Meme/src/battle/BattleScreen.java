@@ -315,13 +315,12 @@ import menu.Menu;
 	
 	public void updateField(int pos, ArrayList<String> selStringList, ArrayList<CardButton> selButtonList, Character chara) {
 		selStringList.clear();
-		System.out.println(chara.getBoardSize());
+		
 		for(int i = 0; i < chara.getBoardSize(); i++) {
-			System.out.println(chara.getBoardSize());
+			if(chara == backend.cpu) {
+				System.out.println(chara.getFromBoard(i).getImage() + "AI monSummon");
+			}
 			selStringList.add(chara.getFromBoard(i).getImage());
-		}
-		for(int i = 0; i < chara.getBoardSize()-1; i++) {
-			chara.getFromBoard(i).setCanAttack(true);
 		}
 		for(int i = 0; i < selButtonList.size(); i++) {
 			if(selStringList.size() > i && selStringList.get(i) != null) {
@@ -397,7 +396,13 @@ import menu.Menu;
 		updateHand(handSlots, currentHandImages, backend.player);
 		updateField(0, AIcurrentFieldImages, AIfieldSlots, c);
 		updateField(0, currentFieldImages, fieldSlots, backend.player);
-	}
+		for(int i = 0; i < c.getBoardSize(); i++) {
+			c.getFromBoard(i).setCanAttack(true);
+		}
+		for(int i = 0; i < backend.player.getBoardSize(); i++) {
+			backend.player.getFromBoard(i).setCanAttack(true);
+		}
+	} 
 } 
 
  
