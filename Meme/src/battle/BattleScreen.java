@@ -28,6 +28,7 @@ import guiTeacher.components.TextLabel;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
 import menu.Menu;
+import menu.ShopScreen;
 
 
 	public class BattleScreen extends FullFunctionScreen {
@@ -413,6 +414,7 @@ import menu.Menu;
 			updateHp();
 			if(backend.cpu.health <=0) {
 				victoryscreen.setVisible(true);
+				ShopScreen.gold += 100;
 			}else if(backend.player.health <= 0) {
 				defeatscreen.setVisible(true);
 			}
