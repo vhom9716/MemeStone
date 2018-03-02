@@ -359,10 +359,12 @@ import menu.Menu;
 	}
 	public void fighting(int pos, ArrayList<CardButton> field ) {
 		if (field == fieldSlots) {
-			selectedPosP = pos;
-			friendlySelected = true;
-			friendlyFighter = backend.playerBoard.get(pos);
-			System.out.println("Frieldny chossen");
+			if(backend.playerBoard.get(pos).canAttack) {
+				selectedPosP = pos;
+				friendlySelected = true;
+				friendlyFighter = backend.playerBoard.get(pos);
+				System.out.println("Frieldny chossen");
+			}
 		}
 		if (field == AIfieldSlots) {
 			selectedPosC = pos;
