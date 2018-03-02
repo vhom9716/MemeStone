@@ -231,7 +231,7 @@ import menu.Menu;
 	}
 	public void allAttack() {
 		for(int i=0; i< backend.playerBoard.size(); i++) {
-			backend.playerBoard.get(i).setAttack(true);
+			backend.playerBoard.get(i).setCanAttack(true);
 		}
 	}
 	public void activateCardSpell(Card card) {
