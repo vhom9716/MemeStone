@@ -32,5 +32,9 @@ public class MonsterCard extends Card implements Monster{
 	public boolean getTaunt() {
 		return taunt;
 	}
+	
+	public boolean returnCanAttack() {
+		return canAttack;
+	}
 
 }

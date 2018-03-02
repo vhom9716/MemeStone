@@ -193,10 +193,9 @@ import menu.Menu;
 		ClickableGraphic end = new ClickableGraphic(1300, 400, 100, 60, "resources/endturn.png");
 		end.setAction(new Action() {
 			public void act() {
-				backend.playerTurn = !backend.playerTurn;
-				backend.cpuTurn = !backend.cpuTurn;
 				System.out.print("The current turn is cpu");
 				backend.cpuTurn();
+				updateTurn(backend.cpu);
 				allAttack();
 				
 				
@@ -305,6 +304,11 @@ import menu.Menu;
 			fieldCardSlot.changeCardImage("resources/placeholder.png", 2, 2);
 			fieldCardSlot.setAction(new Action() {
 				public void act() {
+					System.out.println("The selected attacker is in pos " + temp);
+					if(backend.playerTurn && !(backend.player.board.get(temp)).isCanAttack()) {
+						return;
+					}
+					System.out.println("The attacker in pos " + temp + "is attacking");
 					fighting(temp, selSlotList);
 				}
 			});
@@ -346,25 +350,23 @@ import menu.Menu;
 		aimanaslot.setText(Integer.toString(backend.cpu.returnmana())+"/"+"10");
 	}
 	public void updateHpField(int posP, int posC) {
+		updateField(0, AIcurrentFieldImages, AIfieldSlots, backend.cpu);
+		updateField(0, currentFieldImages, fieldSlots, backend.player);
 		if (currentFieldImages.size() > backend.playerBoard.size()) {
 			fieldSlots.get(posP).changeCardImage("resources/placeholder.png", 2, 2);
 			currentFieldImages.remove(posP);
-			update();
 		}
 		if (AIcurrentFieldImages.size() > backend.computerBoard.size()) {
-			AIfieldSlots.get(posC).changeCardImage("resources/placeholder.png", 2, 2);
 			AIcurrentFieldImages.remove(posC);
-			update();
+			AIfieldSlots.get(posC).changeCardImage("resources/placeholder.png", 2, 2);
 		}
 	}
 	public void fighting(int pos, ArrayList<CardButton> field ) {
 		if (field == fieldSlots) {
-			if(backend.playerBoard.get(pos).canAttack) {
-				selectedPosP = pos;
-				friendlySelected = true;
-				friendlyFighter = backend.playerBoard.get(pos);
-				System.out.println("Frieldny chossen");
-			}
+			selectedPosP = pos;
+			friendlySelected = true;
+			friendlyFighter = backend.playerBoard.get(pos);
+			System.out.println("Frieldny chossen");
 		}
 		if (field == AIfieldSlots) {
 			if(friendlySelected) {
@@ -375,11 +377,11 @@ import menu.Menu;
 			}
 		}
 		if (friendlySelected==true && enemySelected==true) {
-			System.out.println("myside"+backend.playerBoard.size());
-			System.out.println("urside"+backend.computerBoard.size());
+			//System.out.println("myside"+backend.playerBoard.size());
+			//System.out.println("urside"+backend.computerBoard.size());
 			backend.attack(friendlyFighter, enemyFighter);
-			System.out.println("myyside"+backend.playerBoard.size());
-			System.out.println("ursside"+backend.computerBoard.size());
+			//System.out.println("myyside"+backend.playerBoard.size());
+			//System.out.println("ursside"+backend.computerBoard.size());
 			updateHpField(selectedPosP, selectedPosC);
 			friendlySelected = false;
 			enemySelected = false;
@@ -395,11 +397,13 @@ import menu.Menu;
 	}
 	
 	public void updateTurn(Character c) {
+		backend.playerTurn = !backend.playerTurn;
+		backend.cpuTurn = !backend.cpuTurn;
 		updateHp();
 		updateMana();
 		updateHand(AIhandSlots, AIcurrentHandImages, c);
 		updateHand(handSlots, currentHandImages, backend.player);
-		updateField(0, AIcurrentFieldImages, AIfieldSlots, c);
+		updateField(0, AIcurrentFieldImages, AIfieldSlots, backend.cpu);
 		updateField(0, currentFieldImages, fieldSlots, backend.player);
 		for(int i = 0; i < c.getBoardSize(); i++) {
 			c.getFromBoard(i).setCanAttack(true);
@@ -407,6 +411,10 @@ import menu.Menu;
 		for(int i = 0; i < backend.player.getBoardSize(); i++) {
 			backend.player.getFromBoard(i).setCanAttack(true);
 		}
+		friendlySelected = false;
+		friendlyFighter = null;
+		enemySelected = false;
+		enemyFighter = null;
 	} 
 } 
 

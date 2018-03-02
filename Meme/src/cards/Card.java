@@ -26,7 +26,7 @@ public class Card{
 		this.effect2 = effect2;
 		this.cost = cost;
 		this.amt = amt;
-		this.effect = effect;
+		this.setEffect(effect);
 		this.a = a;
 		this.imageLoc = imageLoc;
 		this.setCanAttack(false);
@@ -90,5 +90,13 @@ public class Card{
 
 	public boolean setCanAttack(boolean canAttack) {
 		return this.canAttack = canAttack;
+	}
+
+	public String getEffect() {
+		return effect;
+	}
+
+	public void setEffect(String effect) {
+		this.effect = effect;
 	}
 }
