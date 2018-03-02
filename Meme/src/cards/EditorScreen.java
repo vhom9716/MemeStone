@@ -262,7 +262,11 @@ public class EditorScreen extends FullFunctionScreen {
 		if(playerDeck.size() == 15) {
 			BattleBackend.craftDeck.deck.clear();
 			for(Card c: playerDeck) {
-				BattleBackend.craftDeck.deck.add(c);
+				if(c instanceof MonsterCard) {
+					BattleBackend.craftDeck.deck.add(Deck.createMonsterCardInstance((MonsterCard)c));
+				}else {
+					BattleBackend.craftDeck.deck.add(Deck.createSpellCardInstance((SpellCard)c));
+				}	
 			}
 			incompleteOrDone.setText("Saved! You can now use your deck to battle.");
 		} else {

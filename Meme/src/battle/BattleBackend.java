@@ -86,8 +86,6 @@ public class BattleBackend {
 		if(player.maxmana <10) {
 			player.currentmana++;
 			player.maxmana++;
-			cpu.maxMana++;
-			cpu.currentMana++;
 		}
 	}
 
@@ -126,40 +124,20 @@ public class BattleBackend {
 	}
 	
 	public void updateBoard() {
-		for(int i=0; i<playerBoard.size();i++) {
-			if(playerBoard.get(i).getHealth() <= 0) {
-				playerBoard.remove(i);
+		for(int i=0; i < playerBoard.size();i++) {
+			if(player.board.get(i).getHealth() <= 0) {
+				player.board.remove(i);
 				i--;
 			}
 		}
 		for(int i=0; i<computerBoard.size();i++) {
-			if(computerBoard.get(i).getHealth() <= 0) {
-				computerBoard.remove(i);
+			if(cpu.board.get(i).getHealth() <= 0) {
+				cpu.board.remove(i);
 				i--;
 			}
 		}
 	}
-	/**
-	 * Checks to see if there is at least one taunt on CPU's board
-	 * @param cpuBoard
-	 * @return
-	 */
-	public boolean oneTaunt(ArrayList<MonsterCard> cpuBoard) {
-		for(int i=0; i < cpuBoard.size(); i++) {
-			if (cpuBoard.get(i).getTaunt()) {
-				return true;
-			}
-		}
-		return false;
-	}
-	/**
-	 * Checks to see if the attack is a valid move
-	 * @param card
-	 * @return
-	 */
-	public boolean validAttack(MonsterCard card) {
-		return (oneTaunt(computerBoard) == true && card.getTaunt() == true) || (oneTaunt(computerBoard) == false); 
-	}
+
 	
 
 /*	public void playCard(Card card, int pos) {
@@ -210,5 +188,13 @@ public class BattleBackend {
 			return 2;
 		}
 	}
-}
+	
+	
+	public void attackFace(MonsterCard card) {
+		if(card.canAttack) {
+			cpu.health -= card.getAttack();
+			card.setCanAttack(false);
+		}
+	}}
+
   
