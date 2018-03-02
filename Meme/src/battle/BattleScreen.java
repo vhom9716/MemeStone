@@ -388,10 +388,12 @@ import menu.Menu;
 			System.out.println("Frieldny chossen");
 		}
 		if (field == AIfieldSlots) {
-			selectedPosC = pos;
-			enemySelected = true;
-			enemyFighter = backend.computerBoard.get(pos);
-			System.out.println("Enemy chossen");
+			if(friendlySelected) {
+				selectedPosC = pos;
+				enemySelected = true;
+				enemyFighter = backend.computerBoard.get(pos);
+				System.out.println("Enemy chossen");
+			}
 		}
 		if (friendlySelected==true && enemySelected==true) {
 			System.out.println("myside"+backend.playerBoard.size());
