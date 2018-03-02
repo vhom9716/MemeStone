@@ -230,7 +230,7 @@ import menu.Menu;
 		
 	}
 	public void allAttack() {
-		for(int i=0; i< backend.player.playerBoard.size(); i++) {
+		for(int i=0; i< backend.playerBoard.size(); i++) {
 			backend.playerBoard.get(i).setAttack(true);
 		}
 	}
