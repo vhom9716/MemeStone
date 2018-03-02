@@ -403,7 +403,7 @@ import menu.Menu;
 		for(int i = 0; i < backend.player.getBoardSize(); i++) {
 			backend.player.getFromBoard(i).setCanAttack(true);
 		}
-	}
+	} 
 } 
 
  
