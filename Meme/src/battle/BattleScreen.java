@@ -140,8 +140,15 @@ import menu.Menu;
 		viewObjects.add(manaslot);
 		viewObjects.add(new Graphic(0, 20, getWidth(),getHeight(),"resources/background.jpg"));
 		viewObjects.add(new Graphic(800,760,60,60, "resources/mana.png"));
-		viewObjects.add(new Graphic(630,614,350,250,"resources/player.png"));
-		viewObjects.add(new Graphic(630, 25, 350,250, "resources/cpu.png"));
+		ClickableGraphic player = new ClickableGraphic(630,614,350,250,"resources/player.png");
+		ClickableGraphic cpu = new ClickableGraphic(630, 25, 350,250, "resources/cpu.png"); 
+		cpu.setAction(new Action() {
+			public void act() {
+				fighting(1000, null);
+			}
+		});
+		viewObjects.add(player);
+		viewObjects.add(cpu);
 		viewObjects.add(new Graphic(1250,25, 150, 150, "resources/setbutton1.png"));
 		viewObjects.add(new Button(1300,75,60,50, "", new Action() {
 			
@@ -190,6 +197,8 @@ import menu.Menu;
 				backend.cpuTurn = !backend.cpuTurn;
 				System.out.print("The current turn is cpu");
 				backend.cpuTurn();
+				allAttack();
+				
 				
 				//ArrayList<Card> hand = backend.player.hand;
 				//ArrayList<Card> deck = backend.player.deck;
@@ -220,7 +229,11 @@ import menu.Menu;
 		viewObjects.add(quit);
 		
 	}
-
+	public void allAttack() {
+		for(int i=0; i< backend.playerBoard.size(); i++) {
+			backend.playerBoard.get(i).setAttack(true);
+		}
+	}
 	public void activateCardSpell(Card card) {
 		if(backend.validSpell(card)) {
 			card.a.act(backend.player, backend.cpu, "player", null, backend);
@@ -238,7 +251,7 @@ import menu.Menu;
 						//this fails if the number of cards in cardsInHand is not at max. 
 						//So we set a temp hand at creation, then we can update with the real hand.
 						if(backend.player.hand.get(pos).getCost()<=backend.player.returnMana()) {
-							if(chara.getFromHand(pos) instanceof MonsterCard) {
+							if(chara.getFromHand(pos) instanceof MonsterCard && backend.playerBoard.size() <= 5) {
 								System.out.println(chara.getFromHand(pos).getName());
 								chara.addToBoard((MonsterCard) chara.getFromHand(pos));
 								activateCardMon(chara.getFromHand(pos), pos, selFieldStringList, selSlotFieldList);
@@ -369,6 +382,11 @@ import menu.Menu;
 			friendlyFighter.setCanAttack(false);
 			enemyFighter.setCanAttack(false);
 			System.out.println("fought");
+		}
+		if (pos == 1000 && friendlySelected == true) {
+			friendlyFighter.setCanAttack(false);
+			backend.attackFace(friendlyFighter);
+			updateHp();
 		}
 	}
 	
