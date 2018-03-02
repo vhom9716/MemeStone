@@ -216,6 +216,7 @@ public class BattleBackend {
 			cpu.health -= card.getAttack();
 			card.setCanAttack(false);
 	}
-}
+
+	}}
 
   
