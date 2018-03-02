@@ -198,6 +198,7 @@ import menu.Menu;
 				System.out.print("The current turn is cpu");
 				backend.cpuTurn();
 				
+				
 				//ArrayList<Card> hand = backend.player.hand;
 				//ArrayList<Card> deck = backend.player.deck;
 //				if(deck.size() > 0) {
@@ -227,7 +228,11 @@ import menu.Menu;
 		viewObjects.add(quit);
 		
 	}
-
+	public void allAttack() {
+		for(int i=0; i< backend.player.playerBoard.size(); i++) {
+			backend.playerBoard.get(i).setAttack(true);
+		}
+	}
 	public void activateCardSpell(Card card) {
 		if(backend.validSpell(card)) {
 			card.a.act(backend.player, backend.cpu, "player", null, backend);
