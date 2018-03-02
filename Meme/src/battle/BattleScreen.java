@@ -71,6 +71,9 @@ import menu.Menu;
 	
 	int selectedPosP;
 	int selectedPosC;
+	
+	ClickableGraphic victoryscreen;
+	ClickableGraphic defeatscreen;
 
 
 	public BattleScreen(int width, int height) {
@@ -127,14 +130,6 @@ import menu.Menu;
 				quit.setVisible(!quit.isVisible());
 				concede.setVisible(!concede.isVisible());
 				resume.setVisible(!resume.isVisible());	
-			}
-		});
-		concede = new Button(545, 200, 347, 76, "", new Action() {
-			
-			@Override
-			public void act() {
-				Menu.menu.setScreen(Menu.screen1);
-				
 			}
 		});
 		viewObjects.add(manaslot);
@@ -210,8 +205,20 @@ import menu.Menu;
 //					currentHandImages.add(hand.get(hand.size() - 1).getImage());
 //					updateHand(handSlots, currentHandImages, backend.player);
 //				}
+				
 			}
 		}); 
+		concede = new Button(545, 200, 347, 76, "", new Action() {
+			
+			@Override
+			public void act() {
+				settings.setVisible(!settings.isVisible());
+				quit.setVisible(!quit.isVisible());
+				concede.setVisible(!concede.isVisible());
+				resume.setVisible(!resume.isVisible());
+				defeatscreen.setVisible(!defeatscreen.isVisible());
+			}
+		});
 		viewObjects.add(aihealthslot);
 		viewObjects.add(aimanaslot);
 		viewObjects.add(aimanapic);
@@ -221,19 +228,35 @@ import menu.Menu;
 		settings = new Graphic(450, 100, 500, 600, "resources/menu.png");
 		settings.setVisible(false);
 		viewObjects.add(settings);
-		concede.setVisible(false);
-		viewObjects.add(concede);
 		resume.setVisible(false);
 		viewObjects.add(resume);
-		quit.setVisible(false);
-		viewObjects.add(quit);
+		concede.setVisible(false);
+		viewObjects.add(concede);
 		
+		victoryscreen = new ClickableGraphic(240, 0, 1440, 824, "resources/lolvic.png");
+		victoryscreen.setAction(new Action() {
+			public void act() {
+				Menu.menu.setScreen(Menu.screen1);
+			}
+		});
+		victoryscreen.setVisible(false);
+		viewObjects.add(victoryscreen);
+		
+		defeatscreen = new ClickableGraphic(400, 0, 1440, 824, "resources/def.png");
+		defeatscreen.setVisible(false);
+		defeatscreen.setAction(new Action() {
+			public void act() {
+				Menu.menu.setScreen(Menu.screen1);
+			}
+		});
+		viewObjects.add(defeatscreen);
 	}
 	public void allAttack() {
 		for(int i=0; i< backend.playerBoard.size(); i++) {
 			backend.playerBoard.get(i).setCanAttack(true);
 		}
 	}
+	
 	public void activateCardSpell(Card card) {
 		if(backend.validSpell(card)) {
 			card.a.act(backend.player, backend.cpu, "player", null, backend);
@@ -359,12 +382,10 @@ import menu.Menu;
 	}
 	public void fighting(int pos, ArrayList<CardButton> field ) {
 		if (field == fieldSlots) {
-			if(backend.playerBoard.get(pos).canAttack) {
-				selectedPosP = pos;
-				friendlySelected = true;
-				friendlyFighter = backend.playerBoard.get(pos);
-				System.out.println("Frieldny chossen");
-			}
+			selectedPosP = pos;
+			friendlySelected = true;
+			friendlyFighter = backend.playerBoard.get(pos);
+			System.out.println("Frieldny chossen");
 		}
 		if (field == AIfieldSlots) {
 			selectedPosC = pos;
@@ -405,6 +426,7 @@ import menu.Menu;
 			backend.player.getFromBoard(i).setCanAttack(true);
 		}
 	} 
+	
 } 
 
  
