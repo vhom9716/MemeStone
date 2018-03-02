@@ -197,6 +197,7 @@ import menu.Menu;
 				backend.cpuTurn = !backend.cpuTurn;
 				System.out.print("The current turn is cpu");
 				backend.cpuTurn();
+				allAttack();
 				
 				
 				//ArrayList<Card> hand = backend.player.hand;
