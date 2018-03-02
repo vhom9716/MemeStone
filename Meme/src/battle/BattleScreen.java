@@ -379,7 +379,6 @@ import menu.Menu;
 			System.out.println("fought");
 		}
 		if (pos == 1000 && friendlySelected == true) {
-			friendlyFighter.setCanAttack(false);
 			backend.attackFace(friendlyFighter);
 			updateHp();
 		}
