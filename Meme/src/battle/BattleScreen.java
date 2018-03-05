@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
@@ -46,7 +47,7 @@ import menu.ShopScreen;
 	ArrayList<CardButton> AIfieldSlots;
 	ArrayList<String> AIcurrentFieldImages;
 
-	static BattleBackend backend;
+	public static BattleBackend backend;
 	
 	TextLabel manaslot;
 	TextLabel healthslot;
@@ -85,12 +86,15 @@ import menu.ShopScreen;
 	
 	public void initAllObjects(List<Visible> viewObjects) {
 		backend = new BattleBackend();
+		Collections.shuffle(backend.player.deck);
+		Collections.shuffle(backend.cpu.deck);
 		backend.player.drawcard(4);
+		backend.cpu.drawCard(4);
+		
 		handSlots = new ArrayList<CardButton>();
 		fieldSlots = new ArrayList<CardButton>();
 		currentHandImages = new ArrayList<String>();
 		currentFieldImages = new ArrayList<String>();
-		new ArrayList<Graphic>();
 		
 		TextLabel.setTextColor(Color.PINK);
 		healthslot = new TextLabel(650,765,50,50, Integer.toString(backend.player.returnHp()));
@@ -101,8 +105,8 @@ import menu.ShopScreen;
 		TextLabel.setTextColor(Color.BLACK);
 		Graphic aimanapic = new Graphic(800, 163, 60, 60, "resources/mana.png");
 
+	
 		
-		backend.cpu.drawCard(4);
 
 		AIhandSlots = new ArrayList<CardButton>();
 		AIfieldSlots = new ArrayList<CardButton>();
@@ -117,13 +121,13 @@ import menu.ShopScreen;
 			AIcurrentHandImages.add(backend.cpu.hand.get(i).getImage());
 		}
 		
-		quit = new Button(545,310, 347, 76, "", new Action() {
+		quit = new Button(545,350, 347, 76, "", new Action() {
 			public void act() {
 				Menu.menu.setScreen(Menu.screen1);
 				System.out.println("dfsdf");
 			}
 		});
-		resume = new Button(545, 455, 347, 76, "", new Action() {
+		resume = new Button(545, 495, 347, 76, "", new Action() {
 			
 			@Override
 			public void act() {
@@ -131,8 +135,10 @@ import menu.ShopScreen;
 				quit.setVisible(!quit.isVisible());
 				concede.setVisible(!concede.isVisible());
 				resume.setVisible(!resume.isVisible());	
+				
 			}
 		});
+		
 		viewObjects.add(manaslot);
 		viewObjects.add(new Graphic(0, 20, getWidth(),getHeight(),"resources/background.jpg"));
 		viewObjects.add(new Graphic(800,760,60,60, "resources/mana.png"));
@@ -192,31 +198,28 @@ import menu.ShopScreen;
 				System.out.print("The current turn is cpu");
 				backend.cpuTurn();
 				updateTurn(backend.cpu);
-				allAttack();
-				
-				
-				//ArrayList<Card> hand = backend.player.hand;
-				//ArrayList<Card> deck = backend.player.deck;
-//				if(deck.size() > 0) {
-//					backend.player.drawcard(1);
-//					backend.addMana();
-//					backend.refreshMana();
-//					updateMana();
-//					currentHandImages.add(hand.get(hand.size() - 1).getImage());
-//					updateHand(handSlots, currentHandImages, backend.player);
-//				}
-				
+				allAttack();			
 			}
 		}); 
-		concede = new Button(545, 200, 347, 76, "", new Action() {
+		
+		defeatscreen = new ClickableGraphic(400, 0, 1440, 824, "resources/def.png");
+		defeatscreen.setVisible(false);
+		defeatscreen.setAction(new Action() {
+			public void act() {
+				Menu.menu.setScreen(Menu.screen1);
+			}
+		});
+		viewObjects.add(defeatscreen);
+		
+		concede = new Button(545, 270, 347, 56, "dasfgsdfgdg", new Action() {
 			
 			@Override
 			public void act() {
+				defeatscreen.setVisible(true);
 				settings.setVisible(!settings.isVisible());
 				quit.setVisible(!quit.isVisible());
 				concede.setVisible(!concede.isVisible());
 				resume.setVisible(!resume.isVisible());
-				defeatscreen.setVisible(!defeatscreen.isVisible());
 			}
 		});
 		viewObjects.add(aihealthslot);
@@ -225,7 +228,7 @@ import menu.ShopScreen;
 		viewObjects.add(end);
 		viewObjects.add(manaslot);
 		viewObjects.add(healthslot);
-		settings = new Graphic(450, 100, 500, 600, "resources/menu.png");
+		settings = new Graphic(450, 150, 500, 600, "resources/menu.png");
 		settings.setVisible(false);
 		viewObjects.add(settings);
 		resume.setVisible(false);
@@ -242,14 +245,6 @@ import menu.ShopScreen;
 		victoryscreen.setVisible(false);
 		viewObjects.add(victoryscreen);
 		
-		defeatscreen = new ClickableGraphic(400, 0, 1440, 824, "resources/def.png");
-		defeatscreen.setVisible(false);
-		defeatscreen.setAction(new Action() {
-			public void act() {
-				Menu.menu.setScreen(Menu.screen1);
-			}
-		});
-		viewObjects.add(defeatscreen);
 	}
 	public void allAttack() {
 		for(int i=0; i< backend.playerBoard.size(); i++) {
@@ -426,9 +421,18 @@ import menu.ShopScreen;
 			if(backend.cpu.health <=0) {
 				victoryscreen.setVisible(true);
 				ShopScreen.gold += 100;
-			}else if(backend.player.health <= 0) {
+			}
+			friendlySelected = false;
+			friendlyFighter.setCanAttack(false);
+		}
+		if(pos == 2000 && enemySelected == true) {
+			backend.player.takeDamage(enemyFighter.getAttack());
+			updateHp();
+			if(backend.player.health <= 0) {
 				defeatscreen.setVisible(true);
 			}
+			enemySelected = false;
+			enemyFighter.setCanAttack(false);
 		}
 	}
 	

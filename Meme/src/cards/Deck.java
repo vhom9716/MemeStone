@@ -5,6 +5,7 @@ import java.util.*;
 import battle.AI;
 import battle.BattleBackend;
 import battle.Player;
+import menu.Menu;
 /**
  * Made act(Player player, AI cpu, String turn, Card card, BattleBackend backend) that changes the player's property
  */
@@ -232,18 +233,18 @@ public class Deck{
 		collection.add(DewYuKnoDeWae);
 		collection.add(UWot);
 		collection.add(WTF);
+		collection.add(Shenron);
+		collection.add(DragonBalls);
 		
 		
 		for(int i = 0; i < 20; i++) {
-			int r =  (int) Math.floor(Math.random() * 12);
+			int r =  (int) Math.floor(Math.random() * collection.size());
 			if(collection.get(r) instanceof MonsterCard) {
 				deck.add(createMonsterCardInstance((MonsterCard)collection.get(r)));
 			}else {
 				deck.add(createSpellCardInstance((SpellCard)collection.get(r)));
-			}
-			
+			}	
 		}
-
 	}
 	
 	public void addCard(Card card) {
